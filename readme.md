@@ -1,6 +1,8 @@
-# Installation guide
+# nexxPLAY Android
 
-## Android TV
+## Installation guide
+
+### Android TV
 There is an additional AAR file for Android TV which uses the newest implementation of ExoPlayer as well as the Leanback library for controls.  Please add this AAR to your libs folder and add the following lines to your gradlew file:
 ```
 implementation 'com.google.android.exoplayer:exoplayer:2.8.1'
