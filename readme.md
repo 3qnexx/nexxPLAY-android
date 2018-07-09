@@ -99,90 +99,90 @@ void onActivityDestroyed();
 #### NexxPlayer
 Let us get to the exciting part! With the NexxPlayer interface, you can control all the media related functionality. Here is a list of all methods:
 
-!void startPlay(String cid, String client, PlayMode playMode, String param, int startPosition, int startItem);
+##### void startPlay(String cid, String client, PlayMode playMode, String param, int startPosition, int startItem);
 Start media
 
-!void swapToPos(int newPosition);
+##### void swapToPos(int newPosition);
 Directly swap to position in seconds in current media
 
-!void swap(String param);
+##### void swap(String param);
 Use current player instace to load another media
 
-!MediaData getMediaData();
+##### MediaData getMediaData();
 Obtain an object containing meta-data of the current media item.
 
-!EnhancedMediaData getEnhancedMediaData();
+##### EnhancedMediaData getEnhancedMediaData();
 Obtain an object containing meta-data of the current media item.
 
-!void setSSL(boolean ssl);
+##### void setSSL(boolean ssl);
 Set if ssl should be used or not
 
-!void enableCordova();
+##### void enableCordova();
 Enable Cordova mode.
 
-!void setDataMode(DataMode dataMode);
+##### void setDataMode(DataMode dataMode);
 Set static or usual method to receive data. by default, API is set.
 
-!void clearCaches();
+##### void clearCaches();
 clear all caches
 
-!void setPlayLicense(int playLicense);
+##### void setPlayLicense(int playLicense);
 Adjust domain settings
 
-!void setWebURLRepresentation(String url);
+##### void setWebURLRepresentation(String url);
 set web url for given media to add in vast url
 
-!void setLoaderSkin(LoaderSkin skin);
+##### void setLoaderSkin(LoaderSkin skin);
 skin of loading indicator
 
-!void setStreamingFilter(String streamingFilter);
+##### void setStreamingFilter(String streamingFilter);
 Streaming filter for bit-rates
 
-!void setViewParentID(String viewParentID);
+##### void setViewParentID(String viewParentID);
 e.g. playlist-PLAYLIST-ID
 
-!void setUserHash(String hash);
+##### void setUserHash(String hash);
 set hash for current user
 
-!float getCurrentTime();
+##### float getCurrentTime();
 get the current played time
 
-##### Override methods
+#### Override methods
 
-!void overrideMenu(MenuVisibilityMode mode);
+##### void overrideMenu(MenuVisibilityMode mode);
 Specifies how the menu should be shown
 
-!void overrideAutoPlay(AutoPlayMode mode);
+##### void overrideAutoPlay(AutoPlayMode mode);
 Specifies how the auto-play should behave
 
-!void overrideStartMuted(MutedMode mode);
+##### void overrideStartMuted(MutedMode mode);
 Specifies whether or not to start muted.
 
-!void overrideExitPlayMode(ExitPlayMode mode);
+##### void overrideExitPlayMode(ExitPlayMode mode);
 Specifies what happen at exit.
 
-!void overrideAutoPlayNext(AutoPlayNextMode mode);
+##### void overrideAutoPlayNext(AutoPlayNextMode mode);
 Specifies how auto-next should behave.
 
-!void overrideCaptionMode(String captionMode);
+##### void overrideCaptionMode(String captionMode);
 Set the caption mode ('none', 'select', 'selectandstart' or 'always')
 
-!void overridePreroll(String url);
+##### void overridePreroll(String url);
 Manually set the VAST PreRoll URL
 
-!void overrideMidroll(String url, int interval);
+##### void overrideMidroll(String url, int interval);
 Manually set the VAST MidRoll URL AND the Interval in Minutes.
 
-!void overridePostroll(String url);
+##### void overridePostroll(String url);
 Manually set the VAST PostRoll URL
 
-!void overrideAdProvider(String providerCode);
+##### void overrideAdProvider(String providerCode);
 Manually set the VAST Provider Code (as defined within nexxOMNIA)
 
-!void overrideAdType(String adType);
+##### void overrideAdType(String adType);
 Define ad consuming type. Possible values are ima / vast
 
-!void overrideTitles(int allowTitles);
+##### void overrideTitles(int allowTitles);
 Define if titels should be showen. Possible values are 0 = don't show, 1 = always show, 2 = show in fullscreen only
 
 ### Events
