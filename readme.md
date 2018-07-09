@@ -2,7 +2,11 @@
 
 ## Installation guide
 
+> If possible add this repository as a git submodule into your project to ensure you always have the latest version of the sdk.
+
 This section shows how to integrate the media player into an Android app.
+
+### Gradle
 
 Copy the AAR file into "libs" directory of the application. Android Studio must be instructed to search "libs" folder for repositories (in build.gradle):
 
@@ -52,6 +56,9 @@ dependencies {
   compile 'com.google.ads.interactivemedia.v3:interactivemedia:3.2.1' compile 'com.google.android.gms:play-services-ads:8.4.0'
 }
 ```
+### User Interface
+
+### Activity
 
 ### Android TV
 There is an additional AAR file for Android TV which uses the newest implementation of ExoPlayer as well as the Leanback library for controls.  Please add this AAR to your libs folder and add the following lines to your gradlew file:
@@ -63,4 +70,4 @@ implementation 'com.android.support:support-v13:27.0.2'
 ```
 
 
-> If possible add this repository as a git submodule into your project to ensure you always have the latest version of the sdk.
+
