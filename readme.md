@@ -68,6 +68,21 @@ NexxPlay needs a root anchor view which should be a FrameLayout. Please add some
 
 ### Activity
 
+Create the NexxPlayer object providing API by calling the factory method within your
+Activity: 
+
+```
+this.nexxPlayerAndroid = NexxFactory.createNexxPlayer(this);
+```
+
+The NexxPlayer needs a single view. The root view is the view group where the media player control layout (the player
+skin) is shown. Also the player needs the Acitivity's window
+```
+ViewGroup root = (ViewGroup) findViewById(R.id.root);
+this.nexxPlayerAndroid.setViewRoot(root);
+this.nexxPlayerAndroid.setWindow(getWindow());
+```
+
 ### Android TV
 There is an additional AAR file for Android TV which uses the newest implementation of ExoPlayer as well as the Leanback library for controls.  Please add this AAR to your libs folder and add the following lines to your gradlew file:
 ```
