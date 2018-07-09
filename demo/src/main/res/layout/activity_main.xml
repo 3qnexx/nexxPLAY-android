@@ -1,0 +1,178 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context=".MainActivity" android:nestedScrollingEnabled="true" android:background="#000">
+
+    <ScrollView
+            android:id="@+id/mainScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginBottom="50dp" >
+
+            <Button
+                style="@style/ListElement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trigger download"
+                android:onClick="onDownloadButtonClicked" />
+
+            <EditText
+                    style="@style/ListElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/customerIDInput"
+                    android:text="484"/>
+
+            <EditText
+                    style="@style/ListElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/mediaIDInput"
+                    android:text="1532945"/>
+
+
+            <EditText
+                    style="@style/ListElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textNoSuggestions"
+                    android:id="@+id/streamingFilterInput"
+                    android:hint="streaming filter"
+                    android:text=""/>
+
+            <Switch
+                    style="@style/ListElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Autoplay"
+                    android:id="@+id/autoplaySwitch"
+                    android:checked="true" />
+
+            <Switch
+                    style="@style/ListElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Revolver Play"
+                    android:id="@+id/revolverPlaySwitch"
+                    android:checked="false" />
+
+
+            <TextView
+                    style="@style/ListElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Play Mode"
+                    android:id="@+id/textView" />
+
+            <Spinner
+                    style="@style/ListElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/playModeSpinner"
+                    android:spinnerMode="dropdown" />
+
+            <TextView
+                    style="@style/ListElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Exit Play Mode"
+                    android:id="@+id/textView2" />
+
+            <Spinner
+                    style="@style/ListElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/exitPlayModeSpinner" />
+
+            <TextView
+                style="@style/ListElement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ad type" />
+
+            <RadioGroup
+                style="@style/ListElement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@id/radio_vast"
+                android:id="@+id/adType">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VAST"
+                    android:id="@+id/radio_vast"
+                    />
+
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="IMA"
+                    android:id="@+id/radio_ima"
+                    />
+
+            </RadioGroup>
+
+            <TextView
+                    style="@style/ListElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Commercials"
+                    android:id="@+id/textView3" />
+
+            <Spinner
+                    style="@style/ListElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/commercialsSpinner" />
+
+            <Switch
+                    style="@style/ListElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Static Data Mode"
+                    android:id="@+id/staticSwitch"
+                    android:checked="false" />
+
+            <TextView
+                    style="@style/ListElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Loader Skin"
+                    android:id="@+id/textView4" />
+
+            <Spinner
+                    style="@style/ListElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/loaderSpinner" />
+
+            <Button
+                    style="@style/ListElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Abspielen"
+                    android:id="@+id/playButton"
+                    android:onClick="onPlayButtonClicked" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
