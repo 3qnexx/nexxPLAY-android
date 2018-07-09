@@ -83,6 +83,42 @@ this.nexxPlayerAndroid.setViewRoot(root);
 this.nexxPlayerAndroid.setWindow(getWindow());
 ```
 
+### Player methods
+
+### Events
+Your application may subscribe for receiving notifications from the player calling:
+
+```
+NexxPlayerNotification.Listener listener = this.nexxPlayer.addEventListener(listener);
+```
+There are multiple events, which may or may not have additional data as a secondary paramenter:
+
+    ERROR,
+    META_DATA_RECEIVED,
+    READY,
+    SHOW_UI,
+    HIDE_UI,
+    ENTER_FULLSCREEN,
+    EXIT_FULLSCREEN,
+    START_PLAYBACK,
+    START_PLAY,
+    PLAY,
+    PAUSE,
+    ENDED,
+    PLAY_POS,
+    AD_STARTED,
+    AD_ENDED,
+    AD_ERROR,
+    AD_CLICKED,
+    AD_RESUMED,
+    AD_CALLED,
+    MUTE,
+    UNMUTE,
+    PLAYED_25_PERCENT,
+    PLAYED_50_PERCENT,
+    PLAYED_75_PERCENT,
+    PLAYED_95_PERCENT
+
 ### Android TV
 There is an additional AAR file for Android TV which uses the newest implementation of ExoPlayer as well as the Leanback library for controls.  Please add this AAR to your libs folder and add the following lines to your gradlew file:
 ```
