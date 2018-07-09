@@ -2,9 +2,9 @@
 
 ## Installation guide
 
-This section shows how to integrate the media player into an Android app. The App NexxPlayerTestSdk delivered also as source code with this SDK is an example of integration. The App contains a launcher activity MainActivity used to start PlayerActivity. The later uses NexxPlayer SDK to create a player, providing the rendering surface and a notification listener.
+This section shows how to integrate the media player into an Android app.
 
-Copy "sdkrelease.aar" into "libs" directory of the application. Android Studio must be instructed to search "libs" folder for repositories (in build.gradle):
+Copy the AAR file into "libs" directory of the application. Android Studio must be instructed to search "libs" folder for repositories (in build.gradle):
 
 ```
 repositories {
