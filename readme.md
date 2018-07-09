@@ -57,6 +57,14 @@ dependencies {
 }
 ```
 ### User Interface
+NexxPlay needs a root anchor view which should be a FrameLayout. Please add something likes this to your layout, depending on your needs:
+
+```
+    <FrameLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+```
 
 ### Activity
 
