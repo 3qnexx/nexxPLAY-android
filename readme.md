@@ -1,4 +1,4 @@
-# nexxPLAY Android (v.2.2.0)
+# nexxPLAY Android (v.2.2.X)
 We would like to enable you a smooth integration of NexxPlay into your existing project. The following guide will explain everything you need to know. There is a demo project "demo", where you can find a running example of the player.
 
 ## Installation guide
