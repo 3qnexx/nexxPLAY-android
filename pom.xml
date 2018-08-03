@@ -16,6 +16,25 @@
       </plugin>
     </plugins>
   </build>
+  <repositories>
+    <repository>
+      <id>Google</id>
+      <name>Google</name>
+      <url>https://maven.google.com/</url>
+    </repository>
+    <repository>
+      <id>Jitpack</id>
+      <url>https://jitpack.io/</url>
+    </repository>
+    <repository>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+        <id>central</id>
+        <name>bintray</name>
+        <url>https://jcenter.bintray.com</url>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>com.noveogroup.android</groupId>
