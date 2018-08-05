@@ -1,4 +1,4 @@
-# nexxPLAY Android (v.2.2.X)
+# nexxPLAY Android (v.3.x.x)
 We would like to enable you a smooth integration of NexxPlay into your existing project. The following guide will explain everything you need to know. There is a demo project "demo", where you can find a running example of the player.
 
 ## Installation guide
@@ -8,6 +8,15 @@ We would like to enable you a smooth integration of NexxPlay into your existing 
 This section shows how to integrate the media player into an Android app.
 
 ### Gradle
+
+Let us start by adding the nexx.tv Maven repository in your root Gradle file. Under the section allprojects you can find the repositories section. Please add the following line:
+
+```
+...
+maven { url "https://www.myget.org/F/nexxtv/maven" }
+...
+```
+
 
 Copy the AAR file into "libs" directory of the application. Android Studio must be instructed to search "libs" folder for repositories (in build.gradle):
 
@@ -21,42 +30,19 @@ repositories {
 }
 ```
 
-The library must be then compiled into the app (see app/build.gradle)
+We are almost done for the Gradle files. The last step is to include the following line to your app Gradle file (see app/build.gradle). 
 
 ```
 dependencies { 
     ...
-    compile(name:'sdkrelease', ext:'aar')
+    implementation 'tv.nexx:nexxplay-android:3.+'
     ...
 }
 ```
+That way the build script will look for the newest version of nexxPlay everytime a build of your app is being initiated. However if you want to stick to a specific version, you can always find a list of the releases
+[on the nexxPlay release site](https://www.myget.org/feed/nexxtv/package/maven/tv.nexx/nexxplay-android)
 
-Since the NexxPlayer SDK library uses thirdparty components which could not be included with sdkrelease.aar, they must be also included into the build. Be sure that your build.gradle contains also these lines:
 
-```
-repositories { 
-  mavenCentral()
-   ...
-  maven { url "https://repo.spring.io/release" } 
-  maven { url "https://repo.spring.io/ milestone" } 
-  maven { url "https://repo.spring.io/snapshot" }
-  ...
-}
-```
-
-```
-dependencies { 
-  ...
-  compile 'com.google.code.gson:gson:2.3.1'
-  compile 'org.springframework.android:springandroidresttemplate:2.0.0.M1'
-  compile('org.simpleframework:simplexml:2.7.1') { exclude group: 'stax', module: 'staxapi' exclude group: 'xpp3', module: 'xpp3'
-  }
-  compile 'com.noveogroup.android:androidlogger:1.3.1' compile ‚org.apache.mina:mina-
-  statemachine:2.0.9'
-  // if using ima:
-  compile 'com.google.ads.interactivemedia.v3:interactivemedia:3.2.1' compile 'com.google.android.gms:play-services-ads:8.4.0'
-}
-```
 ### User Interface
 NexxPlay needs a root anchor view which should be a FrameLayout. Please add something likes this to your layout, depending on your needs:
 
