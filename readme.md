@@ -17,19 +17,6 @@ maven { url "https://www.myget.org/F/nexxtv/maven" }
 ...
 ```
 
-
-Copy the AAR file into "libs" directory of the application. Android Studio must be instructed to search "libs" folder for repositories (in build.gradle):
-
-```
-repositories {
-  ...
-  flatDir {
-    dirs 'libs'
-  }
-  ...
-}
-```
-
 We are almost done for the Gradle files. The last step is to include the following line to your app Gradle file (see app/build.gradle). 
 
 ```
