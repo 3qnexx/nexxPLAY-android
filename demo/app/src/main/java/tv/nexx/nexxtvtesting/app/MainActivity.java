@@ -2,40 +2,27 @@ package tv.nexx.nexxtvtesting.app;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
 
-import net.hockeyapp.android.CrashManager;
-import net.hockeyapp.android.UpdateManager;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import tv.nexx.android.player.StreamType;
 import tv.nexx.android.player.offline.OfflineCallback;
 import tv.nexx.android.player.offline.OfflineEngine;
 import tv.nexx.nexxtvtesting.app.adapters.LinkedHashMapAdapter;
-//import tv.nexx.widget.widgetmodule.NexxPreviewAppWidget;
-import tv.nexx.widget.widgetmodule.NexxWidget;
-//import tv.nexx.widget.widgetmodule.NexxPreviewAppWidget;
-//import tv.nexx.widget.widgetmodule.NexxPreviewAppWidget;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends Activity {
 
@@ -50,14 +37,11 @@ public class MainActivity extends Activity {
     Spinner commercialsSpinner;
     Spinner loaderSpinner;
     private HashMap<String, String> commData;
-    private NexxWidget widget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        widget = new NexxWidget();
-        widget.configure(this, "Testhash", null, null, 30);
 
         setContentView(R.layout.activity_main);
 
@@ -112,7 +96,6 @@ public class MainActivity extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         commercialsSpinner.setAdapter(adapter);
 
-        checkForUpdates();
 
         OfflineEngine.getInstance(this).initForDomainAndUser(484, 120122, "0HESG0L38IYZWIA", "Testsession", new OfflineCallback() {
             @Override
@@ -131,7 +114,7 @@ public class MainActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-           //    MainActivity.this.onPlayButtonClicked(null);
+                MainActivity.this.onPlayButtonClicked(null);
             }
         }, 2000);
 
@@ -201,44 +184,4 @@ public class MainActivity extends Activity {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        // ... your own onResume implementation
-        checkForCrashes();
-//        long a = System.currentTimeMillis() % 2;
-//        Log.e("TIME", "TIME: " + System.currentTimeMillis());
-//        Log.e("TIME", "MOD TIME: " + a);
-//        if(a == 1) {
-//            Log.e("TIME", "Trying to crash");
-//            throw new RuntimeException("bla");
-//        } else {
-//            Log.e("TIME", "Not crashing");
-//        }
-    }
-
-    private void checkForCrashes() {
-       // CrashManager.register(this, "777724d05ad74187a26009f57c43b084");
-    }
-
-    private void checkForUpdates() {
-        // Remove this for store builds!
-      //  UpdateManager.register(this, "777724d05ad74187a26009f57c43b084");
-    }
-
-    private void unregisterManagers() {
-        UpdateManager.unregister();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        unregisterManagers();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unregisterManagers();
-    }
 }

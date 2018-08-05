@@ -2,10 +2,9 @@ package tv.nexx.nexxtvtesting.app;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
-
-import com.noveogroup.android.log.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -111,8 +110,6 @@ public class PlayerActivity extends Activity implements NexxPlayerNotification.L
                     }
                 }
 
-                np.setDataMode(DataMode.OFFLINE);
-                np.overrideAdType("vast");
                 np.startPlay(null, customerID, Utils.getPlayMode(playMode), mediaID, 0, 0);
             }
         }
@@ -120,14 +117,20 @@ public class PlayerActivity extends Activity implements NexxPlayerNotification.L
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            finish();
-        }
+    public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
 
-        this.player.onKeyDown(keyCode, event);
+        Log.e("DebugTheRemote", "onKeyDown code: " + keyCode + ", event: " + event);
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+
+        Log.e("DebugTheRemote", "dispatchKeyEvent code: " + event.getKeyCode());
+
+        return super.dispatchKeyEvent(event);
+
     }
 
 
@@ -184,9 +187,6 @@ public class PlayerActivity extends Activity implements NexxPlayerNotification.L
     public void onPlayerEvent(PlayerEvent playerEvent, Object o) {
         if (playerEvent == PlayerEvent.AD_CLICKED) {
             Log.e("EVENTS in App", "AD CLICKED EVENT!");
-//            String url = (String) o;
-//            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-//            startActivity(browserIntent);
         }
 
         if (playerEvent == PlayerEvent.AD_STARTED) {
@@ -197,10 +197,6 @@ public class PlayerActivity extends Activity implements NexxPlayerNotification.L
             Log.e("EVENTS in App", "AD ENDED EVENT!");
         }
 
-//        if(playerEvent == playerEvent.AD_CLICKED) {
-//            Log.e("EVENTS in App", "AD CLICKED!");
-//        }
-
         if (playerEvent == playerEvent.AD_ERROR) {
             Log.e("EVENTS in App", "AD ERROR!");
         }
@@ -209,42 +205,7 @@ public class PlayerActivity extends Activity implements NexxPlayerNotification.L
             Log.e("EVENTS in App", "AD RESUMED!");
         }
 
-        Log.e("Player event in App: " + playerEvent.name());
-    }
-
-    // Offline stuff
-    private String readJSONFromAsset() {
-        String json = null;
-        try {
-            InputStream is = getAssets().open("flash.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
-    }
-
-    // Swap video stuff
-    private int[] videoIDs = {87180, 87255};
-    private int currentIndex = 0;
-
-    private void swapVideos() {
-
-        currentIndex++;
-
-        if (currentIndex >= videoIDs.length) currentIndex = 0;
-
-        int videoId = videoIDs[currentIndex];
-
-        NexxPlayer np = (NexxPlayer) player;
-
-        np.swap(videoId + "");
-
+        Log.e(TAG, "Player event in App: " + playerEvent.name());
     }
 
 }
