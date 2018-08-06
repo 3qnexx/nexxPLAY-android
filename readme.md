@@ -117,7 +117,7 @@ e.g. playlist-PLAYLIST-ID
 ##### void setUserHash(String hash);
 set hash for current user
 
-##### void setUserIsTrackingOptOuted()
+##### void setUserIsTrackingOptOuted();
 If you call this method, the VAST calls will be marked with a flag to not track the user.
 
 ##### float getCurrentTime();
