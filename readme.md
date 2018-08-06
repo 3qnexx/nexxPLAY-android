@@ -158,6 +158,9 @@ Define ad consuming type. Possible values are ima / vast
 ##### void overrideTitles(int allowTitles);
 Define if titels should be showen. Possible values are 0 = don't show, 1 = always show, 2 = show in fullscreen only
 
+##### void setUserIsTrackingOptOuted()
+If you call this method, the VAST calls will be marked with a flag to not track the user.
+
 ### Events
 Your application may subscribe for receiving notifications from the player calling:
 
@@ -190,7 +193,9 @@ There are multiple events, which may or may not have additional data as a second
     PLAYED_25_PERCENT,
     PLAYED_50_PERCENT,
     PLAYED_75_PERCENT,
-    PLAYED_95_PERCENT
+    PLAYED_95_PERCENT,
+    SECOND,
+    QUARTER
 
 ### Android TV
 The nexxPlay SDK will work on Android TV, too. However there will be another GUI which is based on Leanback. If you want to use the SDK on Android TV, do not forget to add the Leanback Theme to your app.
