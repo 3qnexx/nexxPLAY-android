@@ -117,6 +117,9 @@ e.g. playlist-PLAYLIST-ID
 ##### void setUserHash(String hash);
 set hash for current user
 
+##### void setUserIsTrackingOptOuted()
+If you call this method, the VAST calls will be marked with a flag to not track the user.
+
 ##### float getCurrentTime();
 get the current played time
 
@@ -158,8 +161,6 @@ Define ad consuming type. Possible values are ima / vast
 ##### void overrideTitles(int allowTitles);
 Define if titels should be showen. Possible values are 0 = don't show, 1 = always show, 2 = show in fullscreen only
 
-##### void setUserIsTrackingOptOuted()
-If you call this method, the VAST calls will be marked with a flag to not track the user.
 
 ### Events
 Your application may subscribe for receiving notifications from the player calling:
