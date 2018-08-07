@@ -3,6 +3,8 @@ We would like to enable you a smooth integration of NexxPlay into your existing 
 
 `Please read the installation guide again if you used v.1 or v.2 of nexxPlay for Android.`
 
+The PlayerEvents and MediaData have changed since 3.1.0 so the naming is consistently between all platforms. Please check the Event section for this. 
+
 ## Installation guide
 
 This section shows how to integrate the media player into an Android app.
@@ -171,33 +173,32 @@ NexxPlayerNotification.Listener listener = this.nexxPlayer.addEventListener(list
 There are multiple events, which may or may not have additional data as a secondary paramenter:
 
     ERROR,
-    META_DATA_RECEIVED,
-    READY,
-    SHOW_UI,
-    HIDE_UI,
-    ENTER_FULLSCREEN,
-    EXIT_FULLSCREEN,
-    START_PLAYBACK,
-    START_PLAY,
+    METADATA,
+    PLAYERREADY,
+    SHOWUI,
+    HIDEUI,
+    ENTERFULLSCREEN,
+    EXITFULLSCREEN,
+    STARTPLAYBACK,
+    STARTPLAY,
     PLAY,
     PAUSE,
     ENDED,
-    PLAY_POS,
-    AD_STARTED,
-    AD_ENDED,
-    AD_ERROR,
-    AD_CLICKED,
-    AD_RESUMED,
-    AD_CALLED,
+    ADSTARTED,
+    ADENDED,
+    ADERROR,
+    ADCLICKED,
+    ADRESUMED,
+    ADCALLED,
     MUTE,
     UNMUTE,
-    PLAYED_25_PERCENT,
-    PLAYED_50_PERCENT,
-    PLAYED_75_PERCENT,
-    PLAYED_95_PERCENT,
+    PROGRESS25,
+    PROGRESS50,
+    PROGRESS75,
+    PROGRESS95,
     SECOND,
-    QUARTER
-
+    QUARTER,
+    
 ### Android TV
 The nexxPlay SDK will work on Android TV, too. However there will be another GUI which is based on Leanback. If you want to use the SDK on Android TV, do not forget to add the Leanback Theme to your app.
 
