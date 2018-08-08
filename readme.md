@@ -202,5 +202,19 @@ There are multiple events, which may or may not have additional data as a second
 ### Android TV
 The nexxPlay SDK will work on Android TV, too. However there will be another GUI which is based on Leanback. If you want to use the SDK on Android TV, do not forget to add the Leanback Theme to your app.
 
+In order to have the SDK work properly on Android TV, please also add the following to your Player Activity:
+
+```
+@Override
+public boolean dispatchKeyEvent(KeyEvent event) {
+
+    if(this.player != null) {
+        this.player.dispatchKeyEvent(event);
+    }
+
+    return super.dispatchKeyEvent(event);
+
+}
+```
 
 
