@@ -5,6 +5,8 @@ We would like to enable you a smooth integration of NexxPlay into your existing 
 
 The PlayerEvents and MediaData have changed since 3.1.0 so the naming is consistently between all platforms. Please check the Event section for this. 
 
+All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/package/maven/tv.nexx/nexxplay-android).
+
 ## Installation guide
 
 This section shows how to integrate the media player into an Android app.
