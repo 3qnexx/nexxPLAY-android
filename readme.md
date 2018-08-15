@@ -97,6 +97,9 @@ Set if ssl should be used or not
 ##### void enableCordova();
 Enable Cordova mode.
 
+##### void setAlwaysFullscreen();
+Sets the player to always be in fullscreen mode and remove the fullscreen button.
+
 ##### void setDataMode(DataMode dataMode);
 Set static or usual method to receive data. by default, API is set.
 
