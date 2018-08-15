@@ -166,7 +166,7 @@ Manually set the VAST Provider Code (as defined within nexxOMNIA)
 Define ad consuming type. Possible values are ima / vast
 
 ##### void overrideTitles(int allowTitles);
-Define if titels should be showen. Possible values are 0 = don't show, 1 = always show, 2 = show in fullscreen only
+Define if titles should be visible. Possible values are 0 = don't show, 1 = always show, 2 = show in fullscreen only
 
 
 ### Events
