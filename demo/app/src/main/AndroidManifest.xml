@@ -17,8 +17,6 @@
 
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
-    <!--TODO: put below line in documentation-->
-    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
     <application
         android:allowBackup="true"
         android:banner="@drawable/flash"
@@ -49,6 +47,8 @@
             android:label="@string/title_activity_player"
             android:launchMode="singleTop"></activity>
 
+        
+        <!-- ONLY ADD THE LINES RELATED TO DAILYME IF YOU ARE USING OFFLINE FUNCTIONALITY -->
 
         <receiver android:name="tv.dailyme.android.core.receiver.Autostart">
             <intent-filter>
