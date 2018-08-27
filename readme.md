@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.7
+- refactored offline engine to fullfil template
+
 #### v. 3.2.6
 - Added functionality to distinguish devices for ad gateway
 
