@@ -9,6 +9,11 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+
+#### v. 3.2.8
+- improved player performance
+- minor bug fix if seekbar is used when view has not been inflated completely
+
 #### v. 3.2.7
 - refactored offline engine to fullfil template
 
