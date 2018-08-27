@@ -7,6 +7,10 @@ The PlayerEvents and MediaData have changed since 3.1.0 so the naming is consist
 
 All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/package/maven/tv.nexx/nexxplay-android).
 
+## Changelog
+#### v. 3.2.5
+- Fixed issue regarding [Ticket #15](https://github.com/nexxtv/nexxPLAY-android/issues/15)
+
 ## Installation guide
 
 This section shows how to integrate the media player into an Android app.
