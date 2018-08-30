@@ -9,6 +9,11 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.10
+- advanced playlist reporting
+- Offline Engine with image download
+- bumper fixes
+
 #### v. 3.2.9
 - introduced DownloadListener in OfflineEngine
 - changed OfflineVideoResult
