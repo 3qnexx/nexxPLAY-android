@@ -10,6 +10,11 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 ## Changelog
 
 #### v. 3.2.10
+- fixed display repoting bug
+- updated offline lib
+- additional reporting
+
+#### v. 3.2.10
 - advanced playlist reporting
 - Offline Engine with image download
 - bumper fixes
