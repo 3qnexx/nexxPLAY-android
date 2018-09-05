@@ -9,7 +9,11 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
-#### v. 3.2.10
+#### v. 3.2.13
+- fixed several issues for resuming
+- reporting possible if context is not an activity
+
+#### v. 3.2.12
 - fixed display repoting bug
 - updated offline lib
 - additional reporting
