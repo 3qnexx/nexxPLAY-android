@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.16
+- offline mode changes
+
 #### v. 3.2.13
 - fixed several issues for resuming
 - reporting possible if context is not an activity
