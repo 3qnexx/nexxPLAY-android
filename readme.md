@@ -9,6 +9,10 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.17
+- resources offline mode
+- switch to internal storage for offline files
+
 #### v. 3.2.16
 - offline mode changes
 
