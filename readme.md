@@ -9,6 +9,10 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.18
+- fix for [https://github.com/nexxtv/nexxPLAY-android/issues/3](bug in itemlist)
+- possible fix for not displaying mid rolls in IMA mode
+
 #### v. 3.2.17
 - resources offline mode
 - switch to internal storage for offline files
