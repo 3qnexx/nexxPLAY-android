@@ -134,7 +134,7 @@ Let us get to the exciting part! With the NexxPlayer interface, you can control 
 Start media
 
 ##### void swapToPos(int newPosition);
-Directly swap to position in seconds in current media
+Directly swap to position in current playlist
 
 ##### void swap(String param);
 Use current player instace to load another media
