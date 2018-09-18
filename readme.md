@@ -9,6 +9,15 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.20
+- fixed exceptions in onMediaError
+- preventing crash if swapToPos has index that is out of playlist's bounds
+- fixed startPosition bug
+- smaller UI fixes
+
+#### v. 3.2.19
+- updated offline library
+
 #### v. 3.2.18
 - fix for [bug in itemlist](https://github.com/nexxtv/nexxPLAY-android/issues/3)
 - possible fix for not displaying mid rolls in IMA mode
