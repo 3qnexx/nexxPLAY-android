@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.21
+- added public function to seek to a specific point in the current media 
+
 #### v. 3.2.20
 - fixed exceptions in onMediaError
 - preventing crash if swapToPos has index that is out of playlist's bounds
@@ -138,6 +141,9 @@ Directly swap to position in current playlist
 
 ##### void swap(String param);
 Use current player instace to load another media
+
+##### void seekToPos(int pos);
+Seek to position in video (in seconds)
 
 ##### MediaData getMediaData();
 Obtain an object containing meta-data of the current media item.
