@@ -9,6 +9,11 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.22
+- removed some optional permissions
+- added api compatibility for devices below Lollipop
+- changed minimum sdk version to 16
+
 #### v. 3.2.21
 - added public function to seek to a specific point in the current media 
 
