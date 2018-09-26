@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.24
+- fixed issue that could hide video ad in IMA mode
+
 #### v. 3.2.22
 - removed some optional permissions
 - added api compatibility for devices below Lollipop
