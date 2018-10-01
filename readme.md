@@ -9,6 +9,10 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.25
+- VAST replacement added
+- fixed bug in IMA preroll (occured since 3.2.24)
+
 #### v. 3.2.24
 - fixed issue that could hide video ad in IMA mode
 
