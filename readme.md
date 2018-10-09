@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.28
+- fixed [issue #24](https://github.com/nexxtv/nexxPLAY-android/issues/24)
+
 #### v. 3.2.27
 - removed limitations in offline mode
 - fixed bug when player is sent to background
