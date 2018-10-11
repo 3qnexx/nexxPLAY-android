@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.29
+- set preferences independent font size in VAST ad mode
+
 #### v. 3.2.28
 - fixed [issue #24](https://github.com/nexxtv/nexxPLAY-android/issues/24)
 
