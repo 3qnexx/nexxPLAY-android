@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.30
+- reset caching in offline mode
+
 #### v. 3.2.29
 - set preferences independent font size in VAST ad mode
 
