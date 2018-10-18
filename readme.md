@@ -11,6 +11,7 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 #### v. 3.2.33
 - adjusted layout rendering in IMA midrolls for Android 6 & 7
+- support for Azure CMAF
 
 #### v. 3.2.32
 - fixed [issue #26 - crash in runtimeToDuration](https://github.com/nexxtv/nexxPLAY-android/issues/24)
