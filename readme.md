@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.36
+- fixed issue with HLS streams on TV
+
 #### v. 3.2.35
 - improved VAST tracking
 - chnaged track selection algorithm (use for FireTV)
