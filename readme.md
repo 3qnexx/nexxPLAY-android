@@ -9,6 +9,15 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.35
+- improved VAST tracking
+- chnaged track selection algorithm (use for FireTV)
+- offline mode reporting
+- minor changes and bug fixes
+
+#### v. 3.2.34
+- private build
+
 #### v. 3.2.33
 - adjusted layout rendering in IMA midrolls for Android 6 & 7
 - support for Azure CMAF
