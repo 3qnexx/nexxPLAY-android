@@ -9,6 +9,11 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+
+#### v. 3.2.37
+- reporting refactors
+- offline startup fix
+
 #### v. 3.2.36
 - fixed issue with HLS streams on TV
 
