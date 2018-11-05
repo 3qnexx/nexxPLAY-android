@@ -9,6 +9,8 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.38
+- bug fix in case user presses buttons before view is inflated
 
 #### v. 3.2.37
 - reporting refactors
