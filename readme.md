@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.39
+- implemented method to initialize offline sdk in application class
+
 #### v. 3.2.38
 - bug fix in case user presses buttons before view is inflated
 
