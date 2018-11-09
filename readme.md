@@ -27,7 +27,7 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 #### v. 3.2.35
 - improved VAST tracking
-- chnaged track selection algorithm (use for FireTV)
+- changed track selection algorithm (use for FireTV)
 - offline mode reporting
 - minor changes and bug fixes
 
