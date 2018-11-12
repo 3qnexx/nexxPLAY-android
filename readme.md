@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.42
+- addtowatched call fix
+
 #### v. 3.2.41
 - handling for revolver play delay = 0
 
