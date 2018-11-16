@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.43
+- fixed issue with reporting token
+
 #### v. 3.2.42
 - addtowatched call fix
 
