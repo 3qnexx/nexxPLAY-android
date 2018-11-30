@@ -1,4 +1,4 @@
-# nexxPLAY Android (v.3.x.x)
+# nexxPLAY Android (v3.x.x)
 We would like to enable you a smooth integration of NexxPlay into your existing project. The following guide will explain everything you need to know. There is a demo project "demo", where you can find a running example of the player.
 
 `Please read the installation guide again if you used v.1 or v.2 of nexxPlay for Android.`
@@ -78,68 +78,6 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 - VAST replacement added
 - fixed bug in IMA preroll (occured since 3.2.24)
 
-#### v. 3.2.24
-- fixed issue that could hide video ad in IMA mode
-
-#### v. 3.2.22
-- removed some optional permissions
-- added api compatibility for devices below Lollipop
-- changed minimum sdk version to 16
-
-#### v. 3.2.21
-- added public function to seek to a specific point in the current media 
-
-#### v. 3.2.20
-- fixed exceptions in onMediaError
-- preventing crash if swapToPos has index that is out of playlist's bounds
-- fixed startPosition bug
-- smaller UI fixes
-
-#### v. 3.2.19
-- updated offline library
-
-#### v. 3.2.18
-- fix for [bug in itemlist](https://github.com/nexxtv/nexxPLAY-android/issues/3)
-- possible fix for not displaying mid rolls in IMA mode
-
-#### v. 3.2.17
-- resources offline mode
-- switch to internal storage for offline files
-
-#### v. 3.2.16
-- offline mode changes
-
-#### v. 3.2.13
-- fixed several issues for resuming
-- reporting possible if context is not an activity
-
-#### v. 3.2.12
-- fixed display repoting bug
-- updated offline lib
-- additional reporting
-
-#### v. 3.2.10
-- advanced playlist reporting
-- Offline Engine with image download
-- bumper fixes
-
-#### v. 3.2.9
-- introduced DownloadListener in OfflineEngine
-- changed OfflineVideoResult
-- reporting adjustments
-
-#### v. 3.2.8
-- improved player performance
-- minor bug fix if seekbar is used when view has not been inflated completely
-
-#### v. 3.2.7
-- refactored offline engine to fullfil template
-
-#### v. 3.2.6
-- Added functionality to distinguish devices for ad gateway
-
-#### v. 3.2.5
-- Fixed issue regarding [Ticket #15](https://github.com/nexxtv/nexxPLAY-android/issues/15)
 
 ## Installation guide
 
