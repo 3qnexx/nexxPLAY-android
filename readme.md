@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.46
+- changed tv mode behavior
+
 #### v. 3.2.45
 - changed offline mode behavior
 
