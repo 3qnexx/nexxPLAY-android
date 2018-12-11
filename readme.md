@@ -9,6 +9,13 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.47
+- bug fixes
+- reporting adjustments
+- improved tv mode behavior
+- updated libraries
+- layout constraints support
+
 #### v. 3.2.46
 - changed tv mode behavior
 
