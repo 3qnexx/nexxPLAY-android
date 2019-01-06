@@ -9,6 +9,14 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.2.48
+- resolved tickets 32, 33, 34
+- get caption data
+- additional reporting
+- bug fixes
+- implemented more loading indicators
+- internal logic changes
+
 #### v. 3.2.47
 - bug fixes
 - reporting adjustments
@@ -214,6 +222,13 @@ If you call this method, the VAST calls will be marked with a flag to not track 
 
 ##### float getCurrentTime();
 get the current played time
+
+##### Caption[] getCaptionData();
+Get all captions for media that is currently playing
+
+##### Caption[] getCaptionData(String forLanguage);
+Get all captions for media that is currently playing depending on selected language
+
 
 #### Override methods
 
