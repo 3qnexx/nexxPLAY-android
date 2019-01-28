@@ -7,9 +7,8 @@ The PlayerEvents and MediaData have changed since 3.1.0 so the naming is consist
 
 All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/package/maven/tv.nexx/nexxplay-android).
 
-<details open>
-<summary>## Changelog</summary>
-<br>
+## Changelog
+
 #### v. 3.3.0
 - added thumbs to seekbar
 - picture in picture functionality
@@ -102,7 +101,6 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 #### v. 3.2.25
 - VAST replacement added
 - fixed bug in IMA preroll (occured since 3.2.24)
-<details>
 
 
 ## Installation guide
