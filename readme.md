@@ -9,6 +9,12 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.3.0
+- added thumbs to seekbar
+- picture in picture functionality
+- bug fixes
+- minor improvements
+
 #### v. 3.2.48
 - resolved tickets 32, 33, 34
 - get caption data
@@ -161,6 +167,22 @@ The SDK needs to be triggered by some of the Android lifecycle methods. There ar
 void onActivityResume();
 void onActivityPause();
 void onActivityDestroyed();
+```
+
+##### PiP Mode
+In addition to these lifecycle methods, please also add the following methods if you want to use Picture in Pictore mode:
+
+```
+void onUserLeaveHint();
+void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, Configuration newConfig);
+```
+
+Please also add the following to your app's Manifest corresponding to the Player Activitiy:
+
+```
+android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize|screenLayout"
+android:supportsPictureInPicture="true"
+android:resizeableActivity="true"
 ```
 
 #### NexxPlayer
