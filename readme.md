@@ -10,7 +10,7 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 ## Changelog
 
 #### v. 3.3.0
-- added thumbs to seekbar
+- added thumbnails to seekbar
 - picture in picture functionality
 - bug fixes
 - minor improvements
