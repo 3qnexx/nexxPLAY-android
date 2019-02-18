@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.3.2
+- minor fixes
+
 #### v. 3.3.1
 - switched to webp assets
 - age restriction
