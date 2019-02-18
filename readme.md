@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.3.3
+- added method to set language
+
 #### v. 3.3.2
 - minor fixes
 
@@ -250,6 +253,9 @@ set hash for current user
 
 ##### void setUserIsTrackingOptOuted();
 If you call this method, the VAST calls will be marked with a flag to not track the user.
+
+##### void setLanguage(String language);
+Set explicit language
 
 ##### float getCurrentTime();
 get the current played time
