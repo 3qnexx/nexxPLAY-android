@@ -10,6 +10,10 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 ## Changelog
 
 #### v. 3.3.3
+- improved leanback mode
+- support for ad blocking flags
+
+#### v. 3.3.3
 - added method to set language
 
 #### v. 3.3.2
