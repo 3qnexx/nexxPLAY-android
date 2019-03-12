@@ -9,6 +9,11 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.3.5
+- ui fixes
+- new caption implementation
+- minor performance improvements
+
 #### v. 3.3.3
 - improved leanback mode
 - support for ad blocking flags
