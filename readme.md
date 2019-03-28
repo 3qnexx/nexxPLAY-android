@@ -9,6 +9,11 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 3.3.7
+- exit display improvements
+- image scaling
+- minor UI fixes
+
 #### v. 3.3.6
 - DRM improvements
 - UI fixes
