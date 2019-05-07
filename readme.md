@@ -9,6 +9,11 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 4.0.0
+- many improvements for android TV
+- external pip functions
+- ui improvements
+
 #### v. 3.3.7
 - exit display improvements
 - image scaling
@@ -245,6 +250,9 @@ Enable Cordova mode.
 ##### void setAlwaysFullscreen();
 Sets the player to always be in fullscreen mode and remove the fullscreen button.
 
+##### void setLanguage(String language);
+Set explicit language.
+
 ##### void setDataMode(DataMode dataMode);
 Set static or usual method to receive data. by default, API is set.
 
@@ -376,5 +384,10 @@ public boolean dispatchKeyEvent(KeyEvent event) {
 
 }
 ```
+#### Recommendations
+The SDK supports the recommendation system used by Android TV. In order to have these beautiful cards showing your content, please initialize the recommendation service via the player.
 
+void initializeRecommendations(String intentClassName);
+
+Here the intentClassName should be your Player Activity receiving the media ID via an intent.
 
