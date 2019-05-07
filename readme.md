@@ -387,7 +387,9 @@ public boolean dispatchKeyEvent(KeyEvent event) {
 #### Recommendations
 The SDK supports the recommendation system used by Android TV. In order to have these beautiful cards showing your content, please initialize the recommendation service via the player.
 
+```
 void initializeRecommendations(String intentClassName);
+```
 
 Here the intentClassName should be your Player Activity receiving the media ID via an intent.
 
