@@ -1,4 +1,4 @@
-# nexxPLAY Android (v3.x.x)
+# nexxPLAY Android (v3.x.x & v4.x.x)
 We would like to enable you a smooth integration of NexxPlay into your existing project. The following guide will explain everything you need to know. There is a demo project "demo", where you can find a running example of the player.
 
 `Please read the installation guide again if you used v.1 or v.2 of nexxPlay for Android.`
