@@ -9,7 +9,7 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
-#### v. 4.0.0
+#### v. 4.0.1
 - many improvements for android TV
 - external pip functions
 - ui improvements
