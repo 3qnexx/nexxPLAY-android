@@ -9,6 +9,14 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 4.1.0
+- improvements in VAST ad layout
+- top bar / title bar
+- layout changes
+- stability improvements
+- additional reportings
+- changes in live mode
+
 #### v. 4.0.1
 - many improvements for android TV
 - external pip functions
