@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 4.1.1
+- fixed tv issues
+
 #### v. 4.1.0
 - improvements in VAST ad layout
 - top bar / title bar
