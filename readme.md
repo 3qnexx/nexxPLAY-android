@@ -306,6 +306,34 @@ There are multiple events, which may or may not have additional data as a second
     SECOND,
     QUARTER,
     
+### Troubleshooting
+
+```
+AGPBI: {"kind":"error","text":"error: resource android:attr/ttcIndex not found.","sources":[{"file":"/path/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/XXX/res/values/values.xml","position":{"startLine":1303,"startColumn":4,"startOffset":70911,"endColumn":68,"endOffset":70975}}],"original":"","tool":"AAPT"}
+> Task :app:processDebugResources FAILED
+FAILURE: Build failed with an exception.
+* What went wrong:
+Execution failed for task ':app:processDebugResources'.
+> Failed to process resources, see aapt output above for details.
+
+```
+
+This is an issue related to the used SDK version to compile the project. It seems you are using older packages (e.g. v.27) of the support libraries. In this case please add the following to your root build.gradle:
+
+```
+subprojects {
+    project.configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'com.android.support'
+                    && !details.requested.name.contains('multidex')
+                    && !details.requested.name.contains('support-tv')) {
+                details.useVersion "27.0.2"
+            }
+        }
+    }
+}
+```
+
 ### Android TV
 The nexxPlay SDK will work on Android TV, too. However there will be another GUI which is based on Leanback. If you want to use the SDK on Android TV, do not forget to add the Leanback Theme to your app.
 
