@@ -81,7 +81,7 @@ We are almost done for the Gradle files. The last step is to include the followi
 ```
 dependencies { 
     ...
-    implementation 'tv.nexx:nexxplay-android:3.+'
+    implementation 'tv.nexx:nexxplay-android:4.+'
     ...
 }
 ```
