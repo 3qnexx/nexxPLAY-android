@@ -327,7 +327,7 @@ subprojects {
             if (details.requested.group == 'com.android.support'
                     && !details.requested.name.contains('multidex')
                     && !details.requested.name.contains('support-tv')) {
-                details.useVersion "27.0.2"
+                details.useVersion "27.0.2" // <-- YOUR SUPPORT LIBS VERSION
             }
         }
     }
