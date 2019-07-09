@@ -88,6 +88,21 @@ dependencies {
 That way the build script will look for the newest version of nexxPlay everytime a build of your app is being initiated. However if you want to stick to a specific version, you can always find a list of the releases
 [on the nexxPlay release site](https://www.myget.org/feed/nexxtv/package/maven/tv.nexx/nexxplay-android)
 
+### Support for older Android versions
+If you need to support Android versions prior to SDK version 21, please also add the uses-sdk entry to your AndroidManifest.xml. It should look something like this:
+
+```
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="tv.nexx.nexxtvtesting.app">
+
+    <uses-sdk tools:overrideLibrary="android.support.media.tv,android.support.recommendation"/>
+    
+    ...YOUR MANIFEST CONTENT...
+    
+</manifest>
+```
+This will not cause issues because the support classes will only be used by devices which are on Android SDK version 21 or higher. 
 
 ### User Interface
 NexxPlay needs a root anchor view which should be a FrameLayout. Please add something likes this to your layout, depending on your needs:
