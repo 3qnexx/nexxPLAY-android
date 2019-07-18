@@ -9,6 +9,11 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 4.1.2
+- updated Google IMA SDK
+- improvements in PiP mode
+- layout changes
+
 #### v. 4.1.1
 - fixed tv issues
 
