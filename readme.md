@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 4.1.3
+- changes in reporting
+
 #### v. 4.1.2
 - updated Google IMA SDK
 - improvements in PiP mode
