@@ -10,6 +10,12 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 ## Changelog
 
 #### v. 4.1.3
+- additional reporting
+- repoting fixes
+- changed subtitle handling
+- new player event
+
+#### v. 4.1.3
 - changes in reporting
 
 #### v. 4.1.2
@@ -299,6 +305,7 @@ There are multiple events, which may or may not have additional data as a second
     PLAY,
     PAUSE,
     ENDED,
+    ENDEDALL,
     ADSTARTED,
     ADENDED,
     ADERROR,
