@@ -9,6 +9,11 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 4.2.1
+- new playable sources (remote, global)
+- new stream url handlings
+- fixed several reporting issues
+
 #### v. 4.1.3
 - additional reporting
 - repoting fixes
@@ -178,6 +183,12 @@ Let us get to the exciting part! With the NexxPlayer interface, you can control 
 
 ##### void startPlay(String cid, String client, PlayMode playMode, String param, int startPosition, int startItem);
 Start media
+
+##### void startPlayWithGlobalID(String sessionID, String domainID, int globalID);
+Start media by global id
+
+##### void startPlayWithRemoteMedia(String sessionID, String domainID, PlayMode playMode, RemoteProvider provider, String reference);
+Start to play media from sources outside Omnia
 
 ##### void swapToPos(int newPosition);
 Directly swap to position in current playlist
