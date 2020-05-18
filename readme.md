@@ -137,6 +137,10 @@ NexxPlay needs a root anchor view which should be a FrameLayout. Please add some
         android:layout_height="match_parent" />
 ```
 
+#### Layout for Audio player
+If you would like to add the player as an audio player, you should set the height and the width to 0dp and create your own UI for now (v.4.3.0)
+
+
 ### Activity
 
 Create the NexxPlayer object providing API by calling the factory method within your
