@@ -9,6 +9,10 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 4.3.0
+- added audio functionality
+- new player api functions
+
 #### v. 4.2.1
 - new playable sources (remote, global)
 - new stream url handlings
@@ -189,6 +193,12 @@ Start media by global id
 
 ##### void startPlayWithRemoteMedia(String sessionID, String domainID, PlayMode playMode, RemoteProvider provider, String reference);
 Start to play media from sources outside Omnia
+
+##### void play();
+Starts to play media if it is paused
+
+##### void pause();
+Pauses media if there is one playing
 
 ##### void swapToPos(int newPosition);
 Directly swap to position in current playlist
