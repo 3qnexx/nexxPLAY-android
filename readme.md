@@ -119,7 +119,7 @@ If you need to support Android versions prior to SDK version 21 (but min v17), p
     xmlns:tools="http://schemas.android.com/tools"
     package="tv.nexx.nexxtvtesting.app">
 
-    <uses-sdk tools:overrideLibrary="android.support.media.tv,android.support.recommendation"/>
+    <uses-sdk tools:overrideLibrary="androidx.tvprovider,androidx.recommendation,android.support.media.tv,android.support.recommendation,android.support.v17.leanback,com.google.android.exoplayer2.ext.leanback"/>
     
     ...YOUR MANIFEST CONTENT...
     
