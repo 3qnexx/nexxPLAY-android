@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 4.3.1
+- changed remote provider to string
+
 #### v. 4.3.0
 - added audio functionality
 - new player api functions
@@ -195,7 +198,7 @@ Start media
 ##### void startPlayWithGlobalID(String sessionID, String domainID, int globalID);
 Start media by global id
 
-##### void startPlayWithRemoteMedia(String sessionID, String domainID, PlayMode playMode, RemoteProvider provider, String reference);
+##### void startPlayWithRemoteMedia(String sessionID, String domainID, PlayMode playMode, String provider, String reference);
 Start to play media from sources outside Omnia
 
 ##### void play();
