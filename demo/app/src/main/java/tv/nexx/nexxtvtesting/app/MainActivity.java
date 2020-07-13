@@ -18,9 +18,6 @@ import android.widget.Switch;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import tv.nexx.android.player.StreamType;
-import tv.nexx.android.player.offline.OfflineCallback;
-import tv.nexx.android.player.offline.OfflineEngine;
 import tv.nexx.nexxtvtesting.app.adapters.LinkedHashMapAdapter;
 
 
@@ -96,20 +93,6 @@ public class MainActivity extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         commercialsSpinner.setAdapter(adapter);
 
-
-        OfflineEngine.getInstance(this).initForDomainAndUser(484, 120122, "0HESG0L38IYZWIA", "Testsession", new OfflineCallback() {
-            @Override
-            public void onSuccess() {
-
-                Log.d("OfflineEngine", "Success in MainActivity... DailyMe initialized");
-            }
-
-            @Override
-            public void onFail() {
-                Log.d("OfflineEngine", "Fail in MainActivity");
-            }
-        });
-
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -140,10 +123,6 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void onDownloadButtonClicked(View v) {
-        OfflineEngine.getInstance(MainActivity.this).startMediaDownload(1532945, StreamType.videos);
     }
 
     /**

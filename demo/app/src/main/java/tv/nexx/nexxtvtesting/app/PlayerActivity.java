@@ -185,26 +185,6 @@ public class PlayerActivity extends Activity implements NexxPlayerNotification.L
 
     @Override
     public void onPlayerEvent(PlayerEvent playerEvent, Object o) {
-        if (playerEvent == PlayerEvent.AD_CLICKED) {
-            Log.e("EVENTS in App", "AD CLICKED EVENT!");
-        }
-
-        if (playerEvent == PlayerEvent.AD_STARTED) {
-            Log.e("EVENTS in App", "AD STARTED EVENT!");
-        }
-
-        if (playerEvent == PlayerEvent.AD_ENDED) {
-            Log.e("EVENTS in App", "AD ENDED EVENT!");
-        }
-
-        if (playerEvent == playerEvent.AD_ERROR) {
-            Log.e("EVENTS in App", "AD ERROR!");
-        }
-
-        if (playerEvent == playerEvent.AD_RESUMED) {
-            Log.e("EVENTS in App", "AD RESUMED!");
-        }
-
         Log.e(TAG, "Player event in App: " + playerEvent.name());
     }
 

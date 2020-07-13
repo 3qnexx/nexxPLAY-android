@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="tv.nexx.nexxtvtesting.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,6 +17,9 @@
         android:required="false"/>
 
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+
+    <!--    since we want to support Android < v21, we need this additional line-->
+    <uses-sdk tools:overrideLibrary="androidx.tvprovider,androidx.recommendation" />
 
     <application
         android:allowBackup="true"
@@ -46,28 +50,6 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_player"
             android:launchMode="singleTop"></activity>
-
-        
-        <!-- ONLY ADD THE LINES RELATED TO DAILYME IF YOU ARE USING OFFLINE FUNCTIONALITY -->
-
-        <receiver android:name="tv.dailyme.android.core.receiver.Autostart">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="tv.dailyme.android.core.receiver.InstallReceiver"
-            android:exported="true"
-            android:permission="android.permission.INSTALL_PACKAGES">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
-
-        <service android:name="tv.dailyme.android.util.download.DownloadService" />
-        <service android:name="tv.dailyme.android.api.player.audio.AudioService" />
-        <service android:name="tv.dailyme.android.core.notification.StopDownloadService" />
-        <service android:name="tv.dailyme.android.core.sdcard.ChangeSdCardService" />
 
     </application>
 </manifest>
