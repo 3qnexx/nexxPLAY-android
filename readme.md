@@ -9,6 +9,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 4.3.4
+- fixed another issue in deletion of offline media
+
 #### v. 4.3.3
 - fixed issues in deletion of offline media
 
