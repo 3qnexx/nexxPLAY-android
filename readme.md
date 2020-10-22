@@ -9,6 +9,13 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 4.4.0
+- upgraded google ima
+- upgraded exoplayer to v.2.12.0
+- internal change of representations
+- notifcation changes
+- reporting changes
+
 #### v. 4.3.4
 - fixed another issue in deletion of offline media
 
