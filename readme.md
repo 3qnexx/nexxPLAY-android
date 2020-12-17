@@ -1,4 +1,4 @@
-# nexxPLAY Android (v3.x.x & v4.x.x)
+# nexxPLAY Android
 We would like to enable you a smooth integration of NexxPlay into your existing project. The following guide will explain everything you need to know. There is a demo project "demo", where you can find a running example of the player.
 
 `Please read the installation guide again if you used v.1 or v.2 of nexxPlay for Android.`
@@ -9,96 +9,12 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
-#### v. 4.4.0
+#### v. 4.4.5
 - upgraded google ima
 - upgraded exoplayer to v.2.12.0
 - internal change of representations
 - notifcation changes
 - reporting changes
-
-#### v. 4.3.4
-- fixed another issue in deletion of offline media
-
-#### v. 4.3.3
-- fixed issues in deletion of offline media
-
-#### v. 4.3.1
-- changed remote provider to string
-
-#### v. 4.3.0
-- added audio functionality
-- new player api functions
-
-#### v. 4.2.1
-- new playable sources (remote, global)
-- new stream url handlings
-- fixed several reporting issues
-
-#### v. 4.1.3
-- additional reporting
-- repoting fixes
-- changed subtitle handling
-- new player event
-
-#### v. 4.1.3
-- changes in reporting
-
-#### v. 4.1.2
-- updated Google IMA SDK
-- improvements in PiP mode
-- layout changes
-
-#### v. 4.1.1
-- fixed tv issues
-
-#### v. 4.1.0
-- improvements in VAST ad layout
-- top bar / title bar
-- layout changes
-- stability improvements
-- additional reportings
-- changes in live mode
-
-#### v. 4.0.1
-- many improvements for android TV
-- external pip functions
-- ui improvements
-
-#### v. 3.3.7
-- exit display improvements
-- image scaling
-- minor UI fixes
-
-#### v. 3.3.6
-- DRM improvements
-- UI fixes
-
-#### v. 3.3.5
-- ui fixes
-- new caption implementation
-- minor performance improvements
-
-#### v. 3.3.3
-- improved leanback mode
-- support for ad blocking flags
-
-#### v. 3.3.3
-- added method to set language
-
-#### v. 3.3.2
-- minor fixes
-
-#### v. 3.3.1
-- switched to webp assets
-- age restriction
-- cordova fixes
-- minor improvements
-
-#### v. 3.3.0
-- added thumbnails to seekbar
-- picture in picture functionality
-- bug fixes
-- minor improvements
 
 
 ## Installation guide
@@ -337,8 +253,6 @@ There are multiple events, which may or may not have additional data as a second
     ERROR,
     METADATA,
     PLAYERREADY,
-    SHOWUI,
-    HIDEUI,
     ENTERFULLSCREEN,
     EXITFULLSCREEN,
     STARTPLAYBACK,
@@ -407,11 +321,3 @@ public boolean dispatchKeyEvent(KeyEvent event) {
 
 }
 ```
-#### Recommendations
-The SDK supports the recommendation system used by Android TV. In order to have these beautiful cards showing your content, please initialize the recommendation service via the player.
-
-```
-void initializeRecommendations(String intentClassName);
-```
-
-Here the intentClassName should be your Player Activity receiving the media ID via an intent.
