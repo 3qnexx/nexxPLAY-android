@@ -1,10 +1,6 @@
 # nexxPLAY Android
 We would like to enable you a smooth integration of NexxPlay into your existing project. The following guide will explain everything you need to know. There is a demo project "demo", where you can find a running example of the player.
 
-`Please read the installation guide again if you used v.1 or v.2 of nexxPlay for Android.`
-
-The PlayerEvents and MediaData have changed since 3.1.0 so the naming is consistently between all platforms. Please check the Event section for this. 
-
 All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/package/maven/tv.nexx/nexxplay-android).
 
 ## Changelog
