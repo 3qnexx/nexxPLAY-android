@@ -5,6 +5,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 4.4.6
+- bugfixes
+
 #### v. 4.4.5
 - upgraded google ima
 - upgraded exoplayer to v.2.12.0
