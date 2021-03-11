@@ -241,6 +241,28 @@ Define ad consuming type. Possible values are ima / vast
 Define if titles should be visible. Possible values are 0 = don't show, 1 = always show, 2 = show in fullscreen only
 
 
+### Local media
+The player also supports the download and playback of local audio files. The following interface methods are available with this feature:
+
+##### void startDownloadLocalMedia(String mediaID, playMode streamType, String provider (optional), SingleDownloadListener listener (optional))
+Initiates the download of the media file, meta data and the cover.
+
+##### Array listLocalMedia(playMode streamType (optional))
+Lists all downloaded media files for the given streamtype.
+
+##### boolean hasDownloadOfLocalMedia(String mediaID, playMode streamType, String provider (optional))
+Indicates whether the media with the given ID and streamtype has been successfully downloaded.
+
+##### void removeLocalMedia(String mediaID, playMode streamType, String provider (optional))
+Removes the media file, meta data and cover for the given ID and streamtype.
+
+##### void clearLocalMedia(playMode streamType (optional))
+Removes all files for a given streamtype. If no streamtype is set, all downloaded files will be removed.
+
+##### long diskSpaceUsedForLocalMedia()
+Returns the disk space used by the offline content (covers, media files) in bytes.
+
+
 ### Events
 Your application may subscribe for receiving notifications from the player calling:
 
