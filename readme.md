@@ -245,7 +245,22 @@ Define if titles should be visible. Possible values are 0 = don't show, 1 = alwa
 
 
 ### Local media
-The player also supports the download and playback of local audio files. The following interface methods are available with this feature:
+The player also supports the download and playback of local audio files.
+
+To use this Feature, the App has to make use of the OfflineEngine:
+
+`OfflineEngine offlineEngine = OfflineEngine.getInstance(Context context);`
+
+Configure it for the current Domain (and optionally, a loggedin User):
+
+`offlineEngine.initForDomainAndUser(Class offlineActivity, int domain, int userID, String userHash, String session, OfflineCallback callback)`
+
+For explicit Download of a specific Item:
+
+`offlineEngine.startDownloadLocalMedia(String mediaID, StreamType streamType, @Nullable String provider, @Nullable SingleDownloadListener listener)`
+
+
+The complete List of Methods is listed here:
 
 ##### void startDownloadLocalMedia(String mediaID, playMode streamType, String provider (optional), SingleDownloadListener listener (optional))
 Initiates the download of the media file, meta data and the cover.
@@ -327,6 +342,95 @@ subprojects {
     }
 }
 ```
+
+### Flutter Support
+
+To make the native SDK work in a Flutter App, follow these Steps:
+
+in flutter Wiget override where you want to use player
+
+```
+@override
+void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);    
+    if (state == AppLifecycleState.paused) {
+        _controller.callOnActivityPause();
+    } else if (state == AppLifecycleState.resumed) {
+        setState(() {
+        _controller.callOnActivityResume();
+    });
+}
+```
+
+add to init
+
+`WidgetsBinding.instance.addObserver(this);`
+
+and use _WidgetsBindingObserver_
+
+then use `NexxPlayerViewController _controller;`
+
+add it to a Widget
+
+```
+final NexxPlayer nexxPlayer = NexxPlayer(...,onPlayerCreated: (controller) {
+    _controller = controller;
+    _controller.callOnActivityResume();
+    },
+);
+```
+
+
+Add Functions to the (Dart) Contoller:
+
+```
+Future callOnActivityResume() {
+    return _channel.invokeMethod('onActivityResume', {});
+}
+Future callOnActivityPause() {
+    return _channel.invokeMethod('onActivityPause', {});
+}
+```
+
+and finally, replace the Java Constructor like outlined here:
+
+```
+public NexxPlayer(Context context, int id, BinaryMessenger messenger, Activity activity) {
+    this.androidContext = activity;
+    this.channel = new MethodChannel(messenger, "de.vonaffenfels.nexxtv/player/" + id);
+
+    RelativeLayout rlayout = new RelativeLayout(this.androidContext);
+
+    this.channel.setMethodCallHandler((MethodChannel.MethodCallHandler) this);
+    FrameLayout layout = new FrameLayout(this.androidContext);
+    layout.setLayoutParams((new android.widget.RelativeLayout.LayoutParams(-1, -2)));
+    layout.setDescendantFocusability(393216);
+    this.container = rlayout; 
+
+    rlayout.addView(layout);
+
+    NexxPlayerAndroid player = NexxFactory.createNexxPlayer(this.androidContext);
+    this.nexxPlayer = player;
+    this.nexxPlayer.setViewRoot(layout);
+    this.nexxPlayer.setWindow(activity.getWindow());
+}
+```
+
+and finally, add the onMessage Call:
+
+```
+case "onActivityResume":
+    Log.d(this.TAG, "Native ---RESUME--- ");
+    nexxPlayer.onActivityResume();
+    return;
+case "onActivityPause":
+    Log.d(this.TAG, "Native ---PAUSE--- ");
+    nexxPlayer.onActivityPause();
+    return;
+```
+
+
+
 
 ### Android TV
 The nexxPlay SDK will work on Android TV, too. However there will be another GUI which is based on Leanback. If you want to use the SDK on Android TV, do not forget to add the Leanback Theme to your app.
