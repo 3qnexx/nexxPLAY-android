@@ -186,6 +186,9 @@ e.g. playlist-PLAYLIST-ID
 ##### void setUserHash(String hash);
 set hash for current user
 
+#### void setConsentString(String ConsentString);
+set ConsentString from TCF/CMP Environment for VAST Settings
+
 ##### void setUserIsTrackingOptOuted();
 If you call this method, the VAST calls will be marked with a flag to not track the user.
 
