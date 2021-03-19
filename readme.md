@@ -6,7 +6,7 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 ## Changelog
 
 
-#### v. 4.4.7
+#### v. 4.4.9
 - bugfixes for Offline Engine and localMedia Audio
 
 #### v. 4.4.6
