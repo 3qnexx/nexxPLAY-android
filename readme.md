@@ -5,6 +5,9 @@ All releases are listed [in the SDK's feed](https://www.myget.org/feed/nexxtv/pa
 
 ## Changelog
 
+#### v. 4.4.12
+- Fixes Security Issue on android 11+
+
 #### v. 4.4.10
 - Fixes for Downloading Handling of localMedia Audio
 - Version Update for ExoPlayer
