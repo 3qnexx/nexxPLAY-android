@@ -1,0 +1,114 @@
+<resources>
+
+    <string name="app_name">nexxPLAY Testing</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_player">PlayerActivity</string>
+
+    <string name="title_activity_audio_download">AudioDownloadActivity</string>
+
+    <string name="reset">Reset</string>
+
+    <string name="show">Start</string>
+
+    <string name="media_default">Default</string>
+    <string name="global_id">GlobalID</string>
+    <string name="media_id">Media ID</string>
+    <string name="media_ids">Media IDs</string>
+    <string name="domain_id">Domain ID</string>
+
+    <!-- ShortCuts -->
+    <string name="sc_playvideo">Video</string>
+    <string name="sc_playlive">LiveStream</string>
+    <string name="sc_playaudio">Audio</string>
+    <string name="sc_playplaylist">Playlist</string>
+
+    <!--  MainActivity  -->
+    <string name="foreign_ref">RemoteReference</string>
+    <string name="remote">Remote</string>
+    <string name="list">List</string>
+    <string name="vast">VAST</string>
+    <string name="ima">IMA</string>
+    <string name="ad_type">Ad Handling</string>
+    <string name="autoplay">AutoPlay</string>
+    <string name="autonext">RevolverPlay</string>
+    <string name="api_dm">API</string>
+    <string name="static_dm">static</string>
+    <string name="datamode">DataMode</string>
+    <string name="streamtype">Streamtype</string>
+    <string name="hideprevnext">hide Item Navigation</string>
+    <string name="forceprevnext">force Item Navigation</string>
+    <string name="replay">Replay</string>
+    <string name="load">Load</string>
+    <string name="navigate">Navigate</string>
+    <string name="stop">Stop</string>
+    <string name="loop">Loop</string>
+    <string name="exitmode">ExitMode</string>
+    <string name="startposition">Start Position</string>
+    <string name="delay">Delay</string>
+    <string name="start_fullscreen">Start Fullscreen</string>
+    <string name="streaming_filter">Streaming Filter</string>
+    <string name="notification_log">Notification Log</string>
+    <string name="toggle">toggle</string>
+    <string name="prev">prev</string>
+    <string name="next">next</string>
+    <string name="mute">mute</string>
+    <string name="unmute">unmute</string>
+    <string name="seekby">seekBy</string>
+    <string name="clearcache">clear Cache</string>
+    <string name="swapmedia">swap Media</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="disable_ads">Disable Ads</string>
+    <string name="streamtype_video">Video</string>
+    <string-array name="playModes">
+        <item>Video</item>
+        <item>Audio</item>
+        <item>Live</item>
+        <item>Scene</item>
+        <item>Radio</item>
+        <item>Playlist</item>
+        <item>AudioAlbum</item>
+        <item>Collection</item>
+        <item>Set</item>
+    </string-array>
+    <string-array name="playModes_cut">
+        <item>Video</item>
+        <item>Audio</item>
+    </string-array>
+    <string-array name="playModes_list">
+        <item>VideoList</item>
+        <item>AudioList</item>
+        <item>SceneList</item>
+    </string-array>
+    <string-array name="exitModes">
+        <item>Load</item>
+        <item>Replay</item>
+        <item>Loop</item>
+        <item>Navigate</item>
+        <item>Stop</item>
+    </string-array>
+    <string-array name="streamingFilters">
+        <item></item>
+        <item>nxp-bitrate-0500</item>
+        <item>nxp-bitrate-0750</item>
+        <item>nxp-bitrate-1000</item>
+        <item>nxp-bitrate-1500</item>
+        <item>nxp-bitrate-2500</item>
+        <item>nxp-bitrate-6000</item>
+    </string-array>
+    <string-array name="loaderSkins">
+        <item>default</item>
+        <item>material</item>
+        <item>double bounce</item>
+        <item>metro</item>
+        <item>lines</item>
+        <item>ios</item>
+    </string-array>
+
+    <string name="widget_launchactivity" translatable="false">tv.nexx.android.testapp.MainActivity</string>
+    <string name="widget_domain" translatable="false">484</string>
+    <string name="widget_app" translatable="false">34</string>
+    <string name="widget_feed_hash" translatable="false">K207TS64L1V1J</string>
+    <string name="widget_feed_secret" translatable="false">160HHXNP79YSTUT</string>
+    <string name="widget_description">Demo Widget</string>
+</resources>

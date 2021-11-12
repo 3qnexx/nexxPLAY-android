@@ -1,0 +1,25 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.Material3.Dark">
+        <item name="colorPrimary">@color/blue_dark</item>
+        <item name="colorPrimaryDark">@color/blue_dark</item>
+        <item name="colorPrimaryContainer">@color/blue</item>
+        <item name="colorOnPrimaryContainer">@color/text_white</item>
+        <item name="colorOnSurfaceVariant">@color/text_white</item>
+        <item name="colorOnSurface">@color/blue</item>
+        <item name="colorOnSecondaryContainer">@color/blue</item>
+    </style>
+
+    <style name="ListElement">
+        <item name="android:colorBackground">@color/grey_dark</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+</resources>

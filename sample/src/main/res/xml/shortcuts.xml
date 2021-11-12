@@ -1,0 +1,54 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+  <shortcut
+    android:shortcutId="playvideo"
+    android:enabled="true"
+    android:icon="@drawable/ic_shortcut_video"
+    android:shortcutShortLabel="@string/sc_playvideo"
+    android:shortcutLongLabel="@string/sc_playvideo">
+    <intent
+      android:action="tv.nexx.android.testapp.shortcuts.VIDEO"
+      android:targetPackage="tv.nexx.android.testapp"
+      android:targetClass="tv.nexx.android.testapp.MainActivity" />
+    <categories android:name="android.shortcut.conversation" />
+  </shortcut>
+
+  <shortcut
+      android:shortcutId="playlive"
+      android:enabled="true"
+      android:icon="@drawable/ic_shortcut_live"
+      android:shortcutShortLabel="@string/sc_playlive"
+      android:shortcutLongLabel="@string/sc_playlive">
+    <intent
+        android:action="tv.nexx.android.testapp.shortcuts.LIVE"
+        android:targetPackage="tv.nexx.android.testapp"
+        android:targetClass="tv.nexx.android.testapp.MainActivity" />
+    <categories android:name="android.shortcut.conversation" />
+  </shortcut>
+
+  <shortcut
+      android:shortcutId="playaudio"
+      android:enabled="true"
+      android:icon="@drawable/ic_shortcut_audio"
+      android:shortcutShortLabel="@string/sc_playaudio"
+      android:shortcutLongLabel="@string/sc_playaudio">
+    <intent
+        android:action="tv.nexx.android.testapp.shortcuts.AUDIO"
+        android:targetPackage="tv.nexx.android.testapp"
+        android:targetClass="tv.nexx.android.testapp.MainActivity" />
+    <categories android:name="android.shortcut.conversation" />
+  </shortcut>
+
+  <shortcut
+      android:shortcutId="playplaylist"
+      android:enabled="true"
+      android:icon="@drawable/ic_shortcut_playlist"
+      android:shortcutShortLabel="@string/sc_playplaylist"
+      android:shortcutLongLabel="@string/sc_playplaylist">
+    <intent
+        android:action="tv.nexx.android.testapp.shortcuts.PLAYLIST"
+        android:targetPackage="tv.nexx.android.testapp"
+        android:targetClass="tv.nexx.android.testapp.MainActivity" />
+    <categories android:name="android.shortcut.conversation" />
+  </shortcut>
+
+</shortcuts>

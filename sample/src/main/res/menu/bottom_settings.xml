@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/initmode_default"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_art_track_24"
+        android:title="@string/media_default"/>
+    <item
+        android:id="@+id/initmode_global"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_assignment_ind_24"
+        android:title="@string/global_id"/>
+    <item
+        android:id="@+id/initmode_remote"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_settings_remote_24"
+        android:title="@string/remote"/>
+    <item
+        android:id="@+id/initmode_list"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_list_24"
+        android:title="@string/list"/>
+</menu>
