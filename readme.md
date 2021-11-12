@@ -11,6 +11,5 @@ Please find the complete documentation of the nexxPLAY Widget following this [li
 ## Changelog
 
 ### v6.0.00
-- completely re-written SDK with all Features, provided by Web and iOS
+- completely re-written SDK with all Features, also provided by Web and iOS
 - for Migration Issues, please contact 3Q nexx Support
-
