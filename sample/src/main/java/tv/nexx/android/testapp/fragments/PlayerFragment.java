@@ -168,16 +168,6 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
             player = NexxPlayProvider.init(getContext(), root, getActivity().getWindow());
             NexxPLAYEnvironment env = new NexxPLAYEnvironment(new HashMap<String, Object>() {{
                 put(domain, domainID);
-                put(userHash, "1HWZXB120122YXV");
-
-                /*
-                For testing with loggedin User, use (on 484)
-                put(userHash, "1HWZXB120122YXV");
-                 */
-                /*
-                We will need Consent Strings often for Ad Testing, so I add this here already.
-                put(consentString,"CPFnsYuPFnsYuAfOBBDEBYCsAP_AAH_AAAigHjwCgAWABigEQARIAmADFAGsASCAvMBtgDxwPHgFAAsADFAIgAiQBMAGKANYAkEBeYDbAHjgAA");
-                 */
                 put(alwaysInFullscreen, (startFullscreen ? 1 : 0));
             }});
             player.setEnvironment(env);
