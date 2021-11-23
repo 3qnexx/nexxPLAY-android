@@ -10,6 +10,11 @@ Please find the complete documentation of the nexxPLAY Widget following this [li
 
 ## Changelog
 
+### v6.0.01
+- fixed an Issue with "static Datamode"
+- fixed some UI Issues on TV
+- added support for new "max-views-per-user" Logic on Bumpers
+
 ### v6.0.00
 - completely re-written SDK with all Features, also provided by Web and iOS
 - for Migration Issues, please contact 3Q nexx Support
