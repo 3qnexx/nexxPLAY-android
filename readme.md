@@ -19,5 +19,5 @@ Please find the complete documentation of the nexxPLAY Widget following this [li
 - added support for new "max-views-per-user" Logic on Bumpers
 
 ### v6.0.00
-- completely re-written SDK with all Features, also provided by Web and iOS
+- completely re-written SDK with Support for all Features of nexxPLAY, as also offered by nexxPLAY for Web and iOS
 - for Migration Issues, please contact 3Q nexx Support
