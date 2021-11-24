@@ -10,6 +10,9 @@ Please find the complete documentation of the nexxPLAY Widget following this [li
 
 ## Changelog
 
+### v6.0.02
+- fixed an Issue with A/B Tests on Audio
+
 ### v6.0.01
 - fixed an Issue with "static Datamode"
 - fixed some UI Issues on TV
