@@ -2,11 +2,13 @@
 
 ## Player documentation
 
-Please find the complete documentation of the nexxPLAY android SDK following this [link](https://play.docs.nexx.cloud/native-players/nexxplay-for-android)
+Please find the complete documentation of the nexxPLAY android SDK following this [link](https://play.docs.nexx.cloud/native-players/nexxplay-for-android).
+
+nexxPLAY for android also supports Flutter. Follow this Link for more Info [link](https://play.docs.nexx.cloud/native-players/nexxplay-for-flutter).
 
 ## Widget documentation
 
-Please find the complete documentation of the nexxPLAY Widget following this [link](https://play.docs.nexx.cloud/widgets/widgets-for-native-apps/android-widget)
+Please find the complete documentation of the nexxPLAY Widget following this [link](https://play.docs.nexx.cloud/widgets/widgets-for-native-apps/android-widget).
 
 ## Changelog
 
