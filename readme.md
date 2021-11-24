@@ -4,7 +4,7 @@
 
 Please find the complete documentation of the nexxPLAY android SDK following this [link](https://play.docs.nexx.cloud/native-players/nexxplay-for-android).
 
-nexxPLAY for android also supports Flutter. Follow this Link for more Info [link](https://play.docs.nexx.cloud/native-players/nexxplay-for-flutter).
+nexxPLAY for android also supports Flutter. Find more Info about this following this [link](https://play.docs.nexx.cloud/native-players/nexxplay-for-flutter).
 
 ## Widget documentation
 
