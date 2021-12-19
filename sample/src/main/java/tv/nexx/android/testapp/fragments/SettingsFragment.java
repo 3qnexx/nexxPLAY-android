@@ -67,8 +67,10 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
     private TextInputLayout forcePrevNextSwitchHolder;
 
     private String streamtype;
+    private Float delay = 0f;
     private int item = 0;
     private int domain = 0;
+    private int global = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -163,15 +165,19 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             Log.v(TAG, "SETTING STREAMTYPE TO " + streamtype);
             playModeSpinner.setText(streamtype.substring(0, 1).toUpperCase() + streamtype.substring(1).toLowerCase(), false);
 
-            if (domain > 0) {
-                Log.v(TAG, "SETTING DOMAIN TO " + domain);
-                domainIDEditText.setText(String.valueOf(domain));
-            }
-            if (item > 0) {
-                Log.v(TAG, "SETTING ITEM TO " + item);
-                mediaIDEditText.setText(String.valueOf(item));
-            }
+            domainIDEditText.setText(String.valueOf(domain));
+            mediaIDEditText.setText(String.valueOf(item));
 
+        } else if(global > 0){
+            bottomNavigation.setSelectedItemId(R.id.initmode_global);
+            onInitModeChanged("GlobalID");
+
+            domainIDEditText.setText(String.valueOf(domain));
+            mediaIDEditText.setText(String.valueOf(global));
+        }
+
+        if(delay > 0){
+            delayRangeSlider.setValue(Math.round(delay));
         }
     }
 

@@ -12,6 +12,18 @@ Please find the complete documentation of the nexxPLAY Widget following this [li
 
 ## Changelog
 
+### v6.1.00
+- added Support for localMedia and Offline Playback
+- added Support for Podcast Overlay and Linking
+- added Support for Media with OPUS Audio Codec
+- added Support for Media with HEVC Video Codec
+- added Support for LiveStreams with DVR
+- added Support for WatchNext System on TV
+  
+- fixed an Issue with Premiere Mode
+- fixed an Issue with AutoPlay in DataSaver Mode
+- fixed an Issue with Handling of List-PlayModes
+
 ### v6.0.02
 - fixed an Issue with A/B Tests on Audio
 

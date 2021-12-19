@@ -25,6 +25,7 @@ public class MainActivity extends FragmentActivity {
     private static final String SHORTCUT_AUDIO = "tv.nexx.android.testapp.shortcuts.AUDIO";
     private static final String SHORTCUT_PLAYLIST = "tv.nexx.android.testapp.shortcuts.PLAYLIST";
     private static final String ACTION_MAIN = "android.intent.action.MAIN";
+    private static final String ACTION_VIEW = "android.intent.action.VIEW";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,12 +46,21 @@ public class MainActivity extends FragmentActivity {
 
     private void handleIntent(Intent intent) {
         String action = intent.getAction();
+        Uri uri = intent.getData();
         Log.v(TAG, "STARTED WITH ACTION: " + action);
+
+        if(uri != null) {
+            Log.v(TAG, "STARTED WITH DATA: " + uri.toString());
+        }
+
         IAppFragmentNavigation appFragmentNavigation = NavigationProvider.get(this);
 
         String streamtype = null;
         int item = 0;
+        int global = 0;
         int domain = 0;
+        Float delay = 0f;
+
         switch (action) {
             case SHORTCUT_VIDEO:
                 streamtype = "video";
@@ -64,6 +74,25 @@ public class MainActivity extends FragmentActivity {
             case SHORTCUT_PLAYLIST:
                 streamtype = "playlist";
                 break;
+            case ACTION_VIEW:
+                if(uri != null){
+                    try{
+                        String path = uri.getPath();
+                        if(path != null){
+                            path=path.replace("/watch/","");
+                            String[] parts = path.split("/");
+                            domain = Integer.parseInt(parts[0]);
+                            String[] items = parts[1].split(":");
+                            global = Integer.parseInt(items[0]);
+                            if(items.length>1){
+                                delay = Float.parseFloat(items[1]);
+                            }
+                        }
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }
+                break;
             case "tv.nexx.android.widget.OPEN":
                 streamtype = intent.getStringExtra("streamtype");
                 domain = intent.getIntExtra("domainID", 0);
@@ -73,11 +102,25 @@ public class MainActivity extends FragmentActivity {
 
         SettingsFragment fragment = new SettingsFragment();
         if (streamtype != null) {
-            Log.v(TAG, "STARTING WITH " + streamtype + "/" + item + "/" + domain);
+            Log.v(TAG, "STARTING WITH " + streamtype + "/" + item + "/" + domain + " WITH DELAY OF " + delay);
+
             Bundle bundle = new Bundle();
             bundle.putString("streamtype", streamtype);
             bundle.putInt("item", item);
             bundle.putInt("domain", domain);
+            bundle.putInt("global", global);
+            bundle.putFloat("delay", delay);
+            fragment.setArguments(bundle);
+
+        }else if(global>0){
+            Log.v(TAG, "STARTING WITH GLOBAL " + global + "/" + domain + " WITH DELAY OF " + delay);
+
+            Bundle bundle = new Bundle();
+            bundle.putString("streamtype", null);
+            bundle.putInt("item", 0);
+            bundle.putInt("domain", domain);
+            bundle.putInt("global", global);
+            bundle.putFloat("delay", delay);
             fragment.setArguments(bundle);
         }
         appFragmentNavigation.resetToFragment(fragment);

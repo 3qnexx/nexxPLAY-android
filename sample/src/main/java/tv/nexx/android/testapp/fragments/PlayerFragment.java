@@ -168,6 +168,8 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
             player = NexxPlayProvider.init(getContext(), root, getActivity().getWindow());
             NexxPLAYEnvironment env = new NexxPLAYEnvironment(new HashMap<String, Object>() {{
                 put(domain, domainID);
+                put(contentURITemplate,"app://tv.nexx.android.play.testapp/watch/{domain}/");
+                put(contentIDTemplate,"{GID}:{startAt}");
                 put(alwaysInFullscreen, (startFullscreen ? 1 : 0));
             }});
             player.setEnvironment(env);
@@ -186,7 +188,6 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
                 put(NexxPLAYConfiguration.startPosition, startPosition);
                 put(NexxPLAYConfiguration.adType, adType);
                 put(NexxPLAYConfiguration.disableAds, disableAds ? 1 : 0);
-                put(NexxPLAYConfiguration.enableInteractions, 0);
             }});
 
             if (mediaSourceType.equals(MediaSourceType.NORMAL.toString())) {
@@ -378,6 +379,6 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
     }
 
     public void startSwapMedia() {
-        player.swapToMediaItem("1741807", playMode, 0, 50);
+        player.swapToMediaItem("0", "video", 0, 0);
     }
 }
