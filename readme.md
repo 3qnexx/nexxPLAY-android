@@ -12,9 +12,10 @@ Please find the complete documentation of the nexxPLAY Widget following this [li
 
 ## Changelog
 
-### v6.1.01
+### v6.1.02
 - fixed an Issue with Seeking in Remote Audio
 - fixed an Issue with MultiLine Title UI
+- fixed an Issue with seekTo Method
 
 ### v6.1.00
 - added Support for localMedia and Offline Playback
