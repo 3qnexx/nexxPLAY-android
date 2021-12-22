@@ -12,6 +12,10 @@ Please find the complete documentation of the nexxPLAY Widget following this [li
 
 ## Changelog
 
+### v6.1.01
+- fixed an Issue with Seeking in Remote Audio
+- fixed an Issue with MultiLine Title UI
+
 ### v6.1.00
 - added Support for localMedia and Offline Playback
 - added Support for Podcast Overlay and Linking
