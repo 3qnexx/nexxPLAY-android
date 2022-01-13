@@ -59,4 +59,5 @@ dependencies {
 
     implementation "tv.nexx.android:play:6.1.02"
     implementation "tv.nexx.android:widget:2.0.02"
+    implementation "tv.nexx.android:tvrecommendations:1.0.00"
 }

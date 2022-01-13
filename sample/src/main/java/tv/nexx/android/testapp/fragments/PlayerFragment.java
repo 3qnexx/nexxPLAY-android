@@ -232,7 +232,7 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
         Log.e(TAG, "Player state changed: " + state + ", play when ready " + b);
 
         if (state.equals(Player.State.PLAYING)) {
-            getActivity().setTitle(player.getMediaData().getTitle());
+            getActivity().setTitle(player.getCurrentMedia().getTitle());
         }
     }
 
