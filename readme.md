@@ -17,6 +17,13 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.1.04
+- added Option to close MediaSession Notification during Playback
+- added Support for Quality Reporting
+- fixed an Issue with PiP UI
+- fixed an Issue with Environment.showCloseButtonOnFullscreen
+- fixed an Issue with DataSaver Mode
+
 ### v6.1.03
 - fixed an Issue with Video DRM
 - fixed UI on ExitScreen
