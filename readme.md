@@ -17,6 +17,9 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.1.05
+- fixed an Issue with NetworkConnectivity Changes
+
 ### v6.1.04
 - added Option to close MediaSession Notification during Playback
 - added Support for Quality Reporting
