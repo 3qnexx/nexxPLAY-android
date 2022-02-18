@@ -9,6 +9,11 @@
         <item name="colorOnSurfaceVariant">@color/text_white</item>
         <item name="colorOnSurface">@color/blue</item>
         <item name="colorOnSecondaryContainer">@color/blue</item>
+        <!-- enable to test Notch Detection
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        -->
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
     <style name="ListElement">

@@ -60,7 +60,7 @@
                     android:focusableInTouchMode="true"
                     android:textColor="@color/text_white"
                     android:nextFocusDown="@id/mediaIDInput"
-                    android:text="" />
+                    android:text="0" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,7 +84,7 @@
                     android:inputType="none|textNoSuggestions"
                     android:background="@null"
                     android:paddingLeft="18dp"
-                    android:text="video" />
+                    android:text="Video" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,7 +126,7 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:nextFocusDown="@id/show"
-                    android:text="" />
+                    android:text="0" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -487,7 +487,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
                 android:valueFrom="0"
-                android:valueTo="10"
+                android:valueTo="300"
                 android:stepSize="1"
                 app:trackColor="@color/grey"
                 app:tickColor="@color/grey"
@@ -595,7 +595,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_marginBottom="98dp"
+        android:layout_marginBottom="108dp"
         android:layout_marginRight="22dp"
         android:text="@string/show"
         android:focusable="true"

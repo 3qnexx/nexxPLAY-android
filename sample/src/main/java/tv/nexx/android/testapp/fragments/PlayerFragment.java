@@ -1,16 +1,20 @@
 package tv.nexx.android.testapp.fragments;
 
 import static tv.nexx.android.play.NexxPLAYEnvironment.alwaysInFullscreen;
+import static tv.nexx.android.play.NexxPLAYEnvironment.castContext;
+import static tv.nexx.android.play.NexxPLAYEnvironment.contentIDTemplate;
+import static tv.nexx.android.play.NexxPLAYEnvironment.contentURITemplate;
 import static tv.nexx.android.play.NexxPLAYEnvironment.domain;
-import static tv.nexx.android.play.NexxPLAYEnvironment.userHash;
+import static tv.nexx.android.play.NexxPLAYEnvironment.language;
 import static tv.nexx.android.play.PlayerEvent.DATA;
 import static tv.nexx.android.play.PlayerEvent.EVENT;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,20 +27,23 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.chip.Chip;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import tv.nexx.android.play.Event;
 import tv.nexx.android.play.INexxPLAY;
-import tv.nexx.android.play.MediaSourceType;
 import tv.nexx.android.play.NexxPLAYConfiguration;
 import tv.nexx.android.play.NexxPLAYEnvironment;
 import tv.nexx.android.play.NexxPLAYNotification;
-import tv.nexx.android.play.PlayMode;
 import tv.nexx.android.play.Streamtype;
-import tv.nexx.android.play.player.Player;
-import tv.nexx.android.play.util.InternalUtils;
+import tv.nexx.android.play.device.DeviceManager;
+import tv.nexx.android.play.enums.Event;
+import tv.nexx.android.play.enums.MediaSourceType;
+import tv.nexx.android.play.enums.PlayMode;
+import tv.nexx.android.play.player.IPlayer;
+import tv.nexx.android.play.util.Utils;
+import tv.nexx.android.testapp.MainActivity;
 import tv.nexx.android.testapp.R;
 import tv.nexx.android.testapp.providers.NavigationProvider;
 import tv.nexx.android.testapp.providers.NexxPlayProvider;
@@ -74,6 +81,7 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
     private INexxPLAY player;
 
     private BottomAppBar bottomOptions;
+    private Chip storageChip;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,49 +121,53 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
         notificationLog = rootView.findViewById(R.id.ll_notification_log_input);
         notificationLogScrollView = rootView.findViewById(R.id.sc_notification_log_input);
 
+        storageChip = rootView.findViewById(R.id.storagechip);
+
         bottomOptions = rootView.findViewById(R.id.bottomOptions);
         bottomOptions.setOnMenuItemClickListener((item) -> {
-            Log.v(TAG, "HANDLING BOTTOM CMD: " + item.getTitle());
+            Utils.log(TAG, "HANDLING BOTTOM CMD: " + item.getTitle());
             switch (item.getItemId()) {
                 case R.id.cmd_play:
-                    Log.v(TAG, "STARTING PLAY");
+                    Utils.log(TAG, "STARTING PLAY");
                     startPlay();
                     break;
                 case R.id.cmd_pause:
-                    Log.v(TAG, "STARTING ÜAUSE");
+                    Utils.log(TAG, "STARTING ÜAUSE");
                     startPause();
                     break;
                 case R.id.cmd_prev:
-                    Log.v(TAG, "STARTING PREV");
+                    Utils.log(TAG, "STARTING PREV");
                     startPrev();
                     break;
                 case R.id.cmd_next:
-                    Log.v(TAG, "STARTING NEXT");
+                    Utils.log(TAG, "STARTING NEXT");
                     startNext();
                     break;
                 case R.id.cmd_mute:
-                    Log.v(TAG, "STARTING MUTE");
+                    Utils.log(TAG, "STARTING MUTE");
                     startMute();
                     break;
                 case R.id.cmd_unmute:
-                    Log.v(TAG, "STARTING UNMUTE");
+                    Utils.log(TAG, "STARTING UNMUTE");
                     startUnmute();
                     break;
                 case R.id.cmd_seekby:
-                    Log.v(TAG, "STARTING SEEKBY");
+                    Utils.log(TAG, "STARTING SEEKBY");
                     startSeekBy();
                     break;
                 case R.id.cmd_swap:
-                    Log.v(TAG, "STARTING SWAP");
+                    Utils.log(TAG, "STARTING SWAP");
                     startSwapMedia();
                     break;
                 case R.id.cmd_clearcache:
-                    Log.v(TAG, "STARTING CLEAR CACHE");
+                    Utils.log(TAG, "STARTING CLEAR CACHE");
                     startClearCache();
                     break;
             }
             return true;
         });
+
+        bottomOptions.getMenu().setGroupVisible(R.id.playback, false);
 
         rootView.findViewById(R.id.backtosettings).setOnClickListener(v -> {
             NavigationProvider.get(getActivity()).onBack();
@@ -165,37 +177,54 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
 
             ViewGroup root = rootView.findViewById(R.id.root);
 
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            ViewGroup.LayoutParams params = root.getLayoutParams();
+            params.width = Math.min(size.x, size.y);
+            params.height = (int) (params.width / 16.0 * 9);
+            root.setLayoutParams(params);
+
             player = NexxPlayProvider.init(getContext(), root, getActivity().getWindow());
-            NexxPLAYEnvironment env = new NexxPLAYEnvironment(new HashMap<String, Object>() {{
-                put(domain, domainID);
-                put(contentURITemplate,"app://tv.nexx.android.play.testapp/watch/{domain}/");
-                put(contentIDTemplate,"{GID}:{startAt}");
-                put(alwaysInFullscreen, (startFullscreen ? 1 : 0));
-            }});
-            player.setEnvironment(env);
 
-            Log.d(TAG, "mediaSourceType: " + mediaSourceType);
+            Map<String, Object> envData = new HashMap<>();
+            envData.put(domain, domainID);
 
-            NexxPLAYConfiguration conf = new NexxPLAYConfiguration(new HashMap<String, Object>() {{
-                put(NexxPLAYConfiguration.dataMode, dataMode);
-                put(NexxPLAYConfiguration.hidePrevNext, hidePrevNext ? 1 : 0);
-                put(NexxPLAYConfiguration.forcePrevNext, forcePrevNext ? 1 : 0);
-                put(NexxPLAYConfiguration.autoPlay, autoplay ? 1 : 0);
-                put(NexxPLAYConfiguration.autoNext, autoNext ? 1 : 0);
-                put(NexxPLAYConfiguration.exitMode, exitMode);
-                put(NexxPLAYConfiguration.streamingFilter, streamingFilter);
-                put(NexxPLAYConfiguration.delay, delay);
-                put(NexxPLAYConfiguration.startPosition, startPosition);
-                put(NexxPLAYConfiguration.adType, adType);
-                put(NexxPLAYConfiguration.disableAds, disableAds ? 1 : 0);
-            }});
+            //ENABLE, IF CHROMECAST SHALL BE USED
+            //envData.put(castContext, ((MainActivity) getActivity()).getCastContext());
+
+            //ENABLE, IF TV-RECOMMENDATIONS SHALL BE USED
+            //envData.put(contentURITemplate, "YOUR-CONTENT-URI-TEMPLATE");
+            //envData.put(contentIDTemplate, "YOUR-CONTENT-ID-TEMPLATE");
+
+            envData.put(alwaysInFullscreen, (startFullscreen ? 1 : 0));
+
+            player.setEnvironment(new NexxPLAYEnvironment(envData));
+            updateStorage();
+
+            Map<String, Object> confData = new HashMap<>();
+            confData.put(NexxPLAYConfiguration.dataMode, dataMode);
+            confData.put(NexxPLAYConfiguration.hidePrevNext, hidePrevNext ? 1 : 0);
+            confData.put(NexxPLAYConfiguration.forcePrevNext, forcePrevNext ? 1 : 0);
+            confData.put(NexxPLAYConfiguration.autoPlay, autoplay ? 1 : 0);
+            confData.put(NexxPLAYConfiguration.autoNext, autoNext ? 1 : 0);
+            confData.put(NexxPLAYConfiguration.exitMode, exitMode);
+            confData.put(NexxPLAYConfiguration.streamingFilter, streamingFilter);
+            confData.put(NexxPLAYConfiguration.delay, delay);
+            confData.put(NexxPLAYConfiguration.startPosition, startPosition);
+            confData.put(NexxPLAYConfiguration.adType, adType);
+            confData.put(NexxPLAYConfiguration.disableAds, disableAds ? 1 : 0);
+            confData.put(NexxPLAYConfiguration.enableInteractions, 0);
+            confData.put(NexxPLAYConfiguration.enableStartScreenTitle, 1);
+
+            Utils.log(TAG, "STARTING PLAYER WITH " + playMode + "/" + mediaID);
 
             if (mediaSourceType.equals(MediaSourceType.NORMAL.toString())) {
-                player.startPlay(playMode, mediaID, conf);
+                player.startPlay(playMode, mediaID, new NexxPLAYConfiguration(confData));
             } else if (mediaSourceType.equals(MediaSourceType.REMOTE.toString())) {
-                player.startPlayWithRemoteMedia(playMode, mediaID, provider, conf);
+                player.startPlayWithRemoteMedia(playMode, mediaID, provider, new NexxPLAYConfiguration(confData));
             } else {
-                player.startPlayWithGlobalID(mediaID, conf);
+                player.startPlayWithGlobalID(mediaID, new NexxPLAYConfiguration(confData));
             }
         }
     }
@@ -219,6 +248,14 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        if (this.player != null) {
+            player.onActivityStop();
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (this.player != null) {
@@ -228,22 +265,22 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
     }
 
     @Override
-    public void onPlayerStateChanged(boolean b, Player.State state) {
-        Log.e(TAG, "Player state changed: " + state + ", play when ready " + b);
+    public void onPlayerStateChanged(boolean b, IPlayer.State state) {
+        Utils.log(TAG, "Player state changed: " + state + ", play when ready " + b);
 
-        if (state.equals(Player.State.PLAYING)) {
+        if (state.equals(IPlayer.State.PLAYING)) {
             getActivity().setTitle(player.getCurrentMedia().getTitle());
         }
     }
 
     @Override
     public void onPlayerError(String s, String s1) {
-        Log.e(TAG, "Player error: " + s + " --- " + s1);
+        Utils.log(TAG, "Player error: " + s + " --- " + s1);
     }
 
     @Override
     public void onFullScreen(boolean isFullScreen) {
-        Log.e(TAG, "onFullScreen: " + isFullScreen);
+        Utils.log(TAG, "onFullScreen: " + isFullScreen);
     }
 
     @SuppressLint({"ResourceAsColor", "SetTextI18n"})
@@ -304,14 +341,15 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
             notificationInfo.setText(info);
 
             notificationLogScrollView.post(() -> {
-                if (!InternalUtils.isTV()) {
+                if (!DeviceManager.getInstance().isTV()) {
                     notificationLogScrollView.fullScroll(View.FOCUS_DOWN);
                 }
             });
 
-            Log.v(TAG, "Player event in App: " + event + ", data = " + playerEvent.getBody().get(DATA));
+            Utils.log(TAG, "Player event in App: " + event + ", data = " + playerEvent.getBody().get(DATA));
 
             if (Event.metadata.toString().equals(event)) {
+                bottomOptions.getMenu().setGroupVisible(R.id.playback, true);
                 rootView.findViewById(R.id.cmd_unmute).setVisibility(View.GONE);
                 rootView.findViewById(R.id.cmd_pause).setVisibility(View.GONE);
                 if (Streamtype.isLive(playerEvent.getStreamtype())) {
@@ -319,7 +357,7 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
                 } else {
                     rootView.findViewById(R.id.cmd_seekby).setVisibility(View.VISIBLE);
                 }
-                if ((PlayMode.isContainer(playerEvent.getPlayerMode())) || (PlayMode.isList(playerEvent.getPlayerMode()))) {
+                if ((PlayMode.isContainer(Utils.getPlayMode(playerEvent.getPlayerMode()))) || (PlayMode.isList(Utils.getPlayMode(playerEvent.getPlayerMode())))) {
                     rootView.findViewById(R.id.cmd_prev).setVisibility(View.VISIBLE);
                     rootView.findViewById(R.id.cmd_next).setVisibility(View.VISIBLE);
                 } else {
@@ -338,6 +376,22 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
             } else if (Event.pause.toString().equals(event)) {
                 rootView.findViewById(R.id.cmd_play).setVisibility(View.VISIBLE);
                 rootView.findViewById(R.id.cmd_pause).setVisibility(View.GONE);
+            } else if (Event.downloadready.toString().equals(event)) {
+                updateStorage();
+            }
+        }
+    }
+
+    protected void updateStorage() {
+        if (player != null) {
+            long disk = player.diskSpaceUsedForLocalMedia();
+            if (disk > 0) {
+                String msg = android.text.format.Formatter.formatShortFileSize(getContext(), disk);
+                storageChip.setText(msg + " LocalMedia");
+                storageChip.setVisibility(View.VISIBLE);
+                Utils.log(TAG, "LOCALMEDIA USED DISK SPACE: " + msg);
+            } else {
+                storageChip.setVisibility(View.GONE);
             }
         }
     }
@@ -376,9 +430,11 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
 
     public void startClearCache() {
         player.clearCache();
+        player.clearLocalMedia(null);
+        storageChip.setVisibility(View.GONE);
     }
 
     public void startSwapMedia() {
-        player.swapToMediaItem("0", "video", 0, 0);
+        player.swapToMediaItem("MEDIA-ID","MEDIA-STREAMTYPE",0,0);
     }
 }

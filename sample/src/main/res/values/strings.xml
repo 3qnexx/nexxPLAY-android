@@ -107,17 +107,21 @@
 
     <!--  Widget  -->
     <string name="widget_launchactivity" translatable="false">tv.nexx.android.testapp.MainActivity</string>
-    <string name="widget_domain" translatable="false">484</string>
-    <string name="widget_app" translatable="false">34</string>
-    <string name="widget_feed_hash" translatable="false">K207TS64L1V1J</string>
-    <string name="widget_feed_secret" translatable="false">160HHXNP79YSTUT</string>
+    <string name="widget_domain" translatable="false">YOUR-DOMAIN-ID</string>
+    <string name="widget_app" translatable="false">YOUR-APP-ID</string>
+    <string name="widget_feed_hash" translatable="false">YOUR-FEED-HASH</string>
+    <string name="widget_feed_secret" translatable="false">YOUR-FEED-SECRET</string>
     <string name="widget_description">Demo Widget</string>
+
+    <!--  Chromecast  -->
+    <string name="chromecast_receiver_app" translatable="false">YOUR-CHROMECAST-ID</string>
 
     <!--  TV Recommendations  -->
     <string name="recommendations_channel_name" translatable="false">nexxPLAY Recommendations</string>
     <string name="recommendations_linkintent_uri" translatable="false">app://tv.nexx.android.play.testapp/watch/</string>
-    <string name="recommendations_domain" translatable="false">484</string>
-    <string name="recommendations_app" translatable="false">34</string>
-    <string name="recommendations_feed_hash" translatable="false">K207TS64L1V1J</string>
-    <string name="recommendations_feed_secret" translatable="false">160HHXNP79YSTUT</string>
+    <string name="recommendations_domain" translatable="false">YOUR-DOMAIN-ID</string>
+    <string name="recommendations_app" translatable="false">YOUR-APP-ID</string>
+    <string name="recommendations_feed_hash" translatable="false">YOUR-FEED-HASH</string>
+    <string name="recommendations_feed_secret" translatable="false">YOUR-FEED-SECRET</string>
+
 </resources>

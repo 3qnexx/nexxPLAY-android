@@ -27,12 +27,15 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import tv.nexx.android.play.MediaSourceType;
-import tv.nexx.android.play.PlayMode;
+import tv.nexx.android.play.device.DeviceManager;
+import tv.nexx.android.play.enums.MediaSourceType;
+import tv.nexx.android.play.enums.PlayMode;
 import tv.nexx.android.play.Streamtype;
-import tv.nexx.android.play.util.InternalUtils;
+import tv.nexx.android.play.util.Utils;
+import tv.nexx.android.recommendations.RecommendationManager;
 import tv.nexx.android.testapp.R;
 import tv.nexx.android.testapp.providers.NavigationProvider;
+import tv.nexx.android.widget.Widget;
 
 
 public class SettingsFragment extends Fragment implements AdapterView.OnItemClickListener {
@@ -80,6 +83,8 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             streamtype = arguments.getString("streamtype");
             item = arguments.getInt("item");
             domain = arguments.getInt("domain");
+            global = arguments.getInt("global");
+            delay = arguments.getFloat("delay");
         }
     }
 
@@ -143,8 +148,8 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         ArrayAdapter<CharSequence> streamingFilterAdapter = ArrayAdapter.createFromResource(getContext(), R.array.streamingFilters, R.layout.material_spinner);
         streamingFilterSpinner.setAdapter(streamingFilterAdapter);
 
-        InternalUtils.setAppContext(getActivity().getApplicationContext());
-        if (InternalUtils.isTV()) {
+        DeviceManager.getInstance().init(getActivity().getApplicationContext());
+        if (DeviceManager.getInstance().isTV()) {
             startFullscreenSwitch.setChecked(true);
             startFullscreenSwitch.setEnabled(false);
         }
@@ -155,6 +160,19 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         updateDelayPositionByStreamtype(playModeSpinner.getText().toString().toLowerCase());
 
         show.requestFocus();
+
+        if (DeviceManager.getInstance().isTV()) {
+            RecommendationManager m = new RecommendationManager(getContext());
+            m.updateChannel();
+            m.enableAutoUpdate();
+        }else{
+            Widget widget = new Widget();
+            int counter = widget.getNumberOfWidgets(getContext());
+            Utils.log(TAG,counter+" WIDGETS ARE INSTALLED");
+            if(counter>0) {
+                widget.updateWidgets(getContext());
+            }
+        }
     }
 
     private void checkStreamtypeArg(@Nullable String streamtype) {
@@ -320,7 +338,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
     }
 
     private void updateStartPositionByStreamtype(String streamtype) {
-        if ((PlayMode.isContainer(streamtype)) || (PlayMode.isList(streamtype))) {
+        if ((PlayMode.isContainer(Utils.getPlayMode(streamtype))) || (PlayMode.isList(Utils.getPlayMode(streamtype)))) {
             startPositionHolder.setVisibility(VISIBLE);
             startPositionRangeSlider.setVisibility(VISIBLE);
             hidePrevNextSwitch.setVisibility(VISIBLE);

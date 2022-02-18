@@ -25,6 +25,12 @@
         android:icon="@mipmap/ic_app_icon"
         android:roundIcon="@mipmap/ic_app_icon_round"
         android:label="@string/app_name">
+        <activity
+            android:name=".AudioDownloadActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme"
+            android:exported="true">
+        </activity>
 
         <activity
             android:name=".MainActivity"
@@ -44,6 +50,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -54,6 +61,7 @@
 
         </activity>
 
+        <!-- ENABLE, IF WIDGET SHOULD BE USED (and is configured)
         <receiver
             android:name="tv.nexx.android.widget.Widget"
             android:exported="true">
@@ -61,7 +69,13 @@
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
         </receiver>
+        -->
 
+        <!-- ENABLE, IF CHROMECAST SHOULD BE USED (and is configured)
+        <meta-data
+            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
+            android:value="tv.nexx.android.play.cast.CastOptionsProvider"/>
+        -->
     </application>
 
 </manifest>

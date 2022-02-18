@@ -8,8 +8,9 @@
 
     <FrameLayout
         android:id="@+id/root"
-        android:layout_width="match_parent"
-        android:layout_height="270dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -52,13 +53,25 @@
             app:menu="@menu/bottom_options"
             />
 
+        <com.google.android.material.chip.Chip
+            android:id="@+id/storagechip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="72dp"
+            android:layout_marginLeft="14dp"
+            android:visibility="gone"
+            android:alpha="0.6"
+            style="@style/Widget.Material3.Chip.Suggestion"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/backtosettings"
             android:elevation="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            android:layout_marginBottom="78dp"
+            android:layout_marginBottom="88dp"
             android:layout_marginRight="22dp"
             android:backgroundTint="@color/blue"
             android:src="@drawable/ic_baseline_arrow_back_24"
