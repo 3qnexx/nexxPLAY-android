@@ -17,6 +17,28 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.2.00
+- Chromecast is now officially supported
+- android 12L is now officially supported and default Target
+  
+- added Support for "Coming-Up-Next Overlays"
+- added Support for Attachment Downloads
+- added Support for Awards in Info Overlay
+- added Support for Info Overlay on TV
+- added Support for Premiere Events (Download and Join)
+- added Support for "made for Kids" Rules
+- added Support for new Streamtype "Rack"
+
+- Breaking Change:
+  - the getCaptionData() SDK Method is not called getCaptions()
+  - the getCaptionLanguages() SDK Method has been removed
+  - the getAudioLanguages() SDK Method is not called getAudioTracks()
+                                                                                                                                                                                                                  
+- added getConnectedFiles() SDK Method            
+- added getCurrentMediaParent() SDK Method     
+- fixed various UI Issues
+
+
 ### v6.1.05
 - fixed an Issue with NetworkConnectivity Changes
 
