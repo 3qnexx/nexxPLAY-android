@@ -30,9 +30,9 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 - added Support for new Streamtype "Rack"
 
 - Breaking Change:
-  - the getCaptionData() SDK Method is not called getCaptions()
+  - the getCaptionData() SDK Method is now called getCaptions()
   - the getCaptionLanguages() SDK Method has been removed
-  - the getAudioLanguages() SDK Method is not called getAudioTracks()
+  - the getAudioLanguages() SDK Method is now called getAudioTracks()
                                                                                                                                                                                                                   
 - added getConnectedFiles() SDK Method            
 - added getCurrentMediaParent() SDK Method     
