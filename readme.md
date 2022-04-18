@@ -17,6 +17,9 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.2.01
+- fixed an Issue with SeekButton Overrides
+
 ### v6.2.00
 - Chromecast is now officially supported
 - android 12L is now officially supported and default Target
