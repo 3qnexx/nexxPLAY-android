@@ -17,7 +17,7 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
-### v6.2.05
+### v6.2.10
 - finishing Support for Android Accessibility
 - adding Support for RTL Orientation
 - adding Support for Realtime Captions of LiveStreams
