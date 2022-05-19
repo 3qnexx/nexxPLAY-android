@@ -27,10 +27,10 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import tv.nexx.android.play.Streamtype;
 import tv.nexx.android.play.device.DeviceManager;
 import tv.nexx.android.play.enums.MediaSourceType;
 import tv.nexx.android.play.enums.PlayMode;
-import tv.nexx.android.play.Streamtype;
 import tv.nexx.android.play.util.Utils;
 import tv.nexx.android.recommendations.RecommendationManager;
 import tv.nexx.android.testapp.R;
@@ -100,12 +100,19 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         super.onViewCreated(rootView, savedInstanceState);
 
         show = rootView.findViewById(R.id.show);
-        show.setOnClickListener(v -> onShow());
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DeviceManager.getInstance().performHapticFeedback(DeviceManager.getInstance().HAPTIC_FEEDBACK_EFFECT_EXTENDED);
+                onShow();
+            }
+        });
         show.setFocusableInTouchMode(true);
         show.requestFocus();
 
         bottomNavigation = rootView.findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnItemSelectedListener((item) -> {
+            DeviceManager.getInstance().performHapticFeedback(DeviceManager.getInstance().HAPTIC_FEEDBACK_EFFECT_DEFAULT);
             onInitModeChanged((String) item.getTitle());
             return true;
         });
@@ -127,12 +134,24 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         startPositionHolder = rootView.findViewById(R.id.startPositionHolder);
         startPositionRangeSlider = rootView.findViewById(R.id.startPosition);
         startPositionIndex = rootView.findViewById(R.id.tv_startPosition_index);
-        startPositionRangeSlider.addOnChangeListener((slider, value, fromUser) -> startPositionIndex.setText(String.valueOf(value)));
+        startPositionRangeSlider.addOnChangeListener(new Slider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                DeviceManager.getInstance().performHapticFeedback(DeviceManager.getInstance().HAPTIC_FEEDBACK_EFFECT_SHORT);
+                startPositionIndex.setText(String.valueOf(value));
+            }
+        });
 
         delayPositionHolder = rootView.findViewById(R.id.delayHolder);
         delayRangeSlider = rootView.findViewById(R.id.delay);
         delayPositionIndex = rootView.findViewById(R.id.tv_delay_index);
-        delayRangeSlider.addOnChangeListener((slider, value, fromUser) -> delayPositionIndex.setText(String.valueOf(value)));
+        delayRangeSlider.addOnChangeListener(new Slider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                DeviceManager.getInstance().performHapticFeedback(DeviceManager.getInstance().HAPTIC_FEEDBACK_EFFECT_SHORT);
+                delayPositionIndex.setText(String.valueOf(value));
+            }
+        });
 
         playModeSpinner = rootView.findViewById(R.id.playModeSpinner);
         playModeSpinnerHolder = rootView.findViewById(R.id.playModeSpinnerHolder);
@@ -165,11 +184,11 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             RecommendationManager m = new RecommendationManager(getContext());
             m.updateChannel();
             m.enableAutoUpdate();
-        }else{
+        } else {
             Widget widget = new Widget();
             int counter = widget.getNumberOfWidgets(getContext());
-            Utils.log(TAG,counter+" WIDGETS ARE INSTALLED");
-            if(counter>0) {
+            Utils.log(TAG, counter + " WIDGETS ARE INSTALLED");
+            if (counter > 0) {
                 widget.updateWidgets(getContext());
             }
         }
@@ -186,7 +205,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             domainIDEditText.setText(String.valueOf(domain));
             mediaIDEditText.setText(String.valueOf(item));
 
-        } else if(global > 0){
+        } else if (global > 0) {
             bottomNavigation.setSelectedItemId(R.id.initmode_global);
             onInitModeChanged("GlobalID");
 
@@ -194,7 +213,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             mediaIDEditText.setText(String.valueOf(global));
         }
 
-        if(delay > 0){
+        if (delay > 0) {
             delayRangeSlider.setValue(Math.round(delay));
         }
     }

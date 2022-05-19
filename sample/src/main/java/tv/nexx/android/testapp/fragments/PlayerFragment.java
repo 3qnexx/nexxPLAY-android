@@ -5,7 +5,7 @@ import static tv.nexx.android.play.NexxPLAYEnvironment.castContext;
 import static tv.nexx.android.play.NexxPLAYEnvironment.contentIDTemplate;
 import static tv.nexx.android.play.NexxPLAYEnvironment.contentURITemplate;
 import static tv.nexx.android.play.NexxPLAYEnvironment.domain;
-import static tv.nexx.android.play.NexxPLAYEnvironment.language;
+import static tv.nexx.android.play.NexxPLAYEnvironment.wearCapabilityString;
 import static tv.nexx.android.play.PlayerEvent.DATA;
 import static tv.nexx.android.play.PlayerEvent.EVENT;
 
@@ -170,6 +170,7 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
         bottomOptions.getMenu().setGroupVisible(R.id.playback, false);
 
         rootView.findViewById(R.id.backtosettings).setOnClickListener(v -> {
+            DeviceManager.getInstance().performHapticFeedback(DeviceManager.getInstance().HAPTIC_FEEDBACK_EFFECT_EXTENDED);
             NavigationProvider.get(getActivity()).onBack();
         });
 
@@ -304,9 +305,11 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
 
             TextView notificationEvent = new TextView(getContext());
             notificationEvent.setId(View.generateViewId());
+            notificationEvent.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
 
             TextView notificationInfo = new TextView(getContext());
             notificationInfo.setId(View.generateViewId());
+            notificationInfo.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
 
             notificationLog.addView(notificationEvent, notificationEventLayoutParams);
             notificationLog.addView(notificationInfo, notificationInfoLayoutParams);

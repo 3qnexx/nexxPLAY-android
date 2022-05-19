@@ -3,6 +3,7 @@ package tv.nexx.android.testapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -10,6 +11,10 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.fragment.app.FragmentActivity;
+
+import com.google.android.gms.cast.framework.CastContext;
+import com.google.android.gms.cast.framework.CastState;
+import com.google.android.gms.cast.framework.CastStateListener;
 
 import tv.nexx.android.play.NexxPLAY;
 import tv.nexx.android.testapp.fragments.SettingsFragment;
@@ -27,14 +32,23 @@ public class MainActivity extends FragmentActivity {
     private static final String ACTION_MAIN = "android.intent.action.MAIN";
     private static final String ACTION_VIEW = "android.intent.action.VIEW";
 
+    private CastContext mCastContext;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_main);
         IAppFragmentNavigation appFragmentNavigation = NavigationProvider.get(this);
+
+        try {
+            mCastContext = CastContext.getSharedInstance(this);
+        }catch(Exception e){
+            Log.v("APP","CANNOT INIT CASTCONTEXT");
+        }
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -42,6 +56,10 @@ public class MainActivity extends FragmentActivity {
         } else {
             appFragmentNavigation.resetToFragment(new SettingsFragment());
         }
+    }
+
+    public CastContext getCastContext(){
+        return(mCastContext);
     }
 
     private void handleIntent(Intent intent) {
@@ -63,7 +81,7 @@ public class MainActivity extends FragmentActivity {
 
         switch (action) {
             case SHORTCUT_VIDEO:
-                streamtype = "video";
+                streamtype = "entry";
                 break;
             case SHORTCUT_LIVE:
                 streamtype = "live";
@@ -128,7 +146,7 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
-        if (intent != null && !intent.getAction().equals(ACTION_MAIN)) {
+        if (intent != null && intent.getAction() != null && !intent.getAction().equals(ACTION_MAIN)) {
             handleIntent(intent);
         } else {
             super.onNewIntent(intent);

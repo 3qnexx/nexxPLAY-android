@@ -15,7 +15,7 @@ android {
         minSdkVersion 22
         targetSdkVersion 32
         versionCode 100
-        versionName "6.2.00"
+        versionName "6.2.05"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -54,10 +54,10 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 
-    implementation 'com.google.android.material:material:1.6.0-beta01'
+    implementation 'com.google.android.material:material:1.6.0'
     implementation 'com.google.android.gms:play-services-cast-framework:21.0.1'
 
-    implementation "tv.nexx.android:play:6.2.00"
-    implementation "tv.nexx.android:widget:2.0.04"
+    implementation "tv.nexx.android:play:6.2.10"
+    implementation "tv.nexx.android:widget:2.0.06"
     implementation "tv.nexx.android:tvrecommendations:1.0.02"
 }

@@ -17,6 +17,12 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.2.05
+- finishing Support for Android Accessibility
+- adding Support for RTL Orientation
+- adding Support for Realtime Captions of LiveStreams
+- adding Support for "artwork" StartScreen
+
 ### v6.2.01
 - fixed an Issue with SeekButton Overrides
 
@@ -80,15 +86,3 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 - fixed an Issue with Premiere Mode
 - fixed an Issue with AutoPlay in DataSaver Mode
 - fixed an Issue with Handling of List-PlayModes
-
-### v6.0.02
-- fixed an Issue with A/B Tests on Audio
-
-### v6.0.01
-- fixed an Issue with "static Datamode"
-- fixed some UI Issues on TV
-- added support for new "max-views-per-user" Logic on Bumpers
-
-### v6.0.00
-- completely re-written SDK with Support for all Features of nexxPLAY, as also offered by nexxPLAY for Web and iOS
-- for Migration Issues, please contact 3Q nexx Support

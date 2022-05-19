@@ -96,6 +96,8 @@
         <item>nxp-bitrate-1500</item>
         <item>nxp-bitrate-2500</item>
         <item>nxp-bitrate-6000</item>
+        <item>nxp-quality-1000</item>
+        <item>nxp-quality-2500</item>
     </string-array>
     <string-array name="loaderSkins">
         <item>default</item>
@@ -124,5 +126,6 @@
     <string name="recommendations_app" translatable="false">YOUR-APP-ID</string>
     <string name="recommendations_feed_hash" translatable="false">YOUR-FEED-HASH</string>
     <string name="recommendations_feed_secret" translatable="false">YOUR-FEED-SECRET</string>
+
 
 </resources>

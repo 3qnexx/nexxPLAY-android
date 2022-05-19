@@ -27,13 +27,15 @@
         android:id="@+id/mainScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -45,6 +47,7 @@
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/domain_id"
                 android:paddingTop="40dp"
                 app:layout_constraintStart_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,13 +57,12 @@
                     android:id="@+id/customerIDInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/domain_id"
-                    android:inputType="number"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:textColor="@color/text_white"
+                    android:inputType="number"
                     android:nextFocusDown="@id/mediaIDInput"
-                    android:text="0" />
+                    android:text="0"
+                    android:textColor="@color/text_white" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,13 +79,13 @@
                     android:id="@+id/playModeSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@null"
                     android:cursorVisible="false"
                     android:dropDownHeight="320dp"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="none|textNoSuggestions"
-                    android:background="@null"
-                    android:paddingLeft="18dp"
+                    android:paddingStart="18dp"
                     android:text="Video" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -94,17 +96,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:visibility="gone"
                 android:focusable="false"
+                android:hint="Remote Provider"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@+id/playModeSpinnerHolder">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_provider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_white"
-                    android:hint="Remote Provider"
-                    android:text="3q" />
+                    android:text="3q"
+                    android:textColor="@color/text_white" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,32 +123,32 @@
                     android:id="@+id/mediaIDInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_white"
-                    android:inputType="number"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
+                    android:inputType="number"
                     android:nextFocusDown="@id/show"
-                    android:text="0" />
+                    android:text="0"
+                    android:textColor="@color/text_white" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:id="@+id/dataModeHolder"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
+                android:hint="@string/datamode"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/dataMode">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/datamode"
+                    android:background="@null"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:inputType="none|textNoSuggestions"
-                    android:background="@null"
                     android:text=" " />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -155,54 +157,54 @@
                 android:id="@+id/dataMode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/input_view_padding"
                 android:layout_marginTop="50dp"
-                android:layout_marginStart="@dimen/input_view_padding"
                 android:orientation="horizontal"
-                android:padding="@dimen/input_view_padding"
-                app:singleSelection="true"
+                android:paddingTop="@dimen/input_view_padding"
                 app:checkedChip="@id/radio_api"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mediaIDInputHolder">
+                app:layout_constraintTop_toBottomOf="@+id/mediaIDInputHolder"
+                app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/radio_api"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/api_dm"
                     android:textColor="@color/text_white"
                     app:checkedIconTint="@color/text_white"
-                    app:chipBackgroundColor="@color/chip_colors"
-                    style="@style/Widget.Material3.Chip.Filter"/>
+                    app:chipBackgroundColor="@color/chip_colors" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/radio_static"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/static_dm"
                     android:textColor="@color/text_white"
                     app:checkedIconTint="@color/text_white"
-                    app:chipBackgroundColor="@color/chip_colors"
-                    style="@style/Widget.Material3.Chip.Filter"/>
+                    app:chipBackgroundColor="@color/chip_colors" />
 
             </com.google.android.material.chip.ChipGroup>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:id="@+id/autoplaySwitchHolder"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/dataMode"
-                app:layout_constraintStart_toStartOf="parent">
+                android:hint="@string/autoplay"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dataMode">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/autoplay"
+                    android:background="@null"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:inputType="none|textNoSuggestions"
-                    android:background="@null"
                     android:text=" " />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -212,56 +214,56 @@
                 style="@style/Widget.Material3.CompoundButton.Switch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_view_height"
+                android:layout_marginTop="12dp"
                 android:background="@null"
                 android:checked="false"
-                android:paddingRight="10dp"
-                android:layout_marginTop="12dp"
+                android:paddingEnd="10dp"
                 app:layout_constraintTop_toTopOf="@+id/autoplaySwitchHolder"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:id="@+id/exitModeHolder"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/exitmode"
-                app:layout_constraintTop_toBottomOf="@+id/autoplaySwitchHolder"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/autoplaySwitchHolder">
 
                 <AutoCompleteTextView
                     android:id="@+id/exitModeSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@null"
                     android:cursorVisible="false"
                     android:dropDownHeight="260dp"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:inputType="none|textNoSuggestions"
-                    android:background="@null"
-                    android:text="Load"
-                    android:paddingLeft="18dp" />
+                    android:paddingStart="18dp"
+                    android:text="Load" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:id="@+id/autoNextSwitchHolder"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/exitModeHolder"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/exitModeHolder">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/autonext"
+                    android:background="@null"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
+                    android:hint="@string/autonext"
                     android:inputType="none|textNoSuggestions"
-                    android:background="@null"
                     android:text=" " />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -271,31 +273,31 @@
                 style="@style/Widget.Material3.CompoundButton.Switch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_view_height"
+                android:layout_marginTop="12dp"
                 android:background="@null"
                 android:checked="true"
-                android:paddingRight="10dp"
-                android:layout_marginTop="12dp"
+                android:paddingEnd="10dp"
                 app:layout_constraintTop_toTopOf="@+id/autoNextSwitchHolder"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:id="@+id/adTypeHolder"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
+                android:hint="@string/ad_type"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/autoNextSwitchHolder">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/ad_type"
+                    android:background="@null"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:inputType="none|textNoSuggestions"
-                    android:background="@null"
                     android:text=" " />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -304,55 +306,55 @@
                 android:id="@+id/adType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/input_view_padding"
+                android:layout_marginEnd="@dimen/input_view_padding"
                 android:orientation="horizontal"
-                android:padding="@dimen/input_view_padding"
+                android:paddingTop="@dimen/input_view_padding"
                 app:checkedChip="@id/radio_ima"
-                app:singleSelection="true"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/adTypeHolder">
+                app:layout_constraintTop_toTopOf="@+id/adTypeHolder"
+                app:singleSelection="true">
 
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/radio_vast"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/vast"
                     android:textColor="@color/text_white"
                     app:checkedIconTint="@color/text_white"
-                    app:chipBackgroundColor="@color/chip_colors"
-                    style="@style/Widget.Material3.Chip.Filter"/>
+                    app:chipBackgroundColor="@color/chip_colors" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/radio_ima"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ima"
                     android:textColor="@color/text_white"
                     app:checkedIconTint="@color/text_white"
-                    app:chipBackgroundColor="@color/chip_colors"
-                    style="@style/Widget.Material3.Chip.Filter"/>
+                    app:chipBackgroundColor="@color/chip_colors" />
 
             </com.google.android.material.chip.ChipGroup>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:id="@+id/disableAdsSwitchHolder"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:hint="@string/disable_ads"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/adTypeHolder">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/disable_ads"
+                    android:background="@null"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:inputType="none|textNoSuggestions"
-                    android:background="@null"
                     android:text=" " />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -362,58 +364,58 @@
                 style="@style/Widget.Material3.CompoundButton.Switch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_view_height"
+                android:layout_marginTop="12dp"
                 android:background="@null"
                 android:checked="true"
-                android:paddingRight="10dp"
-                android:layout_marginTop="12dp"
+                android:paddingEnd="10dp"
                 app:layout_constraintTop_toTopOf="@+id/disableAdsSwitchHolder"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:id="@+id/streamingFilterSpinnerHolder"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
                 android:hint="@string/streaming_filter"
                 app:expandedHintEnabled="false"
-                app:layout_constraintTop_toBottomOf="@+id/disableAdsSwitchHolder"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/disableAdsSwitchHolder">
 
                 <AutoCompleteTextView
                     android:id="@+id/streamingFilterSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@null"
                     android:cursorVisible="false"
                     android:dropDownHeight="260dp"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:inputType="none|textNoSuggestions"
-                    android:background="@null"
-                    android:text=""
-                    android:paddingLeft="18dp" />
+                    android:paddingStart="18dp"
+                    android:text="" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:id="@+id/startPositionHolder"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:hint="@string/startposition"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/streamingFilterSpinnerHolder">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/startposition"
+                    android:background="@null"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:inputType="none|textNoSuggestions"
-                    android:background="@null"
                     android:text=" " />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -438,31 +440,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
+                android:stepSize="1"
                 android:valueFrom="0"
                 android:valueTo="10"
-                android:stepSize="1"
-                app:trackColor="@color/grey"
-                app:tickColor="@color/grey"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/startPositionHolder" />
+                app:layout_constraintTop_toTopOf="@+id/startPositionHolder"
+                app:tickColor="@color/grey"
+                app:trackColor="@color/grey" />
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:id="@+id/delayHolder"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:hint="@string/delay"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/startPositionHolder">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/delay"
+                    android:background="@null"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:inputType="none|textNoSuggestions"
-                    android:background="@null"
                     android:text=" " />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -486,31 +488,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
+                android:stepSize="1"
                 android:valueFrom="0"
                 android:valueTo="300"
-                android:stepSize="1"
-                app:trackColor="@color/grey"
-                app:tickColor="@color/grey"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/delayHolder" />
+                app:layout_constraintTop_toTopOf="@+id/delayHolder"
+                app:tickColor="@color/grey"
+                app:trackColor="@color/grey" />
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:id="@+id/hidePrevNextSwitchHolder"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:hint="@string/hideprevnext"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/delayHolder">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hideprevnext"
+                    android:background="@null"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:inputType="none|textNoSuggestions"
-                    android:background="@null"
                     android:text=" " />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -520,30 +522,30 @@
                 style="@style/Widget.Material3.CompoundButton.Switch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_view_height"
+                android:layout_marginTop="12dp"
                 android:background="@null"
                 android:checked="false"
-                android:paddingRight="10dp"
-                android:layout_marginTop="12dp"
+                android:paddingEnd="10dp"
                 app:layout_constraintTop_toTopOf="@+id/hidePrevNextSwitchHolder"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:id="@+id/forcePrevNextSwitchHolder"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:hint="@string/forceprevnext"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hidePrevNextSwitchHolder">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/forceprevnext"
+                    android:background="@null"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:inputType="none|textNoSuggestions"
-                    android:background="@null"
                     android:text=" " />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -554,10 +556,10 @@
                 style="@style/Widget.Material3.CompoundButton.Switch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_view_height"
+                android:layout_marginTop="12dp"
                 android:background="@null"
                 android:checked="false"
-                android:paddingRight="10dp"
-                android:layout_marginTop="12dp"
+                android:paddingEnd="10dp"
                 app:layout_constraintTop_toTopOf="@+id/forcePrevNextSwitchHolder"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -567,10 +569,10 @@
                 style="@style/Widget.Material3.CompoundButton.Switch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_view_height"
+                android:layout_marginTop="12dp"
                 android:background="@null"
                 android:checked="false"
-                android:paddingRight="10dp"
-                android:layout_marginTop="12dp"
+                android:paddingEnd="10dp"
                 android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@+id/forcePrevNextSwitchHolder"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
@@ -596,7 +598,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_marginBottom="108dp"
-        android:layout_marginRight="22dp"
+        android:layout_marginEnd="22dp"
         android:text="@string/show"
         android:focusable="true"
         android:focusableInTouchMode="true"
