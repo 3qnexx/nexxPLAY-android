@@ -17,6 +17,10 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.2.11
+- fixing an Issue with Progress Events
+- fixing an Issue with AVIF Support Detection
+
 ### v6.2.10
 - finishing Support for Android Accessibility
 - adding Support for RTL Orientation
