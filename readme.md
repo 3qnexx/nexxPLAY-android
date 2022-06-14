@@ -22,34 +22,31 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 - fixing an Issue with AVIF Support Detection
 
 ### v6.2.10
-- finishing Support for Android Accessibility
-- adding Support for RTL Orientation
-- adding Support for Realtime Captions of LiveStreams
-- adding Support for "artwork" StartScreen
+* finishing Support for Android Accessibility
+* adding Support for RTL Orientation
+* adding Support for Realtime Captions of LiveStreams
+* adding Support for "artwork" StartScreen
 
 ### v6.2.01
 - fixed an Issue with SeekButton Overrides
 
 ### v6.2.00
-- Chromecast is now officially supported
-- android 12L is now officially supported and default Target
-  
-- added Support for "Coming-Up-Next Overlays"
-- added Support for Attachment Downloads
-- added Support for Awards in Info Overlay
-- added Support for Info Overlay on TV
-- added Support for Premiere Events (Download and Join)
-- added Support for "made for Kids" Rules
-- added Support for new Streamtype "Rack"
-
-- Breaking Change:
+* Chromecast is now officially supported
+* android 12L is now officially supported and default Target
+* added Support for "Coming-Up-Next Overlays"
+* added Support for Attachment Downloads
+* added Support for Awards in Info Overlay
+* added Support for Info Overlay on TV
+* added Support for Premiere Events (Download and Join)
+* added Support for "made for Kids" Rules
+* added Support for new Streamtype "Rack"
+* added getConnectedFiles() SDK Method            
+* added getCurrentMediaParent() SDK Method     
+* fixed various UI Issues
+* **Breakings Changes**
   - the getCaptionData() SDK Method is now called getCaptions()
   - the getCaptionLanguages() SDK Method has been removed
-  - the getAudioLanguages() SDK Method is now called getAudioTracks()
-                                                                                                                                                                                                                  
-- added getConnectedFiles() SDK Method            
-- added getCurrentMediaParent() SDK Method     
-- fixed various UI Issues
+  - the getAudioLanguages() SDK Method is now called getAudioTracks()                                    
 
 
 ### v6.1.05
@@ -83,10 +80,8 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 - added Support for Media with HEVC Video Codec
 - added Support for LiveStreams with DVR
 - added Support for WatchNext System on TV
-
-- Breaking Change:
-  - the getMediaData() Method has been replaced by the new getCurrentMedia() and getCurrentPlaybackState() Methods.  
-
 - fixed an Issue with Premiere Mode
 - fixed an Issue with AutoPlay in DataSaver Mode
 - fixed an Issue with Handling of List-PlayModes
+- **Breakings Changes**
+  - the getMediaData() Method has been replaced by the new getCurrentMedia() and getCurrentPlaybackState() Methods.  
