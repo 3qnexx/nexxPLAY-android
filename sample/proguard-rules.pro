@@ -20,8 +20,3 @@
 -dontskipnonpubliclibraryclasses
 -dontobfuscate
 -dontshrink
--keep public class tv.nexx.**
--keep public class com.bea.xml.**
--keep public class javax.xml.**
--keep public class io.realm.**
--keep public class org.simpleframework.xml.**

@@ -374,11 +374,15 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
                 rootView.findViewById(R.id.cmd_mute).setVisibility(View.VISIBLE);
                 rootView.findViewById(R.id.cmd_unmute).setVisibility(View.GONE);
             } else if ((Event.play.toString().equals(event)) || (Event.startplay.toString().equals(event))) {
-                rootView.findViewById(R.id.cmd_play).setVisibility(View.GONE);
-                rootView.findViewById(R.id.cmd_pause).setVisibility(View.VISIBLE);
+                if(rootView.findViewById(R.id.cmd_play)!=null) {
+                    rootView.findViewById(R.id.cmd_play).setVisibility(View.GONE);
+                    rootView.findViewById(R.id.cmd_pause).setVisibility(View.VISIBLE);
+                }
             } else if (Event.pause.toString().equals(event)) {
-                rootView.findViewById(R.id.cmd_play).setVisibility(View.VISIBLE);
-                rootView.findViewById(R.id.cmd_pause).setVisibility(View.GONE);
+                if(rootView.findViewById(R.id.cmd_play)!=null) {
+                    rootView.findViewById(R.id.cmd_play).setVisibility(View.VISIBLE);
+                    rootView.findViewById(R.id.cmd_pause).setVisibility(View.GONE);
+                }
             } else if (Event.downloadready.toString().equals(event)) {
                 updateStorage();
             }

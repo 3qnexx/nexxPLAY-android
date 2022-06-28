@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,6 +43,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
     private static final String TAG = SettingsFragment.class.getCanonicalName();
 
     private View rootView;
+    private ScrollView mainScrollView;
 
     private ExtendedFloatingActionButton show;
     private TextInputLayout providerEditLayout;
@@ -100,12 +102,9 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         super.onViewCreated(rootView, savedInstanceState);
 
         show = rootView.findViewById(R.id.show);
-        show.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DeviceManager.getInstance().performHapticFeedback(DeviceManager.getInstance().HAPTIC_FEEDBACK_EFFECT_EXTENDED);
-                onShow();
-            }
+        show.setOnClickListener(v -> {
+            DeviceManager.getInstance().performHapticFeedback(DeviceManager.getInstance().HAPTIC_FEEDBACK_EFFECT_EXTENDED);
+            onShow();
         });
         show.setFocusableInTouchMode(true);
         show.requestFocus();
@@ -116,6 +115,8 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             onInitModeChanged((String) item.getTitle());
             return true;
         });
+
+        mainScrollView = rootView.findViewById(R.id.mainScrollView);
 
         providerEditText = rootView.findViewById(R.id.et_provider);
         providerEditLayout = rootView.findViewById(R.id.et_providerHolder);
@@ -134,23 +135,17 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         startPositionHolder = rootView.findViewById(R.id.startPositionHolder);
         startPositionRangeSlider = rootView.findViewById(R.id.startPosition);
         startPositionIndex = rootView.findViewById(R.id.tv_startPosition_index);
-        startPositionRangeSlider.addOnChangeListener(new Slider.OnChangeListener() {
-            @Override
-            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-                DeviceManager.getInstance().performHapticFeedback(DeviceManager.getInstance().HAPTIC_FEEDBACK_EFFECT_SHORT);
-                startPositionIndex.setText(String.valueOf(value));
-            }
+        startPositionRangeSlider.addOnChangeListener((slider, value, fromUser) -> {
+            DeviceManager.getInstance().performHapticFeedback(DeviceManager.getInstance().HAPTIC_FEEDBACK_EFFECT_SHORT);
+            startPositionIndex.setText(String.valueOf(value));
         });
 
         delayPositionHolder = rootView.findViewById(R.id.delayHolder);
         delayRangeSlider = rootView.findViewById(R.id.delay);
         delayPositionIndex = rootView.findViewById(R.id.tv_delay_index);
-        delayRangeSlider.addOnChangeListener(new Slider.OnChangeListener() {
-            @Override
-            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-                DeviceManager.getInstance().performHapticFeedback(DeviceManager.getInstance().HAPTIC_FEEDBACK_EFFECT_SHORT);
-                delayPositionIndex.setText(String.valueOf(value));
-            }
+        delayRangeSlider.addOnChangeListener((slider, value, fromUser) -> {
+            DeviceManager.getInstance().performHapticFeedback(DeviceManager.getInstance().HAPTIC_FEEDBACK_EFFECT_SHORT);
+            delayPositionIndex.setText(String.valueOf(value));
         });
 
         playModeSpinner = rootView.findViewById(R.id.playModeSpinner);
@@ -184,15 +179,16 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             RecommendationManager m = new RecommendationManager(getContext());
             m.updateChannel();
             m.enableAutoUpdate();
-        } else {
+        } else if(DeviceManager.getInstance().isMobileDevice()) {
             Widget widget = new Widget();
             int counter = widget.getNumberOfWidgets(getContext());
             Utils.log(TAG, counter + " WIDGETS ARE INSTALLED");
             if (counter > 0) {
                 widget.updateWidgets(getContext());
             }
+        }else{
+            Utils.log(TAG,"NEITHER WIDGETS NOR RECOMMENDATIONS ARE SUPPORTED");
         }
-    }
 
     private void checkStreamtypeArg(@Nullable String streamtype) {
         if (streamtype != null) {
@@ -265,6 +261,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             updateStartPositionByStreamtype(playModeSpinner.getText().toString().toLowerCase());
             updateDelayPositionByStreamtype(playModeSpinner.getText().toString().toLowerCase());
         }
+        mainScrollView.fullScroll(ScrollView.FOCUS_UP);
         mediaIDEditText.requestFocus();
     }
 

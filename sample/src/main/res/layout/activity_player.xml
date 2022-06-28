@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:textSize="18sp"
-            android:textColor="@color/nexx_light_gray"
+            android:textColor="@color/grey"
             android:text="@string/notification_log"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="16dp" />

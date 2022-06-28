@@ -17,6 +17,11 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.2.20
+- fixing an Issue with Realtime Control
+- adding Support for Chapter HotSpot
+- internal Refactoring for optimized StartUp Time
+
 ### v6.2.11
 - fixing an Issue with Progress Events
 - fixing an Issue with AVIF Support Detection
