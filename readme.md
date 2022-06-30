@@ -17,6 +17,9 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.2.21
+- fixing an Issue with local Media
+
 ### v6.2.20
 - fixing an Issue with Realtime Control
 - adding Support for Chapter HotSpot
