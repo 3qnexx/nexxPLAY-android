@@ -22,7 +22,8 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ### v6.2.20
 - fixing an Issue with Realtime Control
-- adding Support for Chapter HotSpot
+- adding Support for Scene HotSpot
+- adding Support for Audio Chapters
 - internal Refactoring for optimized StartUp Time
 
 ### v6.2.11
