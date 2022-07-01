@@ -17,8 +17,9 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
-### v6.2.21
+### v6.2.22
 - fixing an Issue with local Media
+- fixing an Issue with Bumpers
 
 ### v6.2.20
 - fixing an Issue with Realtime Control
