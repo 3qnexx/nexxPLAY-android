@@ -107,7 +107,6 @@
         <item>lines</item>
         <item>ios</item>
     </string-array>
-
     <!--  Widget  -->
     <string name="widget_launchactivity" translatable="false">tv.nexx.android.testapp.MainActivity</string>
     <string name="widget_domain" translatable="false">YOUR-DOMAIN-ID</string>

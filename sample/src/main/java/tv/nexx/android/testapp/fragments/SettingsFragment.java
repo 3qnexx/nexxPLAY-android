@@ -189,6 +189,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         }else{
             Utils.log(TAG,"NEITHER WIDGETS NOR RECOMMENDATIONS ARE SUPPORTED");
         }
+    }
 
     private void checkStreamtypeArg(@Nullable String streamtype) {
         if (streamtype != null) {
@@ -300,6 +301,14 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         }
         Log.v(TAG, "USING DATAMODE: " + (!dataMode.equals("") ? dataMode : "unset"));
 
+        String viewSize = "normal";
+        ChipGroup viewSizeRadioGroup = rootView.findViewById(R.id.viewSize);
+        Chip viewSizeRadioButton = rootView.findViewById(viewSizeRadioGroup.getCheckedChipId());
+        if (viewSizeRadioButton != null) {
+            viewSize = (String) viewSizeRadioButton.getText();
+        }
+        Log.v(TAG, "USING VIEW SIZE: " + viewSize);
+
         String adType = "";
         ChipGroup adTypeRadioGroup = rootView.findViewById(R.id.adType);
         Chip adTypeRadioButton = rootView.findViewById(adTypeRadioGroup.getCheckedChipId());
@@ -333,6 +342,9 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         }
         if (!dataMode.equals("")) {
             bundle.putString("dataMode", dataMode);
+        }
+        if (!viewSize.equals("")) {
+            bundle.putString("viewSize", viewSize);
         }
         if (!adType.equals("")) {
             bundle.putString("adType", adType);

@@ -189,6 +189,72 @@
             </com.google.android.material.chip.ChipGroup>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/viewSizeSwitchHolder"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/view_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dataMode">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="none|textNoSuggestions"
+                    android:text=" " />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/viewSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/input_view_padding"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/input_view_padding"
+                app:checkedChip="@id/radio_normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/viewSizeSwitchHolder"
+                app:layout_constraintBottom_toBottomOf="@+id/viewSizeSwitchHolder"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/radio_normal"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/normal"
+                    android:textColor="@color/text_white"
+                    app:checkedIconTint="@color/text_white"
+                    app:chipBackgroundColor="@color/chip_colors" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/radio_mini"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mini"
+                    android:textColor="@color/text_white"
+                    app:checkedIconTint="@color/text_white"
+                    app:chipBackgroundColor="@color/chip_colors" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/radio_micro"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/micro"
+                    android:textColor="@color/text_white"
+                    app:checkedIconTint="@color/text_white"
+                    app:chipBackgroundColor="@color/chip_colors" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/autoplaySwitchHolder"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -196,7 +262,7 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/autoplay"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dataMode">
+                app:layout_constraintTop_toBottomOf="@+id/viewSizeSwitchHolder">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

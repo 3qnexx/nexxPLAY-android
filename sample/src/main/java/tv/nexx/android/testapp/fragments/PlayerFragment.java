@@ -5,6 +5,7 @@ import static tv.nexx.android.play.NexxPLAYEnvironment.castContext;
 import static tv.nexx.android.play.NexxPLAYEnvironment.contentIDTemplate;
 import static tv.nexx.android.play.NexxPLAYEnvironment.contentURITemplate;
 import static tv.nexx.android.play.NexxPLAYEnvironment.domain;
+import static tv.nexx.android.play.NexxPLAYEnvironment.respectViewSizeForAudioOnTV;
 import static tv.nexx.android.play.NexxPLAYEnvironment.wearCapabilityString;
 import static tv.nexx.android.play.PlayerEvent.DATA;
 import static tv.nexx.android.play.PlayerEvent.EVENT;
@@ -67,6 +68,7 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
     private boolean autoNext;
     private boolean disableAds;
     private String dataMode;
+    private String viewSize;
     private boolean hidePrevNext;
     private boolean forcePrevNext;
     private String exitMode;
@@ -96,6 +98,7 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
             autoNext = arguments.getBoolean("autoNext");
             disableAds = arguments.getBoolean("disableAds");
             dataMode = arguments.getString("dataMode");
+            viewSize = arguments.getString("viewSize");
             hidePrevNext = arguments.getBoolean("hidePrevNext");
             forcePrevNext = arguments.getBoolean("forcePrevNext");
             exitMode = arguments.getString("exitMode");
@@ -181,10 +184,22 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
             Display display = getActivity().getWindowManager().getDefaultDisplay();
             Point size = new Point();
             display.getSize(size);
-            ViewGroup.LayoutParams params = root.getLayoutParams();
-            params.width = Math.min(size.x, size.y);
-            params.height = (int) (params.width / 16.0 * 9);
-            root.setLayoutParams(params);
+            if (viewSize != null && viewSize.equals("mini")) {
+                ViewGroup.LayoutParams params = root.getLayoutParams();
+                params.width = Math.min(size.x, size.y);
+                params.height = (int) getResources().getDimension(R.dimen.mini_player_height);
+                root.setLayoutParams(params);
+            } else if (viewSize != null && viewSize.equals("micro")) {
+                ViewGroup.LayoutParams params = root.getLayoutParams();
+                params.width = Math.min(size.x, size.y);
+                params.height = (int) getResources().getDimension(R.dimen.micro_player_height);
+                root.setLayoutParams(params);
+            } else {
+                ViewGroup.LayoutParams params = root.getLayoutParams();
+                params.width = Math.min(size.x, size.y);
+                params.height = (int) (params.width / 16.0 * 9);
+                root.setLayoutParams(params);
+            }
 
             player = NexxPlayProvider.init(getContext(), root, getActivity().getWindow());
 
@@ -199,6 +214,8 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
             //envData.put(contentIDTemplate, "YOUR-CONTENT-ID-TEMPLATE");
 
             envData.put(alwaysInFullscreen, (startFullscreen ? 1 : 0));
+            envData.put(respectViewSizeForAudioOnTV, 1);
+
 
             player.setEnvironment(new NexxPLAYEnvironment(envData));
             updateStorage();

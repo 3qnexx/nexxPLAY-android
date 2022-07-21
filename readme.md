@@ -17,6 +17,11 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.2.23
+- fixing an Issue with Audio without Captions on some Devices
+- adding Support for Audio Mini / Micro UI
+- adding Support for new "Thin" Icon UI
+
 ### v6.2.22
 - fixing an Issue with local Media
 - fixing an Issue with Bumpers
