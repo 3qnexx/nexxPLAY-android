@@ -8,14 +8,14 @@ buildscript {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "tv.nexx.android.testapp"
         minSdkVersion 22
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 100
-        versionName "6.2.05"
+        versionName "1.0.00"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -53,9 +53,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     implementation 'com.google.android.material:material:1.6.1'
-    implementation 'com.google.android.gms:play-services-cast-framework:21.0.1'
+    implementation 'com.google.android.gms:play-services-cast-framework:21.1.0'
 
-    implementation "tv.nexx.android:play:6.2.24"
+    implementation "tv.nexx.android:play:6.2.25"
     implementation "tv.nexx.android:widget:2.0.07"
     implementation "tv.nexx.android:tvrecommendations:1.0.03"
 }
