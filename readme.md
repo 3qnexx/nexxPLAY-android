@@ -17,7 +17,7 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
-### v6.2.25
+### v6.2.26
 - fixing an Issue with remote Media
 
 ### v6.2.23
