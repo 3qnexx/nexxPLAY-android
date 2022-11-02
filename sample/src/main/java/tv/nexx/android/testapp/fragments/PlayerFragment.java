@@ -5,8 +5,8 @@ import static tv.nexx.android.play.NexxPLAYEnvironment.castContext;
 import static tv.nexx.android.play.NexxPLAYEnvironment.contentIDTemplate;
 import static tv.nexx.android.play.NexxPLAYEnvironment.contentURITemplate;
 import static tv.nexx.android.play.NexxPLAYEnvironment.domain;
-import static tv.nexx.android.play.NexxPLAYEnvironment.respectViewSizeForAudioOnTV;
-import static tv.nexx.android.play.NexxPLAYEnvironment.wearCapabilityString;
+import static tv.nexx.android.play.NexxPLAYEnvironment.mediaSession;
+import static tv.nexx.android.play.NexxPLAYEnvironment.respectViewSizeForAudio;
 import static tv.nexx.android.play.PlayerEvent.DATA;
 import static tv.nexx.android.play.PlayerEvent.EVENT;
 
@@ -33,7 +33,9 @@ import com.google.android.material.chip.Chip;
 import java.util.HashMap;
 import java.util.Map;
 
+import tv.nexx.android.play.CurrentPlaybackState;
 import tv.nexx.android.play.INexxPLAY;
+import tv.nexx.android.play.MediaData;
 import tv.nexx.android.play.NexxPLAYConfiguration;
 import tv.nexx.android.play.NexxPLAYEnvironment;
 import tv.nexx.android.play.NexxPLAYNotification;
@@ -77,7 +79,6 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
     private boolean startFullscreen;
     private String mediaSourceType;
     private String streamingFilter;
-    private String adType;
 
     // player instance
     private INexxPLAY player;
@@ -107,7 +108,6 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
             startFullscreen = arguments.getBoolean("startFullscreen");
             mediaSourceType = arguments.getString("mediaSourceType");
             streamingFilter = arguments.getString("streamingFilter");
-            adType = arguments.getString("adType");
         }
     }
 
@@ -205,17 +205,10 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
 
             Map<String, Object> envData = new HashMap<>();
             envData.put(domain, domainID);
-
-            //ENABLE, IF CHROMECAST SHALL BE USED
-            //envData.put(castContext, ((MainActivity) getActivity()).getCastContext());
-
-            //ENABLE, IF TV-RECOMMENDATIONS SHALL BE USED
-            //envData.put(contentURITemplate, "YOUR-CONTENT-URI-TEMPLATE");
-            //envData.put(contentIDTemplate, "YOUR-CONTENT-ID-TEMPLATE");
-
+            envData.put(castContext, ((MainActivity) getActivity()).getCastContext());
+            envData.put(mediaSession,((MainActivity) getActivity()).getMediaSession());
             envData.put(alwaysInFullscreen, (startFullscreen ? 1 : 0));
-            envData.put(respectViewSizeForAudioOnTV, 1);
-
+            envData.put(respectViewSizeForAudio, 1);
 
             player.setEnvironment(new NexxPLAYEnvironment(envData));
             updateStorage();
@@ -230,10 +223,13 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
             confData.put(NexxPLAYConfiguration.streamingFilter, streamingFilter);
             confData.put(NexxPLAYConfiguration.delay, delay);
             confData.put(NexxPLAYConfiguration.startPosition, startPosition);
-            confData.put(NexxPLAYConfiguration.adType, adType);
+
+            if (viewSize != null && viewSize.equals("hero")) {
+                confData.put(NexxPLAYConfiguration.audioSkin, viewSize);
+            }
+
             confData.put(NexxPLAYConfiguration.disableAds, disableAds ? 1 : 0);
-            confData.put(NexxPLAYConfiguration.enableInteractions, 0);
-            confData.put(NexxPLAYConfiguration.enableStartScreenTitle, 1);
+            confData.put(NexxPLAYConfiguration.enableInteractions, 1);
 
             Utils.log(TAG, "STARTING PLAYER WITH " + playMode + "/" + mediaID);
 
@@ -391,12 +387,12 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
                 rootView.findViewById(R.id.cmd_mute).setVisibility(View.VISIBLE);
                 rootView.findViewById(R.id.cmd_unmute).setVisibility(View.GONE);
             } else if ((Event.play.toString().equals(event)) || (Event.startplay.toString().equals(event))) {
-                if(rootView.findViewById(R.id.cmd_play)!=null) {
+                if (rootView.findViewById(R.id.cmd_play) != null) {
                     rootView.findViewById(R.id.cmd_play).setVisibility(View.GONE);
                     rootView.findViewById(R.id.cmd_pause).setVisibility(View.VISIBLE);
                 }
             } else if (Event.pause.toString().equals(event)) {
-                if(rootView.findViewById(R.id.cmd_play)!=null) {
+                if (rootView.findViewById(R.id.cmd_play) != null) {
                     rootView.findViewById(R.id.cmd_play).setVisibility(View.VISIBLE);
                     rootView.findViewById(R.id.cmd_pause).setVisibility(View.GONE);
                 }
@@ -460,5 +456,4 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
 
     public void startSwapMedia() {
         player.swapToMediaItem("MEDIA-ID","MEDIA-STREAMTYPE",0,0);
-    }
 }

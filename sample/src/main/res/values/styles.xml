@@ -2,6 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.Material3.Dark">
+        <item name="useMaterialThemeColors">false</item>
         <item name="colorPrimary">@color/blue_dark</item>
         <item name="colorPrimaryDark">@color/blue_dark</item>
         <item name="colorPrimaryContainer">@color/blue</item>
@@ -9,6 +10,7 @@
         <item name="colorOnSurfaceVariant">@color/text_white</item>
         <item name="colorOnSurface">@color/blue</item>
         <item name="colorOnSecondaryContainer">@color/blue</item>
+
         <!-- enable to test Notch Detection
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
         <item name="android:windowTranslucentStatus">true</item>
@@ -25,6 +27,12 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="NexxMaterialSwitch" parent="Widget.Material3.CompoundButton.MaterialSwitch" >
+        <item name="trackTint">@color/switch_color_track_tint</item>
+        <item name="thumbTint">@color/switch_color_thumb_icon_tint</item>
+        <item name="trackDecorationTint">@color/switch_color_track_decoration_tint</item>
     </style>
 
 </resources>

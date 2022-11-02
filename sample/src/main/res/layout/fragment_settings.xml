@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:nestedScrollingEnabled="true"
-    tools:context=".MainActivity">
+    tools:context=".fragments.SettingsFragment">
 
     <ImageView
         android:layout_width="240dp"
@@ -29,6 +29,7 @@
         android:layout_height="0dp"
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="44dp"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -216,18 +217,28 @@
                 android:layout_marginEnd="@dimen/input_view_padding"
                 android:orientation="horizontal"
                 android:paddingTop="@dimen/input_view_padding"
-                app:checkedChip="@id/radio_normal"
+                app:checkedChip="@id/radio_standard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/viewSizeSwitchHolder"
                 app:layout_constraintBottom_toBottomOf="@+id/viewSizeSwitchHolder"
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/radio_normal"
+                    android:id="@+id/radio_standard"
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/normal"
+                    android:text="@string/standard"
+                    android:textColor="@color/text_white"
+                    app:checkedIconTint="@color/text_white"
+                    app:chipBackgroundColor="@color/chip_colors" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/radio_hero"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hero"
                     android:textColor="@color/text_white"
                     app:checkedIconTint="@color/text_white"
                     app:chipBackgroundColor="@color/chip_colors" />
@@ -275,17 +286,15 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/autoplaySwitch"
-                style="@style/Widget.Material3.CompoundButton.Switch"
+                style="@style/NexxMaterialSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_view_height"
                 android:layout_marginTop="12dp"
-                android:background="@null"
+                android:layout_marginEnd="12dp"
                 android:checked="false"
-                android:paddingEnd="10dp"
-                app:layout_constraintTop_toTopOf="@+id/autoplaySwitchHolder"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
+                app:layout_constraintTop_toTopOf="@+id/autoplaySwitchHolder" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/exitModeHolder"
@@ -334,74 +343,16 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/autoNextSwitch"
-                style="@style/Widget.Material3.CompoundButton.Switch"
+                style="@style/NexxMaterialSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_view_height"
                 android:layout_marginTop="12dp"
-                android:background="@null"
+                android:layout_marginEnd="12dp"
                 android:checked="true"
-                android:paddingEnd="10dp"
-                app:layout_constraintTop_toTopOf="@+id/autoNextSwitchHolder"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
+                app:layout_constraintTop_toTopOf="@+id/autoNextSwitchHolder" />
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/adTypeHolder"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:hint="@string/ad_type"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/autoNextSwitchHolder">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:inputType="none|textNoSuggestions"
-                    android:text=" " />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/adType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/input_view_padding"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/input_view_padding"
-                app:checkedChip="@id/radio_ima"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/adTypeHolder"
-                app:singleSelection="true">
-
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/radio_vast"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/vast"
-                    android:textColor="@color/text_white"
-                    app:checkedIconTint="@color/text_white"
-                    app:chipBackgroundColor="@color/chip_colors" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/radio_ima"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ima"
-                    android:textColor="@color/text_white"
-                    app:checkedIconTint="@color/text_white"
-                    app:chipBackgroundColor="@color/chip_colors" />
-
-            </com.google.android.material.chip.ChipGroup>
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -412,7 +363,7 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/disable_ads"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/adTypeHolder">
+                app:layout_constraintTop_toBottomOf="@+id/autoNextSwitch">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -425,17 +376,15 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/disableAdsSwitch"
-                style="@style/Widget.Material3.CompoundButton.Switch"
+                style="@style/NexxMaterialSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_view_height"
                 android:layout_marginTop="12dp"
-                android:background="@null"
+                android:layout_marginEnd="12dp"
                 android:checked="true"
-                android:paddingEnd="10dp"
-                app:layout_constraintTop_toTopOf="@+id/disableAdsSwitchHolder"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
+                app:layout_constraintTop_toTopOf="@+id/disableAdsSwitchHolder" />
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -583,17 +532,15 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/hidePrevNextSwitch"
-                style="@style/Widget.Material3.CompoundButton.Switch"
+                style="@style/NexxMaterialSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_view_height"
                 android:layout_marginTop="12dp"
-                android:background="@null"
+                android:layout_marginEnd="12dp"
                 android:checked="false"
-                android:paddingEnd="10dp"
-                app:layout_constraintTop_toTopOf="@+id/hidePrevNextSwitchHolder"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
+                app:layout_constraintTop_toTopOf="@+id/hidePrevNextSwitchHolder" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/forcePrevNextSwitchHolder"
@@ -617,31 +564,27 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/forcePrevNextSwitch"
-                style="@style/Widget.Material3.CompoundButton.Switch"
+                style="@style/NexxMaterialSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_view_height"
                 android:layout_marginTop="12dp"
-                android:background="@null"
+                android:layout_marginEnd="12dp"
                 android:checked="false"
-                android:paddingEnd="10dp"
-                app:layout_constraintTop_toTopOf="@+id/forcePrevNextSwitchHolder"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
+                app:layout_constraintTop_toTopOf="@+id/forcePrevNextSwitchHolder" />
 
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/startFullscreenSwitch"
-                style="@style/Widget.Material3.CompoundButton.Switch"
+                style="@style/NexxMaterialSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_view_height"
                 android:layout_marginTop="12dp"
-                android:background="@null"
+                android:layout_marginEnd="12dp"
                 android:checked="false"
-                android:paddingEnd="10dp"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@+id/forcePrevNextSwitchHolder"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
+                app:layout_constraintTop_toBottomOf="@+id/forcePrevNextSwitchHolder" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -663,7 +606,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_marginBottom="108dp"
+        android:layout_marginBottom="118dp"
         android:layout_marginEnd="22dp"
         android:text="@string/show"
         android:focusable="true"

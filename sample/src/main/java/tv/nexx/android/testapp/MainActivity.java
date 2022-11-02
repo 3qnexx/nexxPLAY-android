@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Window;
@@ -13,10 +15,11 @@ import android.view.WindowManager;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.cast.framework.CastContext;
-import com.google.android.gms.cast.framework.CastState;
-import com.google.android.gms.cast.framework.CastStateListener;
+
+import java.util.concurrent.Executors;
 
 import tv.nexx.android.play.NexxPLAY;
+import tv.nexx.android.play.util.Utils;
 import tv.nexx.android.testapp.fragments.SettingsFragment;
 import tv.nexx.android.testapp.navigation.IAppFragmentNavigation;
 import tv.nexx.android.testapp.providers.NavigationProvider;
@@ -33,6 +36,7 @@ public class MainActivity extends FragmentActivity {
     private static final String ACTION_VIEW = "android.intent.action.VIEW";
 
     private CastContext mCastContext;
+    private MediaSessionCompat mMediaSession;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,11 +48,15 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         IAppFragmentNavigation appFragmentNavigation = NavigationProvider.get(this);
 
-        try {
-            mCastContext = CastContext.getSharedInstance(this);
-        }catch(Exception e){
-            Log.v("APP","CANNOT INIT CASTCONTEXT");
-        }
+        mMediaSession = new MediaSessionCompat(this, getApplication().getPackageName());
+        mMediaSession.setCallback(mMediaSessionCallback);
+        mMediaSession.setActive(true);
+
+        CastContext.getSharedInstance(this, Executors.newSingleThreadExecutor()).addOnSuccessListener(castContext -> {
+            mCastContext=castContext;
+        }).addOnFailureListener(exception -> {
+            Log.v("APP","CANNOT INIT CASTCONTEXT: "+exception.getMessage());
+        });
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -61,6 +69,8 @@ public class MainActivity extends FragmentActivity {
     public CastContext getCastContext(){
         return(mCastContext);
     }
+
+    public MediaSessionCompat getMediaSession(){return(mMediaSession);}
 
     private void handleIntent(Intent intent) {
         String action = intent.getAction();
@@ -192,9 +202,33 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, Configuration newConfig) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            super.onPictureInPictureModeChanged(isInPictureInPictureMode,newConfig);
+        }
         NexxPLAY player = NexxPlayProvider.getInstance();
         if (player != null) {
             player.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
         }
     }
+
+    private MediaSessionCompat.Callback mMediaSessionCallback = new MediaSessionCompat.Callback() {
+
+        @Override
+        public void onPlayFromMediaId(String mediaId, Bundle extras) {
+            super.onPlayFromMediaId(mediaId, extras);
+            Utils.log(TAG,"REQUESTED PLAY FROM MEDIA ID: "+mediaId);
+        }
+
+        @Override
+        public void onPlayFromSearch(String query, Bundle extras) {
+            super.onPlayFromSearch(query,extras);
+            Utils.log(TAG,"REQUESTED PLAY FROM SEARCH: "+query);
+        }
+
+        @Override
+        public void onPlayFromUri(Uri uri, Bundle extras){
+            super.onPlayFromUri(uri,extras);
+            Utils.log(TAG,"REQUESTED PLAY FROM URI: "+uri);
+        }
+    };
 }

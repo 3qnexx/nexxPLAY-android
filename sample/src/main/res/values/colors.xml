@@ -8,4 +8,9 @@
     <color name="grey_white">#ababab</color>
     <color name="grey_dark">#111111</color>
     <color name="text_white">#ffffff</color>
+    <color name="purple">#DA70D6</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#00FF00</color>
+    <color name="orange">#FFA500</color>
+    <color name="red">#FF0000</color>
 </resources>

@@ -17,6 +17,18 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.3.00
+* android 13 is now officially supported and default Target
+* enable Method to use a global MediaSession instead of temporary ones
+* Ads will be controlled only by IMA from now on
+* adding Support for Realtime Premiere Control
+* adding Support for external TextTracks
+* adding Support for "Hero" Audio UI
+* **Breakings Changes**
+  - the getCaptions() SDK Method is now called getTextTracks()
+  - the getCaptions(String Language) SDK Method has been removed
+  - the Response Type of the SDK Method getCurrentPlaybackState() has been changed to CurrentPlaybackState and its Methods have been slightly changed
+
 ### v6.2.25
 - fixing an Issue with remote Media
 

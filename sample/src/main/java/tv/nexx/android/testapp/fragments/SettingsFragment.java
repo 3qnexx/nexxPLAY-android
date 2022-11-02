@@ -23,8 +23,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.slider.Slider;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -49,15 +49,16 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
     private TextInputLayout providerEditLayout;
     private TextInputLayout mediaIDEditLayout;
     private TextInputLayout playModeSpinnerHolder;
+    private TextInputLayout viewSizeSwitchHolder;
     private TextInputEditText providerEditText;
     private TextInputEditText domainIDEditText;
     private TextInputEditText mediaIDEditText;
-    private SwitchMaterial autoPlaySwitch;
-    private SwitchMaterial autoNextSwitch;
-    private SwitchMaterial startFullscreenSwitch;
-    private SwitchMaterial hidePrevNextSwitch;
-    private SwitchMaterial forcePrevNextSwitch;
-    private SwitchMaterial disableAdsSwitch;
+    private MaterialSwitch autoPlaySwitch;
+    private MaterialSwitch autoNextSwitch;
+    private MaterialSwitch startFullscreenSwitch;
+    private MaterialSwitch hidePrevNextSwitch;
+    private MaterialSwitch forcePrevNextSwitch;
+    private MaterialSwitch disableAdsSwitch;
     private AutoCompleteTextView playModeSpinner;
     private BottomNavigationView bottomNavigation;
     private AutoCompleteTextView exitModeSpinner;
@@ -70,6 +71,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
     private TextInputLayout delayPositionHolder;
     private TextInputLayout hidePrevNextSwitchHolder;
     private TextInputLayout forcePrevNextSwitchHolder;
+    private ChipGroup viewSizeRadioGroup;
 
     private String streamtype;
     private Float delay = 0f;
@@ -162,6 +164,9 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         ArrayAdapter<CharSequence> streamingFilterAdapter = ArrayAdapter.createFromResource(getContext(), R.array.streamingFilters, R.layout.material_spinner);
         streamingFilterSpinner.setAdapter(streamingFilterAdapter);
 
+        viewSizeRadioGroup = rootView.findViewById(R.id.viewSize);
+        viewSizeSwitchHolder = rootView.findViewById(R.id.viewSizeSwitchHolder);
+
         DeviceManager.getInstance().init(getActivity().getApplicationContext());
         if (DeviceManager.getInstance().isTV()) {
             startFullscreenSwitch.setChecked(true);
@@ -179,15 +184,15 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             RecommendationManager m = new RecommendationManager(getContext());
             m.updateChannel();
             m.enableAutoUpdate();
-        } else if(DeviceManager.getInstance().isMobileDevice()) {
+        } else if (DeviceManager.getInstance().isMobileDevice()) {
             Widget widget = new Widget();
             int counter = widget.getNumberOfWidgets(getContext());
             Utils.log(TAG, counter + " WIDGETS ARE INSTALLED");
             if (counter > 0) {
                 widget.updateWidgets(getContext());
             }
-        }else{
-            Utils.log(TAG,"NEITHER WIDGETS NOR RECOMMENDATIONS ARE SUPPORTED");
+        } else {
+            Utils.log(TAG, "NEITHER WIDGETS NOR RECOMMENDATIONS ARE SUPPORTED");
         }
     }
 
@@ -201,6 +206,11 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
 
             domainIDEditText.setText(String.valueOf(domain));
             mediaIDEditText.setText(String.valueOf(item));
+
+            if (!Streamtype.isAudio(streamtype)) {
+                viewSizeSwitchHolder.setVisibility(GONE);
+                viewSizeRadioGroup.setVisibility(GONE);
+            }
 
         } else if (global > 0) {
             bottomNavigation.setSelectedItemId(R.id.initmode_global);
@@ -234,12 +244,18 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             playModeSpinner.setAdapter(playModesAdapter);
             playModeSpinner.setText(playModeSpinner.getAdapter().getItem(0).toString(), false);
             playModeSpinnerHolder.setVisibility(VISIBLE);
+            if (!Streamtype.isAudio(playModeSpinner.getText().toString().toLowerCase())) {
+                viewSizeSwitchHolder.setVisibility(GONE);
+                viewSizeRadioGroup.setVisibility(GONE);
+            }
         } else if (initMode.equals(getString(R.string.global_id))) {
             Log.v(TAG, "RESETTING LAYOUT TO GLOBALID");
             playModeSpinnerHolder.setVisibility(GONE);
             mediaIDEditLayout.setHint(R.string.global_id);
             mediaIDEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
             providerEditLayout.setVisibility(GONE);
+            viewSizeSwitchHolder.setVisibility(VISIBLE);
+            viewSizeRadioGroup.setVisibility(VISIBLE);
         } else {
             Log.v(TAG, "RESETTING LAYOUT TO REMOTE");
             playModesAdapter = ArrayAdapter.createFromResource(getContext(), R.array.playModes_cut, R.layout.material_spinner);
@@ -249,7 +265,8 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             mediaIDEditLayout.setHint(R.string.foreign_ref);
             mediaIDEditText.setInputType(InputType.TYPE_CLASS_TEXT);
             providerEditLayout.setVisibility(VISIBLE);
-
+            viewSizeSwitchHolder.setVisibility(VISIBLE);
+            viewSizeRadioGroup.setVisibility(VISIBLE);
         }
         if (initMode.equals(getString(R.string.global_id))) {
             startPositionHolder.setVisibility(VISIBLE);
@@ -301,21 +318,12 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         }
         Log.v(TAG, "USING DATAMODE: " + (!dataMode.equals("") ? dataMode : "unset"));
 
-        String viewSize = "normal";
-        ChipGroup viewSizeRadioGroup = rootView.findViewById(R.id.viewSize);
+        String viewSize = "standard";
         Chip viewSizeRadioButton = rootView.findViewById(viewSizeRadioGroup.getCheckedChipId());
         if (viewSizeRadioButton != null) {
-            viewSize = (String) viewSizeRadioButton.getText();
+            viewSize = viewSizeRadioButton.getText().toString().toLowerCase();
         }
         Log.v(TAG, "USING VIEW SIZE: " + viewSize);
-
-        String adType = "";
-        ChipGroup adTypeRadioGroup = rootView.findViewById(R.id.adType);
-        Chip adTypeRadioButton = rootView.findViewById(adTypeRadioGroup.getCheckedChipId());
-        if (adTypeRadioButton != null) {
-            adType = (String) adTypeRadioButton.getText();
-        }
-        Log.v(TAG, "USING ADTYPE: " + (!adType.equals("") ? adType : "unset"));
 
         Bundle bundle = new Bundle();
         bundle.putString("provider", provider);
@@ -346,9 +354,6 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         if (!viewSize.equals("")) {
             bundle.putString("viewSize", viewSize);
         }
-        if (!adType.equals("")) {
-            bundle.putString("adType", adType);
-        }
 
         PlayerFragment fragment = new PlayerFragment();
         fragment.setArguments(bundle);
@@ -361,6 +366,14 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
 
         updateStartPositionByStreamtype(streamtype);
         updateDelayPositionByStreamtype(streamtype);
+
+        if (Streamtype.isAudio(streamtype)) {
+            viewSizeSwitchHolder.setVisibility(VISIBLE);
+            viewSizeRadioGroup.setVisibility(VISIBLE);
+        } else {
+            viewSizeSwitchHolder.setVisibility(GONE);
+            viewSizeRadioGroup.setVisibility(GONE);
+        }
 
         Log.v(TAG, "CHOSEN STREAMTYPE: " + streamtype);
     }
