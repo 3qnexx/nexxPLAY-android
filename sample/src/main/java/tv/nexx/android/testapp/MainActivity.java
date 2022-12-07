@@ -48,10 +48,12 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         IAppFragmentNavigation appFragmentNavigation = NavigationProvider.get(this);
 
+        //optional, if global MediaSession is desired
         mMediaSession = new MediaSessionCompat(this, getApplication().getPackageName());
         mMediaSession.setCallback(mMediaSessionCallback);
         mMediaSession.setActive(true);
 
+        //only necessary for Chromecast Support
         CastContext.getSharedInstance(this, Executors.newSingleThreadExecutor()).addOnSuccessListener(castContext -> {
             mCastContext=castContext;
         }).addOnFailureListener(exception -> {
@@ -211,6 +213,7 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    //only necessary for Global MediaSession Support
     private MediaSessionCompat.Callback mMediaSessionCallback = new MediaSessionCompat.Callback() {
 
         @Override

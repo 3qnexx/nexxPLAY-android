@@ -1,5 +1,6 @@
 package tv.nexx.android.testapp.fragments;
 
+import static tv.nexx.android.play.NexxPLAYEnvironment.adManager;
 import static tv.nexx.android.play.NexxPLAYEnvironment.alwaysInFullscreen;
 import static tv.nexx.android.play.NexxPLAYEnvironment.castContext;
 import static tv.nexx.android.play.NexxPLAYEnvironment.contentIDTemplate;
@@ -33,6 +34,7 @@ import com.google.android.material.chip.Chip;
 import java.util.HashMap;
 import java.util.Map;
 
+import tv.nexx.android.admanager.NexxPlayAdManager;
 import tv.nexx.android.play.CurrentPlaybackState;
 import tv.nexx.android.play.INexxPLAY;
 import tv.nexx.android.play.MediaData;
@@ -66,7 +68,8 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
     private String domainID;
     private String mediaID;
     private String playMode;
-    private boolean autoplay;
+    private boolean autoPlay;
+    private boolean startMuted;
     private boolean autoNext;
     private boolean disableAds;
     private String dataMode;
@@ -95,7 +98,8 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
             domainID = arguments.getString("domainID");
             mediaID = arguments.getString("mediaID");
             playMode = arguments.getString("playMode");
-            autoplay = arguments.getBoolean("autoplay");
+            autoPlay = arguments.getBoolean("autoPlay");
+            startMuted = arguments.getBoolean("startMuted");
             autoNext = arguments.getBoolean("autoNext");
             disableAds = arguments.getBoolean("disableAds");
             dataMode = arguments.getString("dataMode");
@@ -135,7 +139,7 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
                     startPlay();
                     break;
                 case R.id.cmd_pause:
-                    Utils.log(TAG, "STARTING ÜAUSE");
+                    Utils.log(TAG, "STARTING PAUSE");
                     startPause();
                     break;
                 case R.id.cmd_prev:
@@ -205,10 +209,16 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
 
             Map<String, Object> envData = new HashMap<>();
             envData.put(domain, domainID);
+
             envData.put(castContext, ((MainActivity) getActivity()).getCastContext());
-            envData.put(mediaSession,((MainActivity) getActivity()).getMediaSession());
+            envData.put(mediaSession, ((MainActivity) getActivity()).getMediaSession());
+
             envData.put(alwaysInFullscreen, (startFullscreen ? 1 : 0));
             envData.put(respectViewSizeForAudio, 1);
+
+            if (!disableAds) {
+                envData.put(adManager, new NexxPlayAdManager(requireContext()));
+            }
 
             player.setEnvironment(new NexxPLAYEnvironment(envData));
             updateStorage();
@@ -217,8 +227,10 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
             confData.put(NexxPLAYConfiguration.dataMode, dataMode);
             confData.put(NexxPLAYConfiguration.hidePrevNext, hidePrevNext ? 1 : 0);
             confData.put(NexxPLAYConfiguration.forcePrevNext, forcePrevNext ? 1 : 0);
-            confData.put(NexxPLAYConfiguration.autoPlay, autoplay ? 1 : 0);
+            confData.put(NexxPLAYConfiguration.autoPlay, autoPlay ? 1 : 0);
             confData.put(NexxPLAYConfiguration.autoNext, autoNext ? 1 : 0);
+            confData.put(NexxPLAYConfiguration.startMuted, startMuted ? 1 : 0);
+            confData.put(NexxPLAYConfiguration.adStartWhenMuted, 0);
             confData.put(NexxPLAYConfiguration.exitMode, exitMode);
             confData.put(NexxPLAYConfiguration.streamingFilter, streamingFilter);
             confData.put(NexxPLAYConfiguration.delay, delay);
@@ -279,8 +291,8 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
     }
 
     @Override
-    public void onPlayerStateChanged(boolean b, IPlayer.State state) {
-        Utils.log(TAG, "Player state changed: " + state + ", play when ready " + b);
+    public void onPlayerStateChanged(IPlayer.State state) {
+        Utils.log(TAG, "Player state changed: " + state);
 
         if (state.equals(IPlayer.State.PLAYING)) {
             getActivity().setTitle(player.getCurrentMedia().getTitle());
@@ -288,8 +300,8 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
     }
 
     @Override
-    public void onPlayerError(String s, String s1) {
-        Utils.log(TAG, "Player error: " + s + " --- " + s1);
+    public void onPlayerError(String reason, String details) {
+        Utils.log(TAG, "Player error: " + reason + " --- " + details);
     }
 
     @Override
@@ -456,4 +468,5 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
 
     public void startSwapMedia() {
         player.swapToMediaItem("MEDIA-ID","MEDIA-STREAMTYPE",0,0);
+    }
 }

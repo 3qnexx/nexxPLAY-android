@@ -29,6 +29,7 @@
     <string name="list">List</string>
     <string name="autoplay">AutoPlay</string>
     <string name="autonext">RevolverPlay</string>
+    <string name="startMuted">start muted</string>
     <string name="api_dm">API</string>
     <string name="static_dm">static</string>
     <string name="datamode">DataMode</string>

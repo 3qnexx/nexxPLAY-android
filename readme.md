@@ -17,6 +17,9 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.3.01
+* fixing minor Issues with muted Start
+
 ### v6.3.00
 * android 13 is now officially supported and default Target
 * enable Method to use a global MediaSession instead of temporary ones
@@ -24,10 +27,14 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 * adding Support for Realtime Premiere Control
 * adding Support for external TextTracks
 * adding Support for "Hero" Audio UI
+* adding Support for muted Start and muted Ad Control
 * **Breakings Changes**
   - the getCaptions() SDK Method is now called getTextTracks()
   - the getCaptions(String Language) SDK Method has been removed
   - the Response Type of the SDK Method getCurrentPlaybackState() has been changed to CurrentPlaybackState and its Methods have been slightly changed
+  - the Signature of the "onPlayerStateChanged" Method from NexxPLAYNotification.Listener has been changed. The initial "playWhenReady" (boolean) Parameter was always true and therefore removed
+  - the Ad Functionality has been removed completely from the SDK in order to not include References to Google IMA in the Code Base / Manifest
+    - if your Implementation needs (Frontend) Ads, you need to include the new tv.nexx.android.admanager SDK and use an Instance of this AdManager in the Environment Configuration 
 
 ### v6.2.25
 - fixing an Issue with remote Media
