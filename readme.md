@@ -35,6 +35,7 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
   - the Signature of the "onPlayerStateChanged" Method from NexxPLAYNotification.Listener has been changed. The initial "playWhenReady" (boolean) Parameter was always true and therefore removed
   - the Ad Functionality has been removed completely from the SDK in order to not include References to Google IMA in the Code Base / Manifest
     - if your Implementation needs (Frontend) Ads, you need to include the new tv.nexx.android.admanager SDK and use an Instance of this AdManager in the Environment Configuration 
+    - you can find more Info and an Example [here](https://play.docs.nexx.cloud/native-players/nexxplay-for-android#ad-support).
 
 ### v6.2.25
 - fixing an Issue with remote Media
