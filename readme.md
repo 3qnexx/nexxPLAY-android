@@ -4,6 +4,8 @@
 
 Please find the complete documentation of the nexxPLAY android SDK following this [link](https://play.docs.nexx.cloud/native-players/nexxplay-for-android).
 
+If you need Ad Support in the Player, please notice, that starting with Version 6.3.00 this Functionality needs the AdManager Plugin. Follow this [link](https://play.docs.nexx.cloud/native-players/nexxplay-for-android#ad-support)
+
 nexxPLAY for android also supports Flutter. Find more Info about this following this [link](https://play.docs.nexx.cloud/native-players/nexxplay-for-flutter).
 
 ## Widget documentation
