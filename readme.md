@@ -17,6 +17,12 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.3.04
+* added Support for more HotSpot Types
+* added Support for Panorama Videos
+* added Support for Campaigns
+* fixing StartUp Issues on TV
+
 ### v6.3.01
 * fixing minor Issues with muted Start
 
