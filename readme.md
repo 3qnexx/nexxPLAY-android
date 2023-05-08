@@ -19,6 +19,10 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.3.05
+* fixing Issues with IMA Ad SDK on TV
+* adding Support for enhanced Content-Moderated Metadata
+
 ### v6.3.04
 * added Support for more HotSpot Types
 * added Support for Panorama Videos
