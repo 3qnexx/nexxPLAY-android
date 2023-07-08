@@ -19,7 +19,7 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
-### v6.3.06
+### v6.3.07
 * fixing Issues with IMA Ad SDK on TV
 * adding Support for enhanced Content-Moderated Metadata
 * adding Support for 3Q DASH LiveStreams

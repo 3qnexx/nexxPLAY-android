@@ -55,8 +55,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'com.google.android.gms:play-services-cast-framework:21.3.0'
 
-    implementation "tv.nexx.android:play:6.3.06"
-    implementation "tv.nexx.android:admanager:1.0.04"
+    implementation "tv.nexx.android:play:6.3.07"
+    implementation "tv.nexx.android:admanager:1.0.05"
     implementation "tv.nexx.android:widget:3.0.03"
     implementation "tv.nexx.android:tvrecommendations:1.0.05"
 }
