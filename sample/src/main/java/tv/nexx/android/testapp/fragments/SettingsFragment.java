@@ -3,6 +3,7 @@ package tv.nexx.android.testapp.fragments;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,27 +36,34 @@ import tv.nexx.android.play.enums.MediaSourceType;
 import tv.nexx.android.play.enums.PlayMode;
 import tv.nexx.android.play.util.Utils;
 import tv.nexx.android.recommendations.RecommendationManager;
+import tv.nexx.android.testapp.MainActivity;
 import tv.nexx.android.testapp.R;
+import tv.nexx.android.testapp.navigation.FrameLayoutFragmentCallback;
+import tv.nexx.android.testapp.navigation.FrameLayoutFragmentUsed;
+import tv.nexx.android.testapp.navigation.IAppFragmentNavigation;
 import tv.nexx.android.testapp.providers.NavigationProvider;
 import tv.nexx.android.widget.Widget;
 
 
-public class SettingsFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class SettingsFragment extends Fragment implements AdapterView.OnItemClickListener, FrameLayoutFragmentCallback {
     private static final String TAG = SettingsFragment.class.getCanonicalName();
 
     private View rootView;
     private ScrollView mainScrollView;
+    private ConstraintLayout clMainContent;
 
     private ExtendedFloatingActionButton show;
     private TextInputLayout providerEditLayout;
     private TextInputLayout mediaIDEditLayout;
     private TextInputLayout playModeSpinnerHolder;
     private TextInputLayout viewSizeSwitchHolder;
+    private TextInputLayout startMutedSwitchHolder;
     private TextInputEditText providerEditText;
     private TextInputEditText domainIDEditText;
     private TextInputEditText mediaIDEditText;
     private MaterialSwitch autoPlaySwitch;
     private MaterialSwitch autoNextSwitch;
+    private MaterialSwitch startMutedSwitch;
     private MaterialSwitch startFullscreenSwitch;
     private MaterialSwitch hidePrevNextSwitch;
     private MaterialSwitch forcePrevNextSwitch;
@@ -106,6 +115,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         show = rootView.findViewById(R.id.show);
         show.setOnClickListener(v -> {
             DeviceManager.getInstance().performHapticFeedback(DeviceManager.getInstance().HAPTIC_FEEDBACK_EFFECT_EXTENDED);
+            setLoadingViewVisibility(true);
             onShow();
         });
         show.setFocusableInTouchMode(true);
@@ -119,6 +129,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         });
 
         mainScrollView = rootView.findViewById(R.id.mainScrollView);
+        clMainContent = rootView.findViewById(R.id.cl_main_content);
 
         providerEditText = rootView.findViewById(R.id.et_provider);
         providerEditLayout = rootView.findViewById(R.id.et_providerHolder);
@@ -127,6 +138,8 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         mediaIDEditLayout = rootView.findViewById(R.id.mediaIDInputHolder);
         autoPlaySwitch = rootView.findViewById(R.id.autoplaySwitch);
         autoNextSwitch = rootView.findViewById(R.id.autoNextSwitch);
+        startMutedSwitch = rootView.findViewById(R.id.startMutedSwitch);
+        startMutedSwitchHolder = rootView.findViewById(R.id.startMutedSwitchHolder);
         hidePrevNextSwitch = rootView.findViewById(R.id.hidePrevNextSwitch);
         hidePrevNextSwitchHolder = rootView.findViewById(R.id.hidePrevNextSwitchHolder);
         forcePrevNextSwitch = rootView.findViewById(R.id.forcePrevNextSwitch);
@@ -175,8 +188,16 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
 
         checkStreamtypeArg(streamtype);
 
-        updateStartPositionByStreamtype(playModeSpinner.getText().toString().toLowerCase());
-        updateDelayPositionByStreamtype(playModeSpinner.getText().toString().toLowerCase());
+        if (streamtype == null) {
+            streamtype = playModeSpinner.getText().toString().toLowerCase();
+            if (!Streamtype.isAudio(streamtype)) {
+                viewSizeSwitchHolder.setVisibility(GONE);
+                viewSizeRadioGroup.setVisibility(GONE);
+            }
+        }
+
+        updateStartPositionByStreamtype(streamtype);
+        updateDelayPositionByStreamtype(streamtype);
 
         show.requestFocus();
 
@@ -185,14 +206,20 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             m.updateChannel();
             m.enableAutoUpdate();
         } else if (DeviceManager.getInstance().isMobileDevice()) {
-            Widget widget = new Widget();
-            int counter = widget.getNumberOfWidgets(getContext());
+            int counter = Widget.getNumberOfWidgets(getContext());
             Utils.log(TAG, counter + " WIDGETS ARE INSTALLED");
             if (counter > 0) {
-                widget.updateWidgets(getContext());
+                Widget.updateWidgets(getContext());
             }
         } else {
             Utils.log(TAG, "NEITHER WIDGETS NOR RECOMMENDATIONS ARE SUPPORTED");
+        }
+        onConfigurationChanged(requireActivity().getResources().getConfiguration().orientation);
+    }
+
+    private void setLoadingViewVisibility(boolean isVisible) {
+        if (requireActivity() instanceof MainActivity activity) {
+            activity.setLoadingViewVisibility(isVisible);
         }
     }
 
@@ -210,6 +237,11 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             if (!Streamtype.isAudio(streamtype)) {
                 viewSizeSwitchHolder.setVisibility(GONE);
                 viewSizeRadioGroup.setVisibility(GONE);
+                startMutedSwitch.setVisibility(VISIBLE);
+                startMutedSwitchHolder.setVisibility(VISIBLE);
+            } else {
+                startMutedSwitch.setVisibility(GONE);
+                startMutedSwitchHolder.setVisibility(GONE);
             }
 
         } else if (global > 0) {
@@ -226,7 +258,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
     }
 
     private void onInitModeChanged(String initMode) {
-        Log.v(TAG, "UPDATING INITMODE WITH " + initMode);
+        Log.v(TAG, "UPDATING INITMODE TO " + initMode);
         ArrayAdapter<CharSequence> playModesAdapter;
         if ((initMode.equals(getString(R.string.media_default))) || (initMode.equals(getString(R.string.list)))) {
             Log.v(TAG, "RESETTING LAYOUT TO DEFAULT");
@@ -247,6 +279,11 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             if (!Streamtype.isAudio(playModeSpinner.getText().toString().toLowerCase())) {
                 viewSizeSwitchHolder.setVisibility(GONE);
                 viewSizeRadioGroup.setVisibility(GONE);
+                startMutedSwitch.setVisibility(VISIBLE);
+                startMutedSwitchHolder.setVisibility(VISIBLE);
+            } else {
+                startMutedSwitch.setVisibility(GONE);
+                startMutedSwitchHolder.setVisibility(GONE);
             }
         } else if (initMode.equals(getString(R.string.global_id))) {
             Log.v(TAG, "RESETTING LAYOUT TO GLOBALID");
@@ -256,6 +293,8 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             providerEditLayout.setVisibility(GONE);
             viewSizeSwitchHolder.setVisibility(VISIBLE);
             viewSizeRadioGroup.setVisibility(VISIBLE);
+            startMutedSwitch.setVisibility(VISIBLE);
+            startMutedSwitchHolder.setVisibility(VISIBLE);
         } else {
             Log.v(TAG, "RESETTING LAYOUT TO REMOTE");
             playModesAdapter = ArrayAdapter.createFromResource(getContext(), R.array.playModes_cut, R.layout.material_spinner);
@@ -267,6 +306,8 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             providerEditLayout.setVisibility(VISIBLE);
             viewSizeSwitchHolder.setVisibility(VISIBLE);
             viewSizeRadioGroup.setVisibility(VISIBLE);
+            startMutedSwitch.setVisibility(VISIBLE);
+            startMutedSwitchHolder.setVisibility(VISIBLE);
         }
         if (initMode.equals(getString(R.string.global_id))) {
             startPositionHolder.setVisibility(VISIBLE);
@@ -301,6 +342,7 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         String mediaID = mediaIDEditText.getText().toString();
         boolean autoPlay = autoPlaySwitch.isChecked();
         boolean autoNext = autoNextSwitch.isChecked();
+        boolean startMuted = startMutedSwitch.isChecked();
         boolean hidePrevNext = hidePrevNextSwitch.isChecked();
         boolean forcePrevNext = forcePrevNextSwitch.isChecked();
         boolean disableAds = disableAdsSwitch.isChecked();
@@ -330,7 +372,8 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
         bundle.putString("domainID", domainID);
         bundle.putString("mediaID", mediaID);
         bundle.putString("playMode", playMode);
-        bundle.putBoolean("autoplay", autoPlay);
+        bundle.putBoolean("autoPlay", autoPlay);
+        bundle.putBoolean("startMuted", startMuted);
         bundle.putBoolean("autoNext", autoNext);
         bundle.putBoolean("hidePrevNext", hidePrevNext);
         bundle.putBoolean("forcePrevNext", forcePrevNext);
@@ -355,14 +398,12 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             bundle.putString("viewSize", viewSize);
         }
 
-        PlayerFragment fragment = new PlayerFragment();
-        fragment.setArguments(bundle);
-        NavigationProvider.get(getActivity()).addFragment(fragment);
+        NavigationProvider.get(getActivity()).showPlayer(bundle);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String streamtype = (String) parent.getItemAtPosition(position).toString().toLowerCase();
+        String streamtype = parent.getItemAtPosition(position).toString().toLowerCase();
 
         updateStartPositionByStreamtype(streamtype);
         updateDelayPositionByStreamtype(streamtype);
@@ -394,6 +435,13 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             forcePrevNextSwitch.setVisibility(VISIBLE);
             forcePrevNextSwitchHolder.setVisibility(VISIBLE);
         }
+        if (Streamtype.isAudio(streamtype)) {
+            startMutedSwitchHolder.setVisibility(GONE);
+            startMutedSwitch.setVisibility(GONE);
+        } else {
+            startMutedSwitchHolder.setVisibility(VISIBLE);
+            startMutedSwitch.setVisibility(VISIBLE);
+        }
     }
 
     private void updateDelayPositionByStreamtype(String streamtype) {
@@ -404,5 +452,53 @@ public class SettingsFragment extends Fragment implements AdapterView.OnItemClic
             delayPositionHolder.setVisibility(VISIBLE);
             delayRangeSlider.setVisibility(VISIBLE);
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        onConfigurationChanged(newConfig.orientation);
+    }
+
+    private void onConfigurationChanged(int orientation) {
+        if (DeviceManager.getInstance().isTablet()) {
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mainScrollView.getLayoutParams();
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE &&
+                    NavigationProvider.get(requireActivity()).getFrameLayoutFragmentUsed() == FrameLayoutFragmentUsed.ONE_FRAME_LAYOUT_USED) {
+                params.leftMargin = (int) getResources().getDimension(R.dimen.activity_horizontal_margin_land_tablet);
+                params.rightMargin = (int) getResources().getDimension(R.dimen.activity_horizontal_margin_land_tablet);
+            } else {
+                params.leftMargin = (int) getResources().getDimension(R.dimen.activity_horizontal_margin);
+                params.rightMargin = (int) getResources().getDimension(R.dimen.activity_horizontal_margin);
+            }
+            mainScrollView.setLayoutParams(params);
+        }
+    }
+
+    @Override
+    public void update(FrameLayoutFragmentUsed frameLayoutFragmentUsed) {
+        onConfigurationChanged(requireActivity().getResources().getConfiguration().orientation);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        IAppFragmentNavigation appFragmentNavigation = NavigationProvider.get(requireActivity());
+        appFragmentNavigation.addFragmentCallback(this);
+        setLoadingViewVisibility(false);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        IAppFragmentNavigation appFragmentNavigation = NavigationProvider.get(requireActivity());
+        appFragmentNavigation.removeFragmentCallback(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        IAppFragmentNavigation appFragmentNavigation = NavigationProvider.get(requireActivity());
+        appFragmentNavigation.removeFragmentCallback(this);
     }
 }

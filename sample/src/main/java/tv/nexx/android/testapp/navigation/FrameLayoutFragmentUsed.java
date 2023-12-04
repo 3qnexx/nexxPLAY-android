@@ -1,0 +1,10 @@
+package tv.nexx.android.testapp.navigation;
+
+public enum FrameLayoutFragmentUsed {
+    ONE_FRAME_LAYOUT_USED,
+    TWO_FRAME_LAYOUT_USED,
+    TWO_FRAME_LAYOUT_USED_FULLSCREEN_ENTER,
+    TWO_FRAME_LAYOUT_USED_FULLSCREEN_OUT,
+    TWO_FRAME_LAYOUT_USED_PIP_ENTER,
+    TWO_FRAME_LAYOUT_USED_PIP_OUT
+}

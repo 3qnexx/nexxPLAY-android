@@ -9,9 +9,15 @@ import android.os.Bundle;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.cast.framework.CastContext;
@@ -19,13 +25,14 @@ import com.google.android.gms.cast.framework.CastContext;
 import java.util.concurrent.Executors;
 
 import tv.nexx.android.play.NexxPLAY;
-import tv.nexx.android.play.util.Utils;
-import tv.nexx.android.testapp.fragments.SettingsFragment;
+import tv.nexx.android.play.device.DeviceManager;
+import tv.nexx.android.testapp.navigation.FrameLayoutFragmentCallback;
+import tv.nexx.android.testapp.navigation.FrameLayoutFragmentUsed;
 import tv.nexx.android.testapp.navigation.IAppFragmentNavigation;
 import tv.nexx.android.testapp.providers.NavigationProvider;
 import tv.nexx.android.testapp.providers.NexxPlayProvider;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements FrameLayoutFragmentCallback {
     private static final String TAG = MainActivity.class.getCanonicalName();
 
     private static final String SHORTCUT_VIDEO = "tv.nexx.android.testapp.shortcuts.VIDEO";
@@ -37,6 +44,7 @@ public class MainActivity extends FragmentActivity {
 
     private CastContext mCastContext;
     private MediaSessionCompat mMediaSession;
+    private RelativeLayout mainActivityProgressLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,39 +55,53 @@ public class MainActivity extends FragmentActivity {
 
         setContentView(R.layout.activity_main);
         IAppFragmentNavigation appFragmentNavigation = NavigationProvider.get(this);
-
-        //optional, if global MediaSession is desired
+        appFragmentNavigation.addFragmentCallback(this);
         mMediaSession = new MediaSessionCompat(this, getApplication().getPackageName());
-        mMediaSession.setCallback(mMediaSessionCallback);
-        mMediaSession.setActive(true);
 
-        //only necessary for Chromecast Support
+        ConstraintLayout mainParentLayout = findViewById(R.id.main_parent_layout);
+        mainActivityProgressLayout = findViewById(R.id.rl_main_activity_progress_layout);
+        FrameLayout settingsFrameContainer = findViewById(R.id.settings_frame_container);
+        FrameLayout playerFrameContainer = findViewById(R.id.player_frame_container);
+        View proportionLine = findViewById(R.id.line);
+        appFragmentNavigation.attachViews(mainParentLayout, settingsFrameContainer, playerFrameContainer, proportionLine);
+
+        DeviceManager.getInstance().init(getApplicationContext());
+
+        Log.v("APP", "MEDIASESSION INITIATED");
+
         CastContext.getSharedInstance(this, Executors.newSingleThreadExecutor()).addOnSuccessListener(castContext -> {
-            mCastContext=castContext;
-        }).addOnFailureListener(exception -> {
-            Log.v("APP","CANNOT INIT CASTCONTEXT: "+exception.getMessage());
-        });
+            mCastContext = castContext;
+            Log.v("APP", "CAST CONTEXT INITIATED");
+        }).addOnFailureListener(exception -> Log.v("APP", "CANNOT INIT CASTCONTEXT: " + exception.getMessage()));
 
         Intent intent = getIntent();
         if (intent != null) {
             handleIntent(intent);
         } else {
-            appFragmentNavigation.resetToFragment(new SettingsFragment());
+            appFragmentNavigation.showSettings(null);
         }
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                onBackPressed();
+            }
+        });
     }
 
-    public CastContext getCastContext(){
-        return(mCastContext);
+    public CastContext getCastContext() {
+        return (mCastContext);
     }
 
-    public MediaSessionCompat getMediaSession(){return(mMediaSession);}
+    public MediaSessionCompat getMediaSession() {
+        return (mMediaSession);
+    }
 
     private void handleIntent(Intent intent) {
         String action = intent.getAction();
         Uri uri = intent.getData();
         Log.v(TAG, "STARTED WITH ACTION: " + action);
 
-        if(uri != null) {
+        if (uri != null) {
             Log.v(TAG, "STARTED WITH DATA: " + uri.toString());
         }
 
@@ -105,20 +127,20 @@ public class MainActivity extends FragmentActivity {
                 streamtype = "playlist";
                 break;
             case ACTION_VIEW:
-                if(uri != null){
-                    try{
+                if (uri != null) {
+                    try {
                         String path = uri.getPath();
-                        if(path != null){
-                            path=path.replace("/watch/","");
+                        if (path != null) {
+                            path = path.replace("/watch/", "");
                             String[] parts = path.split("/");
                             domain = Integer.parseInt(parts[0]);
                             String[] items = parts[1].split(":");
                             global = Integer.parseInt(items[0]);
-                            if(items.length>1){
+                            if (items.length > 1) {
                                 delay = Float.parseFloat(items[1]);
                             }
                         }
-                    }catch(Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -130,30 +152,28 @@ public class MainActivity extends FragmentActivity {
                 break;
         }
 
-        SettingsFragment fragment = new SettingsFragment();
+        Bundle bundle = null;
         if (streamtype != null) {
             Log.v(TAG, "STARTING WITH " + streamtype + "/" + item + "/" + domain + " WITH DELAY OF " + delay);
 
-            Bundle bundle = new Bundle();
+            bundle = new Bundle();
             bundle.putString("streamtype", streamtype);
             bundle.putInt("item", item);
             bundle.putInt("domain", domain);
             bundle.putInt("global", global);
             bundle.putFloat("delay", delay);
-            fragment.setArguments(bundle);
 
-        }else if(global>0){
+        } else if (global > 0) {
             Log.v(TAG, "STARTING WITH GLOBAL " + global + "/" + domain + " WITH DELAY OF " + delay);
 
-            Bundle bundle = new Bundle();
+            bundle = new Bundle();
             bundle.putString("streamtype", null);
             bundle.putInt("item", 0);
             bundle.putInt("domain", domain);
             bundle.putInt("global", global);
             bundle.putFloat("delay", delay);
-            fragment.setArguments(bundle);
         }
-        appFragmentNavigation.resetToFragment(fragment);
+        appFragmentNavigation.showSettings(bundle);
     }
 
     @Override
@@ -203,35 +223,34 @@ public class MainActivity extends FragmentActivity {
     }
 
     @Override
-    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, Configuration newConfig) {
+    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, @NonNull Configuration newConfig) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            super.onPictureInPictureModeChanged(isInPictureInPictureMode,newConfig);
+            super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
         }
         NexxPLAY player = NexxPlayProvider.getInstance();
         if (player != null) {
             player.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
         }
+        NavigationProvider.get(this).setFrameLayoutFragmentUsed(
+                isInPictureInPictureMode ?
+                        FrameLayoutFragmentUsed.TWO_FRAME_LAYOUT_USED_PIP_ENTER :
+                        FrameLayoutFragmentUsed.TWO_FRAME_LAYOUT_USED_PIP_OUT
+        );
     }
 
-    //only necessary for Global MediaSession Support
-    private MediaSessionCompat.Callback mMediaSessionCallback = new MediaSessionCompat.Callback() {
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        NavigationProvider.get(this).handleFrameLayoutVisibility(newConfig.orientation);
+    }
 
-        @Override
-        public void onPlayFromMediaId(String mediaId, Bundle extras) {
-            super.onPlayFromMediaId(mediaId, extras);
-            Utils.log(TAG,"REQUESTED PLAY FROM MEDIA ID: "+mediaId);
-        }
+    @Override
+    public void update(@NonNull FrameLayoutFragmentUsed frameLayoutFragmentUsed) {
+        NavigationProvider.get(this).handleFrameLayoutVisibility(getResources().getConfiguration().orientation);
+    }
 
-        @Override
-        public void onPlayFromSearch(String query, Bundle extras) {
-            super.onPlayFromSearch(query,extras);
-            Utils.log(TAG,"REQUESTED PLAY FROM SEARCH: "+query);
-        }
-
-        @Override
-        public void onPlayFromUri(Uri uri, Bundle extras){
-            super.onPlayFromUri(uri,extras);
-            Utils.log(TAG,"REQUESTED PLAY FROM URI: "+uri);
-        }
-    };
+    public void setLoadingViewVisibility(boolean isVisible) {
+        mainActivityProgressLayout.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+    }
 }
+

@@ -6,4 +6,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="input_view_height">44dp</dimen>
     <dimen name="input_view_padding">10dp</dimen>
+    <dimen name="activity_horizontal_margin_land_tablet">164dp</dimen>
 </resources>

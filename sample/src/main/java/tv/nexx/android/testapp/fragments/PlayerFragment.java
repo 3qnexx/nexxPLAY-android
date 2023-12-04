@@ -12,6 +12,7 @@ import static tv.nexx.android.play.PlayerEvent.DATA;
 import static tv.nexx.android.play.PlayerEvent.EVENT;
 
 import android.annotation.SuppressLint;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -26,12 +27,19 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.util.Consumer;
 import androidx.fragment.app.Fragment;
+import androidx.window.java.layout.WindowInfoTrackerCallbackAdapter;
+import androidx.window.layout.DisplayFeature;
+import androidx.window.layout.FoldingFeature;
+import androidx.window.layout.WindowInfoTracker;
+import androidx.window.layout.WindowLayoutInfo;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.chip.Chip;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import tv.nexx.android.admanager.NexxPlayAdManager;
@@ -50,6 +58,8 @@ import tv.nexx.android.play.player.IPlayer;
 import tv.nexx.android.play.util.Utils;
 import tv.nexx.android.testapp.MainActivity;
 import tv.nexx.android.testapp.R;
+import tv.nexx.android.testapp.navigation.FoldableMode;
+import tv.nexx.android.testapp.navigation.FrameLayoutFragmentUsed;
 import tv.nexx.android.testapp.providers.NavigationProvider;
 import tv.nexx.android.testapp.providers.NexxPlayProvider;
 
@@ -89,30 +99,43 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
     private BottomAppBar bottomOptions;
     private Chip storageChip;
 
+    private WindowInfoTrackerCallbackAdapter windowInfoTracker;
+    private final LayoutStateChangeCallback layoutStateChangeCallback =
+            new LayoutStateChangeCallback();
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             Bundle arguments = getArguments();
-            provider = arguments.getString("provider");
-            domainID = arguments.getString("domainID");
-            mediaID = arguments.getString("mediaID");
-            playMode = arguments.getString("playMode");
-            autoPlay = arguments.getBoolean("autoPlay");
-            startMuted = arguments.getBoolean("startMuted");
-            autoNext = arguments.getBoolean("autoNext");
-            disableAds = arguments.getBoolean("disableAds");
-            dataMode = arguments.getString("dataMode");
-            viewSize = arguments.getString("viewSize");
-            hidePrevNext = arguments.getBoolean("hidePrevNext");
-            forcePrevNext = arguments.getBoolean("forcePrevNext");
-            exitMode = arguments.getString("exitMode");
-            startPosition = arguments.getInt("startPosition");
-            delay = arguments.getFloat("delay");
-            startFullscreen = arguments.getBoolean("startFullscreen");
-            mediaSourceType = arguments.getString("mediaSourceType");
-            streamingFilter = arguments.getString("streamingFilter");
+            updatePlayerValues(arguments);
         }
+        if (DeviceManager.getInstance().isMobileDevice()) {
+            windowInfoTracker =
+                    new WindowInfoTrackerCallbackAdapter(WindowInfoTracker.getOrCreate(requireContext()));
+        }
+    }
+
+    private void updatePlayerValues(Bundle arguments) {
+        provider = arguments.getString("provider");
+        domainID = arguments.getString("domainID");
+        mediaID = arguments.getString("mediaID");
+        playMode = arguments.getString("playMode");
+        autoPlay = arguments.getBoolean("autoPlay");
+        startMuted = arguments.getBoolean("startMuted");
+        autoNext = arguments.getBoolean("autoNext");
+        disableAds = arguments.getBoolean("disableAds");
+        dataMode = arguments.getString("dataMode");
+        viewSize = arguments.getString("viewSize");
+        hidePrevNext = arguments.getBoolean("hidePrevNext");
+        forcePrevNext = arguments.getBoolean("forcePrevNext");
+        exitMode = arguments.getString("exitMode");
+        startPosition = arguments.getInt("startPosition");
+        delay = arguments.getFloat("delay");
+        startFullscreen = arguments.getBoolean("startFullscreen");
+        mediaSourceType = arguments.getString("mediaSourceType");
+        streamingFilter = arguments.getString("streamingFilter");
     }
 
     @Override
@@ -125,51 +148,53 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        NavigationProvider.get(requireActivity()).setFrameLayoutFragmentUsed(FrameLayoutFragmentUsed.TWO_FRAME_LAYOUT_USED);
+
         notificationLog = rootView.findViewById(R.id.ll_notification_log_input);
         notificationLogScrollView = rootView.findViewById(R.id.sc_notification_log_input);
 
         storageChip = rootView.findViewById(R.id.storagechip);
 
         bottomOptions = rootView.findViewById(R.id.bottomOptions);
-        bottomOptions.setOnMenuItemClickListener((item) -> {
+        bottomOptions.setOnMenuItemClickListener(item -> {
             Utils.log(TAG, "HANDLING BOTTOM CMD: " + item.getTitle());
             switch (item.getItemId()) {
-                case R.id.cmd_play:
+                case R.id.cmd_play -> {
                     Utils.log(TAG, "STARTING PLAY");
                     startPlay();
-                    break;
-                case R.id.cmd_pause:
+                }
+                case R.id.cmd_pause -> {
                     Utils.log(TAG, "STARTING PAUSE");
                     startPause();
-                    break;
-                case R.id.cmd_prev:
+                }
+                case R.id.cmd_prev -> {
                     Utils.log(TAG, "STARTING PREV");
                     startPrev();
-                    break;
-                case R.id.cmd_next:
+                }
+                case R.id.cmd_next -> {
                     Utils.log(TAG, "STARTING NEXT");
                     startNext();
-                    break;
-                case R.id.cmd_mute:
+                }
+                case R.id.cmd_mute -> {
                     Utils.log(TAG, "STARTING MUTE");
                     startMute();
-                    break;
-                case R.id.cmd_unmute:
+                }
+                case R.id.cmd_unmute -> {
                     Utils.log(TAG, "STARTING UNMUTE");
                     startUnmute();
-                    break;
-                case R.id.cmd_seekby:
+                }
+                case R.id.cmd_seekby -> {
                     Utils.log(TAG, "STARTING SEEKBY");
                     startSeekBy();
-                    break;
-                case R.id.cmd_swap:
+                }
+                case R.id.cmd_swap -> {
                     Utils.log(TAG, "STARTING SWAP");
                     startSwapMedia();
-                    break;
-                case R.id.cmd_clearcache:
+                }
+                case R.id.cmd_clearcache -> {
                     Utils.log(TAG, "STARTING CLEAR CACHE");
                     startClearCache();
-                    break;
+                }
             }
             return true;
         });
@@ -178,7 +203,7 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
 
         rootView.findViewById(R.id.backtosettings).setOnClickListener(v -> {
             DeviceManager.getInstance().performHapticFeedback(DeviceManager.getInstance().HAPTIC_FEEDBACK_EFFECT_EXTENDED);
-            NavigationProvider.get(getActivity()).onBack();
+            requireActivity().getOnBackPressedDispatcher().onBackPressed();
         });
 
         if (savedInstanceState == null) {
@@ -206,58 +231,70 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
             }
 
             player = NexxPlayProvider.init(getContext(), root, getActivity().getWindow());
+            setupPlayerValuesAndStart();
+        }
+        onConfigurationChanged(requireActivity().getResources().getConfiguration().orientation);
+    }
 
-            Map<String, Object> envData = new HashMap<>();
-            envData.put(domain, domainID);
+    private void setupPlayerValuesAndStart() {
+        Map<String, Object> envData = new HashMap<>();
+        envData.put(domain, domainID);
+        envData.put(castContext, ((MainActivity) getActivity()).getCastContext());
+        envData.put(mediaSession, ((MainActivity) getActivity()).getMediaSession());
 
-            envData.put(castContext, ((MainActivity) getActivity()).getCastContext());
-            envData.put(mediaSession, ((MainActivity) getActivity()).getMediaSession());
+        envData.put(alwaysInFullscreen, (startFullscreen ? 1 : 0));
+        envData.put(respectViewSizeForAudio, 1);
 
-            envData.put(alwaysInFullscreen, (startFullscreen ? 1 : 0));
-            envData.put(respectViewSizeForAudio, 1);
+        if (!disableAds) {
+            envData.put(adManager, new NexxPlayAdManager(requireContext()));
+        }
 
-            if (!disableAds) {
-                envData.put(adManager, new NexxPlayAdManager(requireContext()));
-            }
+        player.setEnvironment(new NexxPLAYEnvironment(envData));
+        updateStorage();
 
-            player.setEnvironment(new NexxPLAYEnvironment(envData));
-            updateStorage();
+        Map<String, Object> confData = new HashMap<>();
+        confData.put(NexxPLAYConfiguration.dataMode, dataMode);
+        confData.put(NexxPLAYConfiguration.hidePrevNext, hidePrevNext ? 1 : 0);
+        confData.put(NexxPLAYConfiguration.forcePrevNext, forcePrevNext ? 1 : 0);
+        confData.put(NexxPLAYConfiguration.autoPlay, autoPlay ? 1 : 0);
+        confData.put(NexxPLAYConfiguration.autoNext, autoNext ? 1 : 0);
+        confData.put(NexxPLAYConfiguration.startMuted, startMuted ? 1 : 0);
+        confData.put(NexxPLAYConfiguration.adStartWhenMuted, 0);
+        confData.put(NexxPLAYConfiguration.exitMode, exitMode);
+        confData.put(NexxPLAYConfiguration.streamingFilter, streamingFilter);
+        confData.put(NexxPLAYConfiguration.delay, delay);
+        confData.put(NexxPLAYConfiguration.startPosition, startPosition);
 
-            Map<String, Object> confData = new HashMap<>();
-            confData.put(NexxPLAYConfiguration.dataMode, dataMode);
-            confData.put(NexxPLAYConfiguration.hidePrevNext, hidePrevNext ? 1 : 0);
-            confData.put(NexxPLAYConfiguration.forcePrevNext, forcePrevNext ? 1 : 0);
-            confData.put(NexxPLAYConfiguration.autoPlay, autoPlay ? 1 : 0);
-            confData.put(NexxPLAYConfiguration.autoNext, autoNext ? 1 : 0);
-            confData.put(NexxPLAYConfiguration.startMuted, startMuted ? 1 : 0);
-            confData.put(NexxPLAYConfiguration.adStartWhenMuted, 0);
-            confData.put(NexxPLAYConfiguration.exitMode, exitMode);
-            confData.put(NexxPLAYConfiguration.streamingFilter, streamingFilter);
-            confData.put(NexxPLAYConfiguration.delay, delay);
-            confData.put(NexxPLAYConfiguration.startPosition, startPosition);
+        if (viewSize != null && viewSize.equals("hero")) {
+            confData.put(NexxPLAYConfiguration.audioSkin, viewSize);
+        }
 
-            if (viewSize != null && viewSize.equals("hero")) {
-                confData.put(NexxPLAYConfiguration.audioSkin, viewSize);
-            }
+        confData.put(NexxPLAYConfiguration.playOnExistingCastSession, 1);
 
-            confData.put(NexxPLAYConfiguration.disableAds, disableAds ? 1 : 0);
-            confData.put(NexxPLAYConfiguration.enableInteractions, 1);
+        confData.put(NexxPLAYConfiguration.disableAds, disableAds ? 1 : 0);
+        confData.put(NexxPLAYConfiguration.enableInteractions, 1);
 
-            Utils.log(TAG, "STARTING PLAYER WITH " + playMode + "/" + mediaID);
+        Utils.log(TAG, "STARTING PLAYER WITH " + playMode + "/" + mediaID);
 
-            if (mediaSourceType.equals(MediaSourceType.NORMAL.toString())) {
-                player.startPlay(playMode, mediaID, new NexxPLAYConfiguration(confData));
-            } else if (mediaSourceType.equals(MediaSourceType.REMOTE.toString())) {
-                player.startPlayWithRemoteMedia(playMode, mediaID, provider, new NexxPLAYConfiguration(confData));
-            } else {
-                player.startPlayWithGlobalID(mediaID, new NexxPLAYConfiguration(confData));
-            }
+        if (mediaSourceType.equals(MediaSourceType.NORMAL.toString())) {
+            player.startPlay(playMode, mediaID, new NexxPLAYConfiguration(confData));
+        } else if (mediaSourceType.equals(MediaSourceType.REMOTE.toString())) {
+            player.startPlayWithRemoteMedia(playMode, mediaID, provider, new NexxPLAYConfiguration(confData));
+        } else {
+            player.startPlayWithGlobalID(mediaID, new NexxPLAYConfiguration(confData));
+        }
+    }
+
+    private void hideLoadingViewVisibility() {
+        if (requireActivity() instanceof MainActivity activity) {
+            activity.setLoadingViewVisibility(false);
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        hideLoadingViewVisibility();
         if (this.player != null) {
             this.player.addPlaystateListener(this);
             this.player.onActivityResume();
@@ -274,16 +311,29 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        if (windowInfoTracker != null) {
+            windowInfoTracker.addWindowLayoutInfoListener(requireContext(), Runnable::run, layoutStateChangeCallback);
+        }
+    }
+
+
+    @Override
     public void onStop() {
         super.onStop();
         if (this.player != null) {
             player.onActivityStop();
+        }
+        if (windowInfoTracker != null) {
+            windowInfoTracker.removeWindowLayoutInfoListener(layoutStateChangeCallback);
         }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        hideLoadingViewVisibility();
         if (this.player != null) {
             player.onActivityDestroyed();
             NexxPlayProvider.cancel();
@@ -307,6 +357,11 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
     @Override
     public void onFullScreen(boolean isFullScreen) {
         Utils.log(TAG, "onFullScreen: " + isFullScreen);
+        NavigationProvider.get(requireActivity()).setFrameLayoutFragmentUsed(
+                isFullScreen ?
+                        FrameLayoutFragmentUsed.TWO_FRAME_LAYOUT_USED_FULLSCREEN_ENTER :
+                        FrameLayoutFragmentUsed.TWO_FRAME_LAYOUT_USED_FULLSCREEN_OUT
+        );
     }
 
     @SuppressLint({"ResourceAsColor", "SetTextI18n"})
@@ -410,6 +465,8 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
                 }
             } else if (Event.downloadready.toString().equals(event)) {
                 updateStorage();
+            } else if (Event.closerequest.toString().equals(event)) {
+                requireActivity().getOnBackPressedDispatcher().onBackPressed();
             }
         }
     }
@@ -469,4 +526,76 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
     public void startSwapMedia() {
         player.swapToMediaItem("MEDIA-ID","MEDIA-STREAMTYPE",0,0);
     }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        onConfigurationChanged(newConfig.orientation);
+    }
+
+    private void onConfigurationChanged(int orientation) {
+        if (DeviceManager.getInstance().isTablet()) {
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                rootView.findViewById(R.id.backtosettings).setVisibility(View.GONE);
+            } else {
+                rootView.findViewById(R.id.backtosettings).setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    protected void updateFoldable(WindowLayoutInfo windowLayoutInfo) {
+        Utils.log(TAG, "UPDATING FOLDABLE DETAILS");
+        FoldableMode foldableMode = FoldableMode.UNDEFINED_MODE;
+
+        List<DisplayFeature> displayFeatures = windowLayoutInfo.getDisplayFeatures();
+        for (DisplayFeature feature : displayFeatures) {
+            if (feature instanceof FoldingFeature) {
+                if (isTableTopPosture((FoldingFeature) feature)) {
+                    foldableMode = FoldableMode.TABLETOP_MODE;
+                } else if (isBookPosture((FoldingFeature) feature)) {
+                    foldableMode = FoldableMode.BOOK_MODE;
+                } else if (isSeparating((FoldingFeature) feature)) {
+                    // Dual-screen device
+                    if (((FoldingFeature) feature).getOrientation() == FoldingFeature.Orientation.HORIZONTAL) {
+                        foldableMode = FoldableMode.TABLETOP_MODE;
+                    } else {
+                        foldableMode = FoldableMode.BOOK_MODE;
+                    }
+                } else {
+                    foldableMode = FoldableMode.NORMAL_MODE;
+                }
+            }
+        }
+
+        NavigationProvider.get(requireActivity()).setFoldableMode(foldableMode);
+        NavigationProvider.get(requireActivity()).handleFrameLayoutVisibility(getResources().getConfiguration().orientation);
+    }
+
+    private boolean isTableTopPosture(FoldingFeature foldFeature) {
+        return foldFeature != null &&
+                foldFeature.getState() == FoldingFeature.State.HALF_OPENED &&
+                foldFeature.getOrientation() == FoldingFeature.Orientation.HORIZONTAL;
+    }
+
+    private boolean isBookPosture(FoldingFeature foldFeature) {
+        return foldFeature != null &&
+                foldFeature.getState() == FoldingFeature.State.HALF_OPENED &&
+                foldFeature.getOrientation() == FoldingFeature.Orientation.VERTICAL;
+    }
+
+    private boolean isSeparating(FoldingFeature foldFeature) {
+        return foldFeature != null &&
+                foldFeature.getState() == FoldingFeature.State.FLAT &&
+                foldFeature.isSeparating();
+    }
+
+
+    class LayoutStateChangeCallback implements Consumer<WindowLayoutInfo> {
+        @Override
+        public void accept(WindowLayoutInfo windowLayoutInfo) {
+            updateFoldable(windowLayoutInfo);
+        }
+    }
+
 }

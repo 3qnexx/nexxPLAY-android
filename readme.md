@@ -19,6 +19,16 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.3.10
+* enhancing Accessibility Support for Mouse/Keyboard Control
+* enhancing Support for Foldables and Tablets
+* adding Support for android 14 (Breaking Changes!)
+  - targetSdk and compileSdk is now 34
+  - minSdk is now 25
+  - sourceCompatibility is now Java 17
+  - due to android 14 "Predictive Back Gesture", the SDK will NOT handle the Back Button anymore. Instead, the App must handle this by listening to the new "closerequest" Event.
+    - this is only relevant, if the SDK is in a WebView Environment, which chose to add a permanent "Back" Button on Top of the Player
+
 ### v6.3.07
 * fixing Issues with IMA Ad SDK on TV
 * adding Support for enhanced Content-Moderated Metadata

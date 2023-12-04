@@ -40,11 +40,11 @@
             android:background="@color/blue"
             app:layout_constraintTop_toBottomOf="@+id/tv_notification_log" >
 
-            <LinearLayout
-                android:id="@+id/ll_notification_log_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+        <LinearLayout
+            android:id="@+id/ll_notification_log_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
 
         </ScrollView>
 
