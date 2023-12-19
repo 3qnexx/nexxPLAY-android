@@ -19,6 +19,9 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.3.11
+* Fixes an Issue with LiveStreams with Realtime TextTracks
+
 ### v6.3.10
 * enhancing Accessibility Support for Mouse/Keyboard Control
 * enhancing Support for Foldables and Tablets
