@@ -55,11 +55,11 @@ android {
 dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    implementation 'com.google.android.material:material:1.10.0'
-    implementation 'com.google.android.gms:play-services-cast-framework:21.3.0'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'com.google.android.gms:play-services-cast-framework:21.4.0'
 
-    implementation "tv.nexx.android:play:6.3.10"
-    implementation "tv.nexx.android:admanager:1.0.10"
-    implementation "tv.nexx.android:widget:3.0.10"
+    implementation "tv.nexx.android:play:6.3.20"
+    implementation "tv.nexx.android:admanager:1.0.20"
+    implementation "tv.nexx.android:widget:3.0.11"
     implementation "tv.nexx.android:tvrecommendations:1.0.10"
 }

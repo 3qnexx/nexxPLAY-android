@@ -79,6 +79,10 @@
         <meta-data
             android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
             android:value="tv.nexx.android.play.cast.CastOptionsProvider"/>
+
+         <receiver
+            android:name="androidx.mediarouter.media.MediaTransferReceiver"
+            android:exported="true"></receiver>
         -->
     </application>
 
