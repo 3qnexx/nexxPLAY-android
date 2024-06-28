@@ -19,6 +19,11 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.3.21
+* adding Support for AI TextTrack UI
+* adding Support for Samaritan 2.0 Analytics
+* fixed an issue with Foldables
+
 ### v6.3.20
 * This Version of the SDK is the first Version to support the updated nexxOMNIA Analytics Backend.
 * Updated Chromecast Integration to support Output Switcher UI (Customers App Manifest must be updated too, if Chromecast is supported)
