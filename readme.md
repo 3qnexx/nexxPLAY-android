@@ -19,10 +19,15 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.3.22
+* targetSdk and compileSdk is now 35, finishing Support for android 15
+* fixed a Seek Issues on DASH with HEVC
+* updated to latest API Versions for playback of Collections with static Images
+
 ### v6.3.21
 * adding Support for AI TextTrack UI
 * adding Support for Samaritan 2.0 Analytics
-* fixed an issue with Foldables
+* fixed an Issue with Foldables
 
 ### v6.3.20
 * This Version of the SDK is the first Version to support the updated nexxOMNIA Analytics Backend.
