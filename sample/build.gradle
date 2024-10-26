@@ -13,8 +13,8 @@ android {
     defaultConfig {
         applicationId "tv.nexx.android.testapp"
         minSdk 25
-        targetSdk 34
-        compileSdk 34
+        targetSdk 35
+        compileSdk 35
 
         versionCode 100
         versionName "1.0.00"
@@ -58,8 +58,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'com.google.android.gms:play-services-cast-framework:21.5.0'
 
-    implementation "tv.nexx.android:play:6.3.21"
-    implementation "tv.nexx.android:admanager:1.0.21"
+    implementation "tv.nexx.android:play:6.3.22"
+    implementation "tv.nexx.android:admanager:1.0.22"
     implementation "tv.nexx.android:widget:3.0.11"
     implementation "tv.nexx.android:tvrecommendations:1.0.10"
 }
