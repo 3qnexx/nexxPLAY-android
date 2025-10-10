@@ -63,7 +63,7 @@
                     android:focusableInTouchMode="true"
                     android:inputType="number"
                     android:nextFocusDown="@id/mediaIDInput"
-                    android:text="0"
+                    android:text="484"
                     android:textColor="@color/text_white" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -129,7 +129,7 @@
                     android:focusableInTouchMode="true"
                     android:inputType="number"
                     android:nextFocusDown="@id/show"
-                    android:text="0"
+                    android:text="2097890"
                     android:textColor="@color/text_white" />
 
             </com.google.android.material.textfield.TextInputLayout>
