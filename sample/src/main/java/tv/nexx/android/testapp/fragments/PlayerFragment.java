@@ -12,15 +12,21 @@ import static tv.nexx.android.play.PlayerEvent.DATA;
 import static tv.nexx.android.play.PlayerEvent.EVENT;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.hardware.display.DisplayManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.WindowMetrics;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -210,9 +216,7 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
 
             ViewGroup root = rootView.findViewById(R.id.root);
 
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
+            Point size = getScreenSize();
             if (viewSize != null && viewSize.equals("mini")) {
                 ViewGroup.LayoutParams params = root.getLayoutParams();
                 params.width = Math.min(size.x, size.y);
@@ -230,24 +234,56 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
                 root.setLayoutParams(params);
             }
 
-            player = NexxPlayProvider.init(getContext(), root, getActivity().getWindow());
+            player = NexxPlayProvider.init(getContext(), root, requireActivity().getWindow());
             setupPlayerValuesAndStart();
         }
         onConfigurationChanged(requireActivity().getResources().getConfiguration().orientation);
     }
+
+    @SuppressWarnings("deprecation")
+    private Point getScreenSize() {
+        Point size = new Point();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowManager wm = requireContext().getSystemService(WindowManager.class);
+            if (wm != null) {
+                WindowMetrics metrics = wm.getCurrentWindowMetrics();
+                Rect bounds = metrics.getBounds();
+                size.x = bounds.width();
+                size.y = bounds.height();
+            }
+        } else {
+            Display display = ((WindowManager) requireContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+            display.getSize(size);
+        }
+        return size;
+    }
+
 
     private void setupPlayerValuesAndStart() {
         Map<String, Object> envData = new HashMap<>();
         envData.put(domain, domainID);
         envData.put(castContext, ((MainActivity) getActivity()).getCastContext());
         envData.put(mediaSession, ((MainActivity) getActivity()).getMediaSession());
+        envData.put(contentURITemplate, "nexxplay://tv.nexx.android.play.testapp/watch/{domain}/");
+        envData.put(contentIDTemplate, "{GID}:{startAt}");
+
+            /*
+            envData.put(platformVariant, "previewlink");
+            envData.put(platformVariantIndex, 1445);
+            envData.put(campaign, 3);
+            envData.put(userHash, "1HWZXB120122YXV");
+            envData.put(consentString, "CPFnsYuPFnsYuAfOBBDEBYCsAP_AAH_AAAigHjwCgAWABigEQARIAmADFAGsASCAvMBtgDxwPHgFAAsADFAIgAiQBMAGKANYAkEBeYDbAHjgAA");
+             */
 
         envData.put(alwaysInFullscreen, (startFullscreen ? 1 : 0));
         envData.put(respectViewSizeForAudio, 1);
 
         if (!disableAds) {
+            Utils.log(TAG, "ADDING ADMANAGER TO SDK");
             envData.put(adManager, new NexxPlayAdManager(requireContext()));
         }
+
 
         player.setEnvironment(new NexxPLAYEnvironment(envData));
         updateStorage();
@@ -264,6 +300,7 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
         confData.put(NexxPLAYConfiguration.streamingFilter, streamingFilter);
         confData.put(NexxPLAYConfiguration.delay, delay);
         confData.put(NexxPLAYConfiguration.startPosition, startPosition);
+        confData.put(NexxPLAYConfiguration.notificationIcon, R.drawable.widget_icon);
 
         if (viewSize != null && viewSize.equals("hero")) {
             confData.put(NexxPLAYConfiguration.audioSkin, viewSize);
@@ -454,6 +491,14 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
                 rootView.findViewById(R.id.cmd_mute).setVisibility(View.VISIBLE);
                 rootView.findViewById(R.id.cmd_unmute).setVisibility(View.GONE);
             } else if ((Event.play.toString().equals(event)) || (Event.startplay.toString().equals(event))) {
+
+                //lets add a permanent check with random values, if this actually works.
+                CurrentPlaybackState cps = player.getCurrentPlaybackState();
+                Utils.log(TAG, cps.getAudioLanguage() + "/" + cps.getIsPlaying() + "/" + cps.getStreamingFilter());
+
+                MediaData md = player.getCurrentMedia();
+                Utils.log(TAG, md.getGlobalID() + "/" + md.getChannel() + "/" + md.getFormat());
+
                 if (rootView.findViewById(R.id.cmd_play) != null) {
                     rootView.findViewById(R.id.cmd_play).setVisibility(View.GONE);
                     rootView.findViewById(R.id.cmd_pause).setVisibility(View.VISIBLE);
@@ -524,7 +569,9 @@ public class PlayerFragment extends Fragment implements NexxPLAYNotification.Lis
     }
 
     public void startSwapMedia() {
-        player.swapToMediaItem("MEDIA-ID","MEDIA-STREAMTYPE",0,0);
+        player.swapToRemoteMedia("a4241ebd-3518-11eb-b839-0cc47a188158", "audio", "3q", 15);
+//        player.swapToGlobalID("106775",0,0,"",true);
+//        player.swapToMediaItem("5325", "playlist", 0, 0);
     }
 
 
