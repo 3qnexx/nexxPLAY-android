@@ -39,4 +39,3 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 * This Version of the SDK is the first Version to support the updated nexxOMNIA Analytics Backend.
 * Updated Chromecast Integration to support Output Switcher UI (Customers App Manifest must be updated too, if Chromecast is supported)
 * added additional Override to provider an App Icon for Media Notification
-* 
