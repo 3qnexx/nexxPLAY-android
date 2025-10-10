@@ -19,6 +19,12 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
+### v6.3.23
+* targetSdk and compileSdk is now 36, finishing Support for android 16
+* minSdk is now 28 (android 9)
+* Fixed Issues with PictureInPicture
+* added Support to latest Reporting Specs
+
 ### v6.3.22
 * targetSdk and compileSdk is now 35, finishing Support for android 15
 * fixed a Seek Issues on DASH with HEVC
@@ -33,16 +39,4 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 * This Version of the SDK is the first Version to support the updated nexxOMNIA Analytics Backend.
 * Updated Chromecast Integration to support Output Switcher UI (Customers App Manifest must be updated too, if Chromecast is supported)
 * added additional Override to provider an App Icon for Media Notification
-
-### v6.3.11
-* Fixes an Issue with LiveStreams with Realtime TextTracks
-
-### v6.3.10
-* enhancing Accessibility Support for Mouse/Keyboard Control
-* enhancing Support for Foldables and Tablets
-* adding Support for android 14 (Breaking Changes!)
-  - targetSdk and compileSdk is now 34
-  - minSdk is now 25
-  - sourceCompatibility is now Java 17
-  - due to android 14 "Predictive Back Gesture", the SDK will NOT handle the Back Button anymore. Instead, the App must handle this by listening to the new "closerequest" Event.
-    - this is only relevant, if the SDK is in a WebView Environment, which chose to add a permanent "Back" Button on Top of the Player
+* 
