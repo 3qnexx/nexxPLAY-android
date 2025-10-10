@@ -4,14 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -50,9 +47,6 @@ public class MainActivity extends FragmentActivity implements FrameLayoutFragmen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.activity_main);
         IAppFragmentNavigation appFragmentNavigation = NavigationProvider.get(this);
         appFragmentNavigation.addFragmentCallback(this);
@@ -83,7 +77,12 @@ public class MainActivity extends FragmentActivity implements FrameLayoutFragmen
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                onBackPressed();
+                IAppFragmentNavigation navigation = NavigationProvider.get(MainActivity.this);
+                if (navigation.isLastFragment()) {
+                    finishAffinity();
+                } else {
+                    navigation.onBack();
+                }
             }
         });
     }
@@ -102,7 +101,7 @@ public class MainActivity extends FragmentActivity implements FrameLayoutFragmen
         Log.v(TAG, "STARTED WITH ACTION: " + action);
 
         if (uri != null) {
-            Log.v(TAG, "STARTED WITH DATA: " + uri.toString());
+            Log.v(TAG, "STARTED WITH DATA: " + uri);
         }
 
         IAppFragmentNavigation appFragmentNavigation = NavigationProvider.get(this);
@@ -186,16 +185,6 @@ public class MainActivity extends FragmentActivity implements FrameLayoutFragmen
     }
 
     @Override
-    public void onBackPressed() {
-        IAppFragmentNavigation navigation = NavigationProvider.get(this);
-        if (navigation.isLastFragment()) {
-            finishAffinity();
-        } else {
-            navigation.onBack();
-        }
-    }
-
-    @Override
     public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
         Log.e("DebugTheRemote", "onKeyDown code: " + keyCode + ", event: " + event);
         return super.onKeyDown(keyCode, event);
@@ -224,9 +213,7 @@ public class MainActivity extends FragmentActivity implements FrameLayoutFragmen
 
     @Override
     public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, @NonNull Configuration newConfig) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
-        }
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
         NexxPLAY player = NexxPlayProvider.getInstance();
         if (player != null) {
             player.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
