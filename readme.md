@@ -19,7 +19,7 @@ Please find the complete documentation of the nexxPLAY TV Recommendation Tiles f
 
 ## Changelog
 
-### v6.3.23
+### v6.3.24
 * targetSdk and compileSdk is now 36, finishing Support for android 16
 * minSdk is now 28 (android 9)
 * Fixed Issues with PictureInPicture
